@@ -1,0 +1,1445 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>آزمایشگاه ماشین — طراحی، اسمبل و شبیه‌سازی</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600;800&family=JetBrains+Mono:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      :root {
+        --bg: #f3f4fb;
+        --c: #fff;
+        --t: #191b2c;
+        --m: #6a6f8a;
+        --a: #6d5efc;
+        --a2: #12b5a0;
+        --b: #e2e4f2;
+        --e: #e5484d;
+        --k: #f6f7fd;
+        --sh: 0 8px 30px #6d5efc18;
+        --f0: #ece9ff;
+        --f1: #d9f6ef;
+        --f2: #ffe9d6;
+        --f3: #e1efff;
+        box-sizing: border-box;
+        padding-top: env(safe-area-inset-top, 0px);
+        padding-bottom: env(safe-area-inset-bottom, 0px);
+      }
+      @media (prefers-color-scheme: dark) {
+        :root:not([data-theme="light"]) {
+          --bg: #0d0e19;
+          --c: #171929;
+          --t: #e9ebf8;
+          --m: #8f94b5;
+          --b: #2b2e49;
+          --k: #101120;
+          --sh: 0 8px 30px #0008;
+          --f0: #2a2560;
+          --f1: #124038;
+          --f2: #4a3020;
+          --f3: #1d3556;
+        }
+      }
+      :root[data-theme="dark"] {
+        --bg: #0d0e19;
+        --c: #171929;
+        --t: #e9ebf8;
+        --m: #8f94b5;
+        --b: #2b2e49;
+        --k: #101120;
+        --sh: 0 8px 30px #0008;
+        --f0: #2a2560;
+        --f1: #124038;
+        --f2: #4a3020;
+        --f3: #1d3556;
+      }
+      html {
+        scroll-padding-top: env(safe-area-inset-top, 0px);
+      }
+      body {
+        margin: 0;
+        background:
+          radial-gradient(1200px 500px at 90% -10%, #6d5efc22, transparent),
+          radial-gradient(900px 400px at 0% 0%, #12b5a022, transparent),
+          var(--bg);
+        color: var(--t);
+        font:
+          14px/1.7 Vazirmatn,
+          Tahoma,
+          sans-serif;
+        min-height: 100vh;
+      }
+      header {
+        position: sticky;
+        top: env(safe-area-inset-top, 0px);
+        z-index: 5;
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        align-items: center;
+        padding: 10px 18px;
+        background: color-mix(in srgb, var(--c) 85%, transparent);
+        backdrop-filter: blur(14px);
+        border-bottom: 1px solid var(--b);
+      }
+      .logo {
+        font-weight: 800;
+        font-size: 17px;
+        background: linear-gradient(90deg, var(--a), var(--a2));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        margin-inline-end: 8px;
+      }
+      nav {
+        display: flex;
+        gap: 4px;
+        margin-inline-start: auto;
+      }
+      .tab {
+        border: 0;
+        background: transparent;
+        color: var(--m);
+        padding: 7px 14px;
+        border-radius: 10px;
+        font: inherit;
+        font-weight: 600;
+        cursor: pointer;
+      }
+      .tab.on {
+        background: linear-gradient(135deg, var(--a), #8f7bff);
+        color: #fff;
+        box-shadow: 0 4px 14px #6d5efc55;
+      }
+      main {
+        max-width: 1250px;
+        margin: 18px auto;
+        padding: 0 16px;
+        display: grid;
+        gap: 16px;
+      }
+      .card {
+        background: var(--c);
+        border: 1px solid var(--b);
+        border-radius: 18px;
+        padding: 16px 18px;
+        box-shadow: var(--sh);
+      }
+      h2 {
+        margin: 0 0 12px;
+        font-size: 16px;
+      }
+      .two {
+        display: grid;
+        grid-template-columns: 1fr 1.2fr;
+        gap: 16px;
+      }
+      @media (max-width: 900px) {
+        .two {
+          grid-template-columns: 1fr;
+        }
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+        gap: 10px;
+      }
+      label {
+        display: grid;
+        gap: 3px;
+        font-size: 12px;
+        color: var(--m);
+      }
+      input,
+      select,
+      textarea,
+      button {
+        font: inherit;
+      }
+      input,
+      select,
+      textarea {
+        background: var(--k);
+        color: var(--t);
+        border: 1px solid var(--b);
+        border-radius: 10px;
+        padding: 6px 10px;
+        min-width: 0;
+        width: 100%;
+      }
+      input:focus,
+      select:focus,
+      textarea:focus {
+        outline: 2px solid var(--a);
+        border-color: transparent;
+      }
+      .mono,
+      textarea,
+      .it input,
+      .fr input {
+        font-family: "JetBrains Mono", Consolas, monospace;
+        direction: ltr;
+        text-align: left;
+      }
+      .bt,
+      .ic {
+        border: 1px solid var(--b);
+        background: var(--k);
+        color: var(--t);
+        border-radius: 10px;
+        padding: 6px 12px;
+        cursor: pointer;
+        font-weight: 600;
+      }
+      .bt:hover,
+      .ic:hover {
+        border-color: var(--a);
+      }
+      .bt.pr {
+        background: linear-gradient(135deg, var(--a), #8f7bff);
+        color: #fff;
+        border: 0;
+      }
+      .ic {
+        padding: 4px 9px;
+        color: var(--e);
+      }
+      .chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 12px;
+      }
+      .chip {
+        background: var(--k);
+        border: 1px solid var(--b);
+        border-radius: 999px;
+        padding: 2px 12px;
+        font-size: 12px;
+      }
+      .chip b {
+        font-family: "JetBrains Mono", monospace;
+        color: var(--a);
+      }
+      .hd {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        margin-bottom: 10px;
+      }
+      .title {
+        font-weight: 800;
+        font-size: 15px;
+        max-width: 260px;
+      }
+      .dg {
+        display: flex;
+        direction: ltr;
+        gap: 0;
+        margin: 8px 0 14px;
+        overflow-x: auto;
+      }
+      .fb {
+        min-width: 64px;
+        text-align: center;
+        border: 2px solid var(--a);
+        padding: 6px 4px;
+        margin-inline-end: -2px;
+        display: grid;
+      }
+      .fb b {
+        font-size: 13px;
+      }
+      .fb i {
+        font-size: 11px;
+        color: var(--m);
+        font-style: normal;
+        border-top: 1px dashed var(--b);
+        margin-top: 3px;
+      }
+      .t-opcode {
+        background: var(--f0);
+      }
+      .t-reg {
+        background: var(--f1);
+      }
+      .t-addr {
+        background: var(--f2);
+      }
+      .t-imm {
+        background: var(--f3);
+      }
+      .fr {
+        display: grid;
+        grid-template-columns: 1fr 80px 100px 34px;
+        gap: 6px;
+        margin-bottom: 6px;
+        max-width: 460px;
+      }
+      .it {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 10px 0;
+      }
+      .it th {
+        font-size: 12px;
+        color: var(--m);
+        text-align: start;
+        padding: 2px 4px;
+      }
+      .it td {
+        padding: 3px 4px;
+      }
+      .er {
+        color: var(--e);
+        font-size: 12px;
+      }
+      .res {
+        overflow-x: auto;
+      }
+      .rt {
+        width: 100%;
+        border-collapse: collapse;
+        direction: ltr;
+      }
+      .rt td,
+      .rt th {
+        padding: 4px 10px;
+        border-bottom: 1px solid var(--b);
+        text-align: left;
+        vertical-align: top;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 12.5px;
+      }
+      .rt th {
+        color: var(--m);
+        font-family: Vazirmatn;
+        font-weight: 600;
+      }
+      .ad {
+        color: var(--a);
+        font-weight: 600;
+      }
+      .mc {
+        color: var(--a2);
+        font-weight: 600;
+      }
+      .src {
+        color: var(--t);
+        white-space: pre;
+      }
+      .rt tr.bad td {
+        background: #e5484d14;
+      }
+      .fl {
+        display: flex;
+        gap: 3px;
+        margin-top: 3px;
+        flex-wrap: wrap;
+      }
+      .fl span {
+        font-size: 10.5px;
+        padding: 0 6px;
+        border-radius: 6px;
+        color: var(--t);
+      }
+      textarea {
+        height: 430px;
+        resize: vertical;
+        line-height: 1.6;
+        font-size: 13px;
+      }
+      .hint {
+        color: var(--m);
+        font-size: 12px;
+        margin: 6px 0 0;
+      }
+      details {
+        margin-top: 6px;
+        color: var(--m);
+      }
+      details code {
+        color: var(--a);
+        direction: ltr;
+        unicode-bidi: embed;
+      }
+      .sw {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin-bottom: 12px;
+      }
+      .reg {
+        background: var(--k);
+        border: 1px solid var(--b);
+        border-radius: 10px;
+        padding: 2px 10px;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 12px;
+        direction: ltr;
+      }
+      .reg i {
+        color: var(--m);
+        font-style: normal;
+      }
+      .reg.pc {
+        border-color: var(--a);
+      }
+      .mem td {
+        text-align: center;
+        padding: 2px 6px;
+      }
+      .mem td.cur {
+        background: var(--f0);
+        font-weight: 700;
+      }
+      .mem td.chg {
+        color: var(--a2);
+        font-weight: 700;
+      }
+      .log {
+        max-height: 200px;
+        overflow: auto;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 12px;
+        direction: ltr;
+        text-align: left;
+        color: var(--m);
+      }
+      .warn {
+        color: var(--e);
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <span class="logo">⚙️ آزمایشگاه ماشین</span
+      ><select id="sel" style="width: auto; min-width: 170px"></select>
+      <button class="bt" data-act="newm">+ ماشین جدید</button
+      ><button class="bt" data-act="dup">کپی</button
+      ><button class="bt" data-act="del">حذف</button
+      ><button class="bt" data-act="theme">🌓</button>
+      <nav>
+        <button class="tab" data-tab="def">۱ · تعریف ماشین</button
+        ><button class="tab" data-tab="asm">۲ · برنامه و کامپایل</button
+        ><button class="tab" data-tab="sim">۳ · شبیه‌ساز</button>
+      </nav>
+    </header>
+    <main id="main"></main>
+    <script>
+      const $ = (s) => document.querySelector(s),
+        E = (s) =>
+          String(s).replace(
+            /[&<>"]/g,
+            (c) =>
+              ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c],
+          );
+      const H = (n, d = 0) =>
+          Number(n).toString(16).toUpperCase().padStart(d, "0"),
+        mod = (x, n) => ((x % n) + n) % n,
+        sg = (x, w) => {
+          x = mod(x, 2 ** w);
+          return x >= 2 ** (w - 1) ? x - 2 ** w : x;
+        };
+      const uid = () => Math.random().toString(36).slice(2, 9);
+      /* ---------- presets ---------- */
+      const F = (n, f, i) => ({
+        n,
+        f: f.map((x) => ({ n: x[0], b: x[1], t: x[2] })),
+        i: i.map((x) => ({ o: x[0], s: x[1], op: x[2] })),
+      });
+      const mk = (name, u, a, w, rc, rb, fm, code) => ({
+        id: uid(),
+        name,
+        u,
+        a,
+        w,
+        en: "big",
+        rc,
+        rb,
+        rp: "R",
+        sp: "",
+        fm,
+        code,
+      });
+      const M3 = mk(
+        "Example Machine 3",
+        8,
+        16,
+        16,
+        0,
+        16,
+        [
+          F(
+            "Format I",
+            [
+              ["Opcode", 8, "opcode"],
+              ["addr1", 16, "addr"],
+              ["addr2", 16, "addr"],
+            ],
+            [
+              ["00000000", "mov addr1,addr2", "M[addr1] <- M[addr2]"],
+              ["00000001", "mov addr1,(addr2)", "M[addr1] <- M[M[addr2]]"],
+              ["00000010", "mov (addr1),addr2", "M[M[addr1]] <- M[addr2]"],
+              [
+                "00000011",
+                "add addr1,addr2",
+                "M[addr1] <- M[addr1] + M[addr2]",
+              ],
+              [
+                "00000100",
+                "sub addr1,addr2",
+                "M[addr1] <- M[addr1] - M[addr2]",
+              ],
+              [
+                "00000101",
+                "add addr1,(addr2)",
+                "M[addr1] <- M[addr1] + M[M[addr2]]",
+              ],
+              [
+                "00000110",
+                "sub addr1,(addr2)",
+                "M[addr1] <- M[addr1] - M[M[addr2]]",
+              ],
+              [
+                "10000000",
+                "jnz addr1,addr2",
+                "if (M[addr1] != 0) then PC <- addr2",
+              ],
+              [
+                "10000001",
+                "jz addr1,addr2",
+                "if (M[addr1] = 0) then PC <- addr2",
+              ],
+              [
+                "10000010",
+                "jneg addr1,addr2",
+                "if (M[addr1] < 0) then PC <- addr2",
+              ],
+              [
+                "10000011",
+                "jpos addr1,addr2",
+                "if (M[addr1] > 0) then PC <- addr2",
+              ],
+            ],
+          ),
+        ],
+        `org 0
+loop: add sum,curr   ; add current element to sum
+sub sum,next         ; subtract next element from sum
+add curr,next        ; create the next element in curr
+add next,curr        ; create another next element in next
+sub count,one        ; reduce count by 1
+jnz count,loop       ; if not zero go to loop
+curr: dw 0
+next: dw 1
+sum: dw 0
+count: dw 50
+one: dw 1
+end`,
+      );
+      const M4 = mk(
+        "Example Machine 4",
+        4,
+        12,
+        16,
+        16,
+        16,
+        [
+          F(
+            "Format I",
+            [
+              ["Opcode", 4, "opcode"],
+              ["r1", 4, "reg"],
+              ["r2", 4, "reg"],
+            ],
+            [
+              ["0000", "mov r1,r2", "r1 <- r2"],
+              ["0001", "mov r1,(r2)", "r1 <- M[r2]"],
+              ["0010", "mov (r1),r2", "M[r1] <- r2"],
+              ["0011", "add r1,r2", "r1 <- r1 + r2"],
+              ["0100", "sub r1,r2", "r1 <- r1 - r2"],
+            ],
+          ),
+          F(
+            "Format II",
+            [
+              ["Opcode", 4, "opcode"],
+              ["r", 4, "reg"],
+              ["addr", 12, "addr"],
+            ],
+            [
+              ["0101", "mov r,addr", "r <- M[addr]"],
+              ["0110", "mov addr,r", "M[addr] <- r"],
+              ["0111", "mov r,(addr)", "r <- M[M[addr]]"],
+              ["1000", "mov (addr),r", "M[M[addr]] <- r"],
+              ["1001", "jz r,addr", "if (r = 0) then PC <- addr"],
+              ["1010", "jnz r,addr", "if (r != 0) then PC <- addr"],
+              ["1011", "jneg r,addr", "if (r < 0) then PC <- addr"],
+              ["1100", "jpos r,addr", "if (r > 0) then PC <- addr"],
+            ],
+          ),
+          F(
+            "Format III",
+            [
+              ["Opcode", 4, "opcode"],
+              ["r", 4, "reg"],
+              ["data", 16, "imm"],
+            ],
+            [
+              ["1101", "mov r,#data", "r <- data"],
+              ["1110", "add r,#data", "r <- r + data"],
+              ["1111", "sub r,#data", "r <- r - data"],
+            ],
+          ),
+        ],
+        `org 0
+mov R0,#A     ; R0 points to array A
+mov R1,#B
+mov R2,#C
+mov R5,#10    ; loop counter
+loop: mov R10,(R0)
+mov R11,(R1)
+add R10,R11
+mov (R2),R10
+add R0,#4
+add R1,#4
+add R2,#4
+sub R5,#1
+jnz R5,loop
+A: dw 1,2,3,4,5,6,7,8,9,10
+B: dw 10 dup(5)
+C: dw 10 dup(?)
+end`,
+      );
+      const M5 = mk(
+        "Example Machine 5",
+        8,
+        16,
+        16,
+        64,
+        16,
+        [
+          F(
+            "Format I",
+            [
+              ["Opcode", 4, "opcode"],
+              ["r1", 6, "reg"],
+              ["r2", 6, "reg"],
+            ],
+            [
+              ["0000", "mov r1,r2", "r1 <- r2"],
+              ["0001", "add r1,r2", "r1 <- r1 + r2"],
+              ["0010", "sub r1,r2", "r1 <- r1 - r2"],
+              ["0011", "and r1,r2", "r1 <- r1 ∧ r2"],
+              ["0100", "or r1,r2", "r1 <- r1 ∨ r2"],
+              ["0101", "xor r1,r2", "r1 <- r1 ⊕ r2"],
+            ],
+          ),
+          F(
+            "Format II",
+            [
+              ["Opcode", 4, "opcode"],
+              ["r1", 6, "reg"],
+              ["r2", 6, "reg"],
+              ["addr", 16, "addr"],
+            ],
+            [
+              ["0110", "mov r1,addr(r2)", "r1 <- M[addr + r2]"],
+              ["0111", "mov addr(r2),r1", "M[addr + r2] <- r1"],
+              ["1000", "mov r1,r2,addr", "r1 <- r2; r2 <- M[addr]"],
+              ["1001", "mov addr,r1,r2", "M[addr] <- r1; r1 <- r2"],
+              ["1010", "je r1,r2,addr", "if (r1 = r2) then PC <- addr"],
+              ["1011", "jne r1,r2,addr", "if (r1 != r2) then PC <- addr"],
+              ["1100", "jl r1,r2,addr", "if (r1 < r2) then PC <- addr"],
+              ["1101", "jh r1,r2,addr", "if (r1 > r2) then PC <- addr"],
+              ["1110", "call r1,addr(r2)", "r1 <- PC; PC <- addr + r2"],
+            ],
+          ),
+          F(
+            "Format III",
+            [
+              ["Opcode", 10, "opcode"],
+              ["r1", 6, "reg"],
+              ["data", 16, "imm"],
+            ],
+            [
+              ["1111000000", "mov r1,#data", "r1 <- data"],
+              ["1111000001", "add r1,#data", "r1 <- r1 + data"],
+              ["1111000010", "sub r1,#data", "r1 <- r1 - data"],
+              ["1111000011", "and r1,#data", "r1 <- r1 ∧ data"],
+              ["1111000100", "or r1,#data", "r1 <- r1 ∨ data"],
+              ["1111000101", "xor r1,#data", "r1 <- r1 ⊕ data"],
+            ],
+          ),
+        ],
+        `org 100h
+xor R0,R0       ; accumulator
+mov R1,R0       ; index register
+mov R2,#200     ; last index
+loop: mov R3,A(R1)
+add R0,R3
+add R1,#2
+jne R1,R2,loop
+mov sum,R0,R0
+call R0,0(R63)  ; return to OS (R63=0)
+sum: dw 0
+A: dw 100 dup(?)
+end`,
+      );
+      const blank = () =>
+        mk(
+          "ماشین جدید",
+          8,
+          16,
+          16,
+          0,
+          16,
+          [
+            F(
+              "Format I",
+              [
+                ["Opcode", 8, "opcode"],
+                ["addr", 16, "addr"],
+              ],
+              [["00000000", "clr addr", "M[addr] <- 0"]],
+            ),
+          ],
+          "org 0\nclr x\nx: dw 7\nend",
+        );
+      /* ---------- storage ---------- */
+      let S;
+      try {
+        S = JSON.parse(localStorage.getItem("machinelab.v1"));
+      } catch (e) {}
+      if (!S || !S.list || !S.list.length)
+        S = { list: [M3, M4, M5], cur: M3.id };
+      const save = () => {
+        try {
+          localStorage.setItem("machinelab.v1", JSON.stringify(S));
+        } catch (e) {}
+      };
+      const cur = () => S.list.find((x) => x.id === S.cur) || S.list[0];
+      let tab = "def",
+        sim = null,
+        A = null;
+      /* ---------- operation language ---------- */
+      function parseOp(src, ft, SP) {
+        const T = [],
+          re =
+            /\s*(<-|←|!=|≠|<=|>=|==|0[xX][0-9a-fA-F]+|\d[0-9a-fA-F]*[hH](?!\w)|\d+|[A-Za-z_]\w*|[-+*&|^~()\[\];=<>∧∨⊕])/y;
+        let i = 0;
+        while (i < src.length) {
+          if (/^\s*$/.test(src.slice(i))) break;
+          re.lastIndex = i;
+          const q = re.exec(src);
+          if (!q) throw Error("نویسهٔ نامعتبر: " + src.slice(i).trim()[0]);
+          T.push(
+            { "←": "<-", "≠": "!=", "∧": "&", "∨": "|", "⊕": "^", "==": "=" }[
+              q[1]
+            ] || q[1],
+          );
+          i = re.lastIndex;
+        }
+        let p = 0;
+        const pk = () => T[p],
+          nx = () => T[p++],
+          ex = (t) => {
+            if (nx() !== t) throw Error("انتظار «" + t + "» می‌رفت");
+          },
+          CMP = ["=", "!=", "<", ">", "<=", ">="];
+        const prim = () => {
+          const t = nx();
+          if (t === undefined) throw Error("عبارت ناقص است");
+          if (/^\d/.test(t))
+            return {
+              t: "n",
+              v: /^0x/i.test(t)
+                ? parseInt(t, 16)
+                : /[hH]$/.test(t)
+                  ? parseInt(t, 16)
+                  : +t,
+            };
+          if (t === "(") return paren();
+          if (t === "-" || t === "~") return { t: "u", o: t, a: prim() };
+          if (t === "M" && (pk() === "[" || pk() === "(")) {
+            const o = nx(),
+              a = expr();
+            ex(o === "[" ? "]" : ")");
+            return { t: "m", a };
+          }
+          if (t === "R" && pk() === "[") {
+            nx();
+            const a = expr();
+            ex("]");
+            return { t: "r", a };
+          }
+          if (ft[t]) return { t: "f", n: t };
+          if (t === "PC" || SP[t]) return { t: "s", n: t };
+          throw Error("شناسهٔ ناشناخته «" + t + "»");
+        };
+        const paren = () => {
+          const e = cond(true);
+          ex(")");
+          return e;
+        };
+        const lvl = (sub, ops) => () => {
+          let a = sub();
+          while (ops.includes(pk())) a = { t: "b", o: nx(), a, b: sub() };
+          return a;
+        };
+        const mul = lvl(prim, ["*"]),
+          add = lvl(mul, ["+", "-"]),
+          and = lvl(add, ["&"]),
+          xor = lvl(and, ["^"]),
+          expr = lvl(xor, ["|"]);
+        const cond = (raw) => {
+          const a = expr();
+          if (CMP.includes(pk())) return { t: "c", o: nx(), a, b: expr() };
+          return raw ? a : { t: "c", o: "!=", a, b: { t: "n", v: 0 } };
+        };
+        const stmt = () => {
+          if (pk() === "if") {
+            nx();
+            const c = cond(),
+              _ = pk() === "then" && nx();
+            return { t: "if", c, s: stmt() };
+          }
+          if (pk() === "halt") {
+            nx();
+            return { t: "halt" };
+          }
+          const l = expr();
+          if (
+            !["f", "m", "r", "s"].includes(l.t) ||
+            (l.t === "f" && ft[l.n] !== "reg")
+          )
+            throw Error("سمت چپ «<-» باید ثبات، M[..] یا ثبات ویژه باشد");
+          ex("<-");
+          return { t: "a", l, r: expr() };
+        };
+        const out = [];
+        while (p < T.length) {
+          out.push(stmt());
+          if (pk() === ";") nx();
+          else if (p < T.length) throw Error("انتظار «;» می‌رفت");
+        }
+        if (!out.length) throw Error("عملکرد خالی است");
+        return out;
+      }
+      /* memory */
+      const kk = (m) => m.w / m.u;
+      function rw(m, s, a) {
+        const k = kk(m),
+          AM = 2 ** m.a;
+        let v = 0;
+        const g = (j) => s.mem.get((a + j) % AM) || 0;
+        if (m.en === "big") for (let j = 0; j < k; j++) v = v * 2 ** m.u + g(j);
+        else for (let j = k - 1; j >= 0; j--) v = v * 2 ** m.u + g(j);
+        return v;
+      }
+      function ww(m, s, a, v) {
+        const k = kk(m),
+          AM = 2 ** m.a;
+        v = mod(v, 2 ** m.w);
+        for (let j = k - 1; j >= 0; j--) {
+          const u = v % 2 ** m.u;
+          v = Math.floor(v / 2 ** m.u);
+          s.mem.set((a + (m.en === "big" ? j : k - 1 - j)) % AM, u);
+        }
+      }
+      function ev(n, c) {
+        switch (n.t) {
+          case "n":
+            return n.v;
+          case "f":
+            return c.ft[n.n] === "reg" ? c.s.regs[c.fv[n.n]] : c.fv[n.n];
+          case "m":
+            return rw(c.m, c.s, mod(ev(n.a, c), 2 ** c.m.a));
+          case "r":
+            return c.s.regs[ev(n.a, c)] || 0;
+          case "s":
+            return c.s.sp[n.n];
+          case "u": {
+            const a = ev(n.a, c);
+            return n.o === "-" ? -a : ~a >>> 0;
+          }
+          case "b": {
+            const a = ev(n.a, c),
+              b = ev(n.b, c);
+            return {
+              "+": a + b,
+              "-": a - b,
+              "*": a * b,
+              "&": (a & b) >>> 0,
+              "|": (a | b) >>> 0,
+              "^": (a ^ b) >>> 0,
+            }[n.o];
+          }
+          case "c": {
+            const w = c.m.w,
+              a = sg(ev(n.a, c), w),
+              b = sg(ev(n.b, c), w);
+            return +{
+              "=": a === b,
+              "!=": a !== b,
+              "<": a < b,
+              ">": a > b,
+              "<=": a <= b,
+              ">=": a >= b,
+            }[n.o];
+          }
+        }
+      }
+      function exec(st, c) {
+        const { m, s } = c;
+        if (st.t === "halt") s.halted = true;
+        else if (st.t === "if") {
+          if (ev(st.c, c)) exec(st.s, c);
+        } else {
+          const v = ev(st.r, c),
+            l = st.l;
+          if (l.t === "f") s.regs[c.fv[l.n]] = mod(v, 2 ** m.rb);
+          else if (l.t === "r") s.regs[ev(l.a, c)] = mod(v, 2 ** m.rb);
+          else if (l.t === "m") ww(m, s, mod(ev(l.a, c), 2 ** m.a), v);
+          else s.sp[l.n] = mod(v, 2 ** (l.n === "PC" ? m.a : c.P.SP[l.n]));
+        }
+      }
+      /* ---------- prepare + assemble ---------- */
+      function prep(m) {
+        const SP = {};
+        (m.sp || "").split(",").forEach((x) => {
+          const q = x.trim().split(":");
+          if (q[0]) SP[q[0]] = +q[1] || m.w;
+        });
+        const ins = [];
+        let maxB = 0;
+        m.fm.forEach((f, fi) => {
+          const bits = f.f.reduce((a, x) => a + x.b, 0),
+            ft = {};
+          f.f.forEach((x) => (ft[x.n] = x.t));
+          maxB = Math.max(maxB, bits);
+          f.i.forEach((i) => {
+            const I = { fi, f, bits, sz: bits / m.u, ft, s: i.s, err: "" };
+            try {
+              if (bits % m.u)
+                throw Error(
+                  "طول فرمت (" + bits + " بیت) مضرب اندازهٔ خانهٔ حافظه نیست",
+                );
+              if (f.f[0]?.t !== "opcode")
+                throw Error("اولین فیلد فرمت باید از نوع opcode باشد");
+              const q = i.s.trim().match(/^(\S+)\s*(.*)$/);
+              if (!q) throw Error("سینتکس خالی است");
+              I.mn = q[1].toLowerCase();
+              I.names = [];
+              I.lit = 0;
+              I.re = new RegExp(
+                "^" +
+                  q[2]
+                    .replace(/\s+/g, "")
+                    .split(/([A-Za-z_]\w*)/)
+                    .map((p, j) => {
+                      if (j % 2 && ft[p] && ft[p] !== "opcode") {
+                        I.names.push(p);
+                        return "([^,()]+)";
+                      }
+                      I.lit += p.length;
+                      return p.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+                    })
+                    .join("") +
+                  "$",
+                "i",
+              );
+              const o = i.o.trim();
+              I.opv = /^0x/i.test(o) ? BigInt(o) : BigInt("0b" + o);
+              if (I.opv >= 1n << BigInt(f.f[0].b))
+                throw Error("Opcode در " + f.f[0].b + " بیت نمی‌گنجد");
+              I.ast = parseOp(i.op, ft, SP);
+            } catch (e) {
+              I.err =
+                e.name === "SyntaxError"
+                  ? "Opcode نامعتبر (باینری یا 0x..)"
+                  : e.message;
+            }
+            ins.push(I);
+          });
+        });
+        return { ins, maxB, SP };
+      }
+      const tv = (t, S) => {
+        if (/^0x[0-9a-f]+$/i.test(t) || /^\d[0-9a-f]*h$/i.test(t))
+          return parseInt(t, 16);
+        if (/^0b[01]+$/i.test(t)) return parseInt(t.slice(2), 2);
+        if (/^\d+$/.test(t)) return +t;
+        const v = S.get(t.toLowerCase());
+        if (v === undefined) throw Error("نماد تعریف‌نشده: " + t);
+        return v;
+      };
+      const nv = (s, S) => {
+        const ts = s.replace(/\s+/g, "").match(/[+-]?[^+-]+/g);
+        if (!ts) throw Error("مقدار خالی");
+        return ts.reduce(
+          (a, t) => a + (t[0] === "-" ? -1 : 1) * tv(t.replace(/^[+-]/, ""), S),
+          0,
+        );
+      };
+      function compile(m) {
+        const P = prep(m),
+          R = {
+            rows: [],
+            syms: [],
+            mem: new Map(),
+            P,
+            locs: new Set(),
+            errs: 0,
+            lo: 1e9,
+            hi: 0,
+          };
+        const k = kk(m),
+          AM = 2 ** m.a,
+          sym = new Map(),
+          lines = [],
+          rg = new RegExp("^" + m.rp + "(\\d+)$", "i"),
+          labs = new Set();
+        m.code.split("\n").forEach((raw, i) => {
+          let t = raw.split(";")[0].trim(),
+            lb = null;
+          const q = t.match(/^([A-Za-z_]\w*)\s*:\s*(.*)$/);
+          if (q) {
+            lb = q[1];
+            t = q[2];
+            labs.add(lb.toLowerCase());
+          }
+          lines.push({ ln: i + 1, raw, lb, t });
+        });
+        const fake = new Map([...labs].map((l) => [l, 0])),
+          stt = { mem: R.mem };
+        const match = (body) => {
+          const bm = body.match(/^(\S+)\s*(.*)$/),
+            mn = bm[1].toLowerCase(),
+            rest = bm[2].replace(/\s+/g, "");
+          let best = null,
+            er = "";
+          for (const I of P.ins) {
+            if (I.mn !== mn) continue;
+            const x = I.re.exec(rest);
+            if (!x) continue;
+            if (I.err) {
+              er = I.err;
+              continue;
+            }
+            let ok = true;
+            const cap = {};
+            I.names.forEach((n, j) => {
+              if (!ok) return;
+              const v = x[j + 1];
+              if (I.ft[n] === "reg") {
+                const q = rg.exec(v);
+                if (!q || +q[1] >= m.rc) ok = false;
+              } else
+                try {
+                  nv(v, fake);
+                } catch (e) {
+                  ok = false;
+                }
+              cap[n] = v;
+            });
+            if (ok && (!best || I.lit > best.I.lit)) best = { I, cap };
+          }
+          if (!best)
+            throw Error(
+              er
+                ? "خطا در تعریف دستور: " + er
+                : "هیچ سینتکسی با این خط مطابقت ندارد",
+            );
+          return best;
+        };
+        let loc = 0;
+        for (const l of lines) {
+          const r = { ln: l.ln, raw: l.raw, k: "n" };
+          try {
+            if (l.lb) {
+              sym.set(l.lb.toLowerCase(), loc);
+              R.syms.push([l.lb, loc]);
+              r.loc = loc;
+            }
+            const t = l.t;
+            R.rows.push(r);
+            if (!t) continue;
+            let q;
+            if ((q = t.match(/^org\s+(.+)$/i))) {
+              loc = nv(q[1], sym);
+              r.loc = loc;
+              continue;
+            }
+            if (/^end$/i.test(t)) break;
+            if ((q = t.match(/^dw\s+(.+)$/i))) {
+              const its = [];
+              for (const x of q[1].match(/(?:[^,(]|\([^)]*\))+/g)) {
+                const s = x.trim(),
+                  d = s.match(/^(.+?)\s+dup\s*\((.*)\)$/i);
+                if (d) {
+                  const c = nv(d[1], sym);
+                  for (let j = 0; j < c; j++) its.push(d[2].trim());
+                } else its.push(s);
+              }
+              Object.assign(r, { k: "d", loc, its, size: its.length * k });
+              loc += r.size;
+            } else {
+              const b = match(t);
+              Object.assign(r, { k: "i", loc, size: b.I.sz }, b);
+              loc += r.size;
+            }
+            if (r.size) {
+              R.lo = Math.min(R.lo, r.loc);
+              R.hi = Math.max(R.hi, r.loc + r.size);
+            }
+          } catch (e) {
+            r.err = e.message;
+            R.errs++;
+          }
+        }
+        const hd = Math.ceil(m.a / 4);
+        for (const r of R.rows) {
+          if (r.err || r.k === "n") continue;
+          try {
+            if (r.k === "d") {
+              const ws = r.its.map((v, j) => {
+                if (v === "?") return "?".repeat(m.w / 4);
+                const x = nv(v, sym);
+                ww(m, stt, r.loc + j * k, x);
+                return H(mod(x, 2 ** m.w), m.w / 4);
+              });
+              r.hex =
+                ws.length > 4 ? ws.slice(0, 3).join(" ") + " …" : ws.join(" ");
+            } else {
+              const I = r.I;
+              let enc = 0n;
+              r.fl = [];
+              for (const f of I.f.f) {
+                let v = f.t === "opcode" ? Number(I.opv) : 0;
+                if (f.t === "reg") {
+                  const q = r.cap[f.n];
+                  v =
+                    q === undefined
+                      ? 0
+                      : +new RegExp("^" + m.rp + "(\\d+)$", "i").exec(q)[1];
+                } else if (f.t !== "opcode" && r.cap[f.n] !== undefined)
+                  v = nv(r.cap[f.n], sym);
+                if (v < -(2 ** (f.b - 1)) || v >= 2 ** f.b)
+                  throw Error(
+                    "مقدار " +
+                      v +
+                      " در فیلد " +
+                      f.n +
+                      " (" +
+                      f.b +
+                      " بیت) نمی‌گنجد",
+                  );
+                v = mod(v, 2 ** f.b);
+                enc = (enc << BigInt(f.b)) | BigInt(v);
+                r.fl.push({ n: f.n, t: f.t, v: H(v, Math.ceil(f.b / 4)) });
+              }
+              r.hex = enc
+                .toString(16)
+                .toUpperCase()
+                .padStart(Math.ceil(I.bits / 4), "0");
+              for (let j = 0; j < I.sz; j++)
+                R.mem.set(
+                  (r.loc + j) % AM,
+                  Number(
+                    (enc >> BigInt(m.u * (I.sz - 1 - j))) &
+                      ((1n << BigInt(m.u)) - 1n),
+                  ),
+                );
+              R.locs.add(r.loc);
+              if (R.start === undefined) R.start = r.loc;
+            }
+          } catch (e) {
+            r.err = e.message;
+            R.errs++;
+          }
+        }
+        R.start = R.start || 0;
+        return R;
+      }
+      /* ---------- simulator ---------- */
+      function resetSim() {
+        const m = cur();
+        A = compile(m);
+        const sp = { PC: A.start };
+        Object.keys(A.P.SP).forEach((n) => (sp[n] = 0));
+        sim = {
+          regs: Array(m.rc).fill(0),
+          sp,
+          mem: new Map(A.mem),
+          halted: false,
+          steps: 0,
+          log: [],
+          msg: "",
+        };
+      }
+      function step1() {
+        const m = cur(),
+          s = sim,
+          P = A.P,
+          AM = 2 ** m.a,
+          pc = s.sp.PC;
+        if (!A.locs.has(pc)) {
+          s.halted = true;
+          s.msg = "پایان برنامه: PC روی دستوری نیست (" + H(pc) + ")";
+          return;
+        }
+        const mu = P.maxB / m.u;
+        let W = 0n;
+        for (let j = 0; j < mu; j++)
+          W = (W << BigInt(m.u)) | BigInt(s.mem.get((pc + j) % AM) || 0);
+        const cand = [...P.ins]
+          .filter((I) => !I.err)
+          .sort((a, b) => b.f.f[0].b - a.f.f[0].b);
+        let I;
+        for (const x of cand)
+          if (W >> BigInt(P.maxB - x.f.f[0].b) === x.opv) {
+            I = x;
+            break;
+          }
+        if (!I) {
+          s.halted = true;
+          s.msg = "Opcode نامعتبر در آدرس " + H(pc);
+          return;
+        }
+        const V = W >> BigInt(P.maxB - I.bits),
+          fv = {};
+        let pos = I.bits;
+        for (const f of I.f.f) {
+          pos -= f.b;
+          fv[f.n] = Number((V >> BigInt(pos)) & ((1n << BigInt(f.b)) - 1n));
+        }
+        const row = A.rows.find((r) => r.loc === pc && r.k === "i");
+        s.log.push(
+          H(pc, Math.ceil(m.a / 4)) +
+            "  " +
+            (row ? row.raw.split(";")[0].trim() : I.s),
+        );
+        s.sp.PC = (pc + I.sz) % AM;
+        s.steps++;
+        try {
+          const c = { m, s, fv, ft: I.ft, P };
+          for (const st of I.ast) exec(st, c);
+        } catch (e) {
+          s.halted = true;
+          s.msg = "خطای اجرا: " + e.message;
+        }
+      }
+      /* ---------- views ---------- */
+      const dg = (f) =>
+        `<div class="dg">${f.f.map((x) => `<div class="fb t-${x.t}" style="flex:${Math.max(x.b, 5)}"><b>${E(x.n)}</b><i>${x.b} bits</i></div>`).join("")}</div>`;
+      const I_ = (l, p, v, t = "number") =>
+        `<label>${l}<input data-p="${p}" type="${t}" value="${E(v)}"></label>`;
+      function rDef(m) {
+        const ir = Math.max(
+            0,
+            ...m.fm.map((f) => f.f.reduce((a, x) => a + x.b, 0)),
+          ),
+          P = prep(m);
+        let n = 0;
+        let h = `<section class="card"><h2>پارامترهای ماشین</h2><div class="grid">${I_("نام ماشین", "name", m.name, "text")}${I_("اندازهٔ هر خانهٔ حافظه (بیت)", "u", m.u)}${I_("عرض آدرس (بیت) → حافظه ۲ⁿ خانه", "a", m.a)}${I_("اندازهٔ کلمه (بیت)", "w", m.w)}<label>ترتیب بایت<select data-p="en">${["big", "little"].map((v) => `<option ${m.en === v ? "selected" : ""}>${v}</option>`).join("")}</select></label>${I_("تعداد ثبات‌های عمومی", "rc", m.rc)}${I_("اندازهٔ هر ثبات (بیت)", "rb", m.rb)}${I_("پیشوند نام ثبات", "rp", m.rp, "text")}${I_("ثبات‌های ویژه (مثل ACC:16, SP:16)", "sp", m.sp, "text")}</div>
+ <div class="chips">${[["MAR", m.a], ["MBR", m.w], ["IR", ir], ["PC", m.a], ["Memory", `2^${m.a} × ${m.u}b`], ...(m.rc ? [[m.rp + "0…" + m.rp + (m.rc - 1), m.rb]] : [])].map((x) => `<span class="chip">${x[0]} = <b>${x[1]}${typeof x[1] === "number" ? " bit" : ""}</b></span>`).join("")}</div>
+ <details><summary>راهنمای زبان ستون Operation</summary><p>انتساب: <code>r1 &lt;- r1 + r2</code> (یا ←) · حافظه: <code>M[addr]</code> یا <code>M[M[addr]]</code> · ثبات با شماره: <code>R[expr]</code> · ثبات‌های ویژه: <code>PC</code> و ثبات‌های تعریف‌شده · عملگرها: <code>+ - * &amp; | ^ ~</code> (یا ∧ ∨ ⊕) · پرانتز برای گروه‌بندی · شرط: <code>if (x != 0) then PC &lt;- addr</code> با <code>= != &lt; &gt; &lt;= &gt;=</code> (مقایسه علامت‌دار) · چند دستور با «;» · <code>halt</code> اجرا را متوقف می‌کند. نام فیلدهای فرمت (مثل r1, addr, data) مستقیماً قابل استفاده‌اند؛ فیلد ثبات یعنی محتوای آن ثبات. اولین فیلد هر فرمت باید opcode باشد و طول هر فرمت مضرب اندازهٔ خانهٔ حافظه. حداکثر عرض کلمه/ثبات برای شبیه‌سازی: ۳۲ بیت.</p></details></section>`;
+        m.fm.forEach((f, fi) => {
+          h += `<section class="card"><div class="hd"><input class="title" data-p="fm.${fi}.n" value="${E(f.n)}"><span class="chip">${f.f.reduce((a, x) => a + x.b, 0)} bits</span><button class="ic" data-act="delf:${fi}" style="margin-inline-start:auto">حذف فرمت</button></div>${dg(f)}
+ <div>${f.f.map((x, j) => `<div class="fr"><input data-p="fm.${fi}.f.${j}.n" value="${E(x.n)}"><input type="number" min="1" data-p="fm.${fi}.f.${j}.b" value="${x.b}"><select data-p="fm.${fi}.f.${j}.t">${["opcode", "reg", "addr", "imm"].map((t) => `<option ${x.t === t ? "selected" : ""}>${t}</option>`).join("")}</select><button class="ic" data-act="delfld:${fi}.${j}">✕</button></div>`).join("")}<button class="bt" data-act="addfld:${fi}">+ فیلد</button></div>
+ <table class="it"><tr><th>Opcode</th><th>Mnemonic / Syntax</th><th>Operation</th><th></th></tr>${f.i
+   .map((x, j) => {
+     const e = P.ins[n++].err;
+     return `<tr><td style="width:150px"><input data-p="fm.${fi}.i.${j}.o" value="${E(x.o)}"></td><td style="width:230px"><input data-p="fm.${fi}.i.${j}.s" value="${E(x.s)}"></td><td><input data-p="fm.${fi}.i.${j}.op" value="${E(x.op)}"></td><td style="width:40px"><button class="ic" data-act="deli:${fi}.${j}">✕</button></td></tr>${e ? `<tr><td colspan="4" class="er">⚠ ${E(e)}</td></tr>` : ""}`;
+   })
+   .join(
+     "",
+   )}</table><button class="bt" data-act="addi:${fi}">+ دستور</button></section>`;
+        });
+        return (
+          h +
+          `<button class="bt pr" data-act="addf" style="justify-self:start">+ فرمت جدید</button>`
+        );
+      }
+      const rAsm = (m) =>
+        `<div class="two"><section class="card"><h2>کد اسمبلی</h2><textarea id="code" spellcheck="false">${E(m.code)}</textarea><p class="hint">راهنما: <b>org</b> آدرس · برچسب با «:» · <b>dw</b> مقدار, … یا <b>N dup(?)</b> · <b>end</b> · اعداد: 100h ، 0x64 ، 0b101 ، 100 (دهدهی)</p></section><section class="card"><h2>ترجمه به ماشین‌کد (Hex)</h2><div id="res" class="res"></div></section></div>`;
+      function upd() {
+        const m = cur();
+        A = compile(m);
+        const hd = Math.ceil(m.a / 4);
+        let h = `<table class="rt"><tr><th>Address</th><th>Machine Code</th><th>Assembly Program</th></tr>`;
+        for (const r of A.rows) {
+          if (!r.raw.trim() && !r.err) continue;
+          h += `<tr class="${r.err ? "bad" : ""}"><td class="ad">${r.loc !== undefined && (r.k !== "n" || r.loc !== undefined) ? H(r.loc, hd) : ""}</td><td class="mc">${r.hex || ""}${r.fl ? `<div class="fl">${r.fl.map((x) => `<span class="t-${x.t}" title="${E(x.n)}">${E(x.n)}:${x.v}</span>`).join("")}</div>` : ""}</td><td class="src">${E(r.raw)}${r.err ? `<div class="er">⚠ ${E(r.err)}</div>` : ""}</td></tr>`;
+        }
+        h + `</table>`;
+        h += `</table>`;
+        h += `<h2 style="margin-top:16px">Symbol Table</h2><table class="rt" style="width:auto"><tr><th>Symbol</th><th>Address</th></tr>${A.syms.map((s) => `<tr><td>${E(s[0])}</td><td class="ad">${H(s[1], hd)}h</td></tr>`).join("")}</table>`;
+        $("#res").innerHTML = h;
+      }
+      function rSim(m) {
+        if (!sim) resetSim();
+        const s = sim,
+          hd = Math.ceil(m.a / 4),
+          u = Math.ceil(m.u / 4),
+          rd = Math.ceil(m.rb / 4);
+        let h = `<section class="card"><div class="sw"><button class="bt pr" data-act="step">گام بعد ▸</button><button class="bt" data-act="run">اجرای کامل ⏵</button><button class="bt" data-act="reset">↺ بارگذاری مجدد</button><span class="chip">گام‌ها: <b>${s.steps}</b></span></div>`;
+        if (A.errs)
+          h += `<p class="warn">برنامه ${A.errs} خطای کامپایل دارد؛ در تب «برنامه و کامپایل» اصلاحش کنید.</p>`;
+        if (s.msg)
+          h += `<p class="${s.msg.startsWith("خطا") ? "warn" : "hint"}">${E(s.msg)}</p>`;
+        h += `<div class="sw">${Object.entries(s.sp)
+          .map(
+            ([n, v]) =>
+              `<span class="reg ${n === "PC" ? "pc" : ""}"><i>${E(n)}</i> ${H(v, n === "PC" ? hd : Math.ceil((A.P.SP[n] || m.w) / 4))}</span>`,
+          )
+          .join("")}</div>`;
+        if (m.rc)
+          h += `<div class="sw">${s.regs.map((v, i) => `<span class="reg"><i>${E(m.rp)}${i}</i> ${H(v, rd)}</span>`).join("")}</div>`;
+        h += `</section><div class="two"><section class="card"><h2>حافظه (Hex)</h2><div class="res"><table class="rt mem"><tr><th></th>${[...Array(8).keys()].map((i) => `<th>+${i}</th>`).join("")}</tr>`;
+        const lo = Math.floor(Math.min(A.lo, 2 ** m.a) / 8) * 8,
+          hi = Math.min(Math.ceil(A.hi / 8) * 8, lo + 1024),
+          pc = s.sp.PC;
+        for (let a = lo; a < hi; a += 8) {
+          h += `<tr><td class="ad">${H(a, hd)}</td>`;
+          for (let j = 0; j < 8; j++) {
+            const x = a + j,
+              v = s.mem.get(x) || 0;
+            h += `<td class="${x === pc ? "cur" : ""} ${v !== (A.mem.get(x) || 0) ? "chg" : ""}">${H(v, u)}</td>`;
+          }
+          h += "</tr>";
+        }
+        h += `</table></div></section><section class="card"><h2>دستورات اجراشده</h2><div class="log">${s.log.slice(-60).map(E).join("<br>") || "—"}</div></section></div>`;
+        return h;
+      }
+      function render() {
+        const m = cur();
+        $("#sel").innerHTML = S.list
+          .map(
+            (x) =>
+              `<option value="${x.id}" ${x.id === m.id ? "selected" : ""}>${E(x.name)}</option>`,
+          )
+          .join("");
+        document
+          .querySelectorAll(".tab")
+          .forEach((b) => b.classList.toggle("on", b.dataset.tab === tab));
+        $("#main").innerHTML =
+          tab === "def" ? rDef(m) : tab === "asm" ? rAsm(m) : rSim(m);
+        if (tab === "asm") upd();
+      }
+      /* ---------- events ---------- */
+      const setp = (o, p, v) => {
+        const k = p.split(".");
+        for (let i = 0; i < k.length - 1; i++) o = o[k[i]];
+        o[k.at(-1)] = v;
+      };
+      document.addEventListener("change", (e) => {
+        const t = e.target;
+        if (t.id === "sel") {
+          S.cur = t.value;
+          sim = null;
+          save();
+          render();
+          return;
+        }
+        if (!t.dataset.p) return;
+        let v = t.type === "number" ? Math.max(0, +t.value || 0) : t.value;
+        setp(cur(), t.dataset.p, v);
+        sim = null;
+        save();
+        render();
+      });
+      document.addEventListener("input", (e) => {
+        if (e.target.id === "code") {
+          cur().code = e.target.value;
+          sim = null;
+          save();
+          clearTimeout(window._d);
+          window._d = setTimeout(upd, 250);
+        }
+      });
+      document.addEventListener("click", (e) => {
+        const b = e.target.closest("[data-act],[data-tab]");
+        if (!b) return;
+        if (b.dataset.tab) {
+          tab = b.dataset.tab;
+          if (tab === "sim") resetSim();
+          render();
+          return;
+        }
+        const [a, p = ""] = b.dataset.act.split(":"),
+          m = cur(),
+          [x, y] = p.split(".").map(Number);
+        if (a === "newm") {
+          const n = blank();
+          S.list.push(n);
+          S.cur = n.id;
+          tab = "def";
+        } else if (a === "dup") {
+          const n = JSON.parse(JSON.stringify(m));
+          n.id = uid();
+          n.name += " (کپی)";
+          S.list.push(n);
+          S.cur = n.id;
+        } else if (a === "del") {
+          if (S.list.length > 1) {
+            S.list = S.list.filter((q) => q.id !== m.id);
+            S.cur = S.list[0].id;
+          }
+        } else if (a === "addf")
+          m.fm.push(
+            F(
+              "Format " + (m.fm.length + 1),
+              [
+                ["Opcode", 8, "opcode"],
+                ["addr", 16, "addr"],
+              ],
+              [],
+            ),
+          );
+        else if (a === "delf") m.fm.splice(x, 1);
+        else if (a === "addfld")
+          m.fm[x].f.push({ n: "f" + m.fm[x].f.length, b: 8, t: "imm" });
+        else if (a === "delfld") m.fm[x].f.splice(y, 1);
+        else if (a === "addi")
+          m.fm[x].i.push({ o: "0", s: "op", op: "PC <- PC" });
+        else if (a === "deli") m.fm[x].i.splice(y, 1);
+        else if (a === "step") step1();
+        else if (a === "run") {
+          let n = 0;
+          while (!sim.halted && n++ < 100000) step1();
+          if (!sim.halted) {
+            sim.halted = true;
+            sim.msg = "خطا: بیش از ۱۰۰٬۰۰۰ گام — احتمالاً حلقهٔ بی‌نهایت";
+          }
+        } else if (a === "reset") resetSim();
+        else if (a === "theme") {
+          const d = document.documentElement;
+          d.dataset.theme =
+            (d.dataset.theme ||
+              (matchMedia("(prefers-color-scheme:dark)").matches
+                ? "dark"
+                : "light")) === "dark"
+              ? "light"
+              : "dark";
+          return;
+        }
+        if (!["step", "run", "reset"].includes(a)) sim = null;
+        save();
+        render();
+      });
+      render();
+    </script>
+  </body>
+</html>
