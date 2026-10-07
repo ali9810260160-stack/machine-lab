@@ -523,7 +523,7 @@ Everything — UI, CSS, assembler, simulator, storage — lives in the single HT
 
 **Course:** Computer Structure & Language — Lecture 3: Registers, Addressing Modes, Linker, Loader
 **Instructor:** Dr. Hamid Sarbazi-Azad
-**Institution:** Sharif University of Technology · sharif university of technology(SUT)
+**Institution:** Sharif University of Technology (SUT)
 
 </div>
 
