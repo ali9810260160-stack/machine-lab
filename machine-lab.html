@@ -446,6 +446,96 @@
         color: #fff;
         z-index: 2;
       }
+      /* ===== graphic simulation (v1.2) ===== */
+      .pills{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+      .pill{border:1px solid var(--b);background:var(--c);color:var(--m);padding:7px 16px;border-radius:999px;font:inherit;font-weight:600;cursor:pointer}
+      .pill:hover{border-color:var(--a)}
+      .pill.on{background:var(--t);color:var(--bg);border-color:var(--t)}
+      .gx .sw{align-items:center}
+      .spd{display:flex;flex-direction:row;align-items:center;gap:6px;margin-inline-start:auto}
+      .spd input{width:110px;padding:0}
+      .gscroll{overflow-x:auto;direction:ltr;border-radius:16px;border:1px solid var(--b);background:
+        radial-gradient(circle at 1px 1px,color-mix(in srgb,var(--m) 22%,transparent) 1px,transparent 1.5px) 0 0/22px 22px,var(--k)}
+      #stg,#lst{display:block;min-width:940px;width:100%;height:auto;font-family:Vazirmatn,Tahoma,sans-serif}
+      #stg text,#lst text{direction:ltr}
+      #stg .fa,#lst .fa{direction:rtl}
+      .cpu{fill:color-mix(in srgb,var(--a) 5%,var(--c));stroke:var(--a);stroke-width:2.5}
+      .grp{fill:color-mix(in srgb,var(--c) 70%,transparent);stroke:var(--b);stroke-width:2;stroke-dasharray:7 5}
+      .gt{font:700 12.5px Vazirmatn,Tahoma,sans-serif;fill:var(--m)}
+      .gs{font:11px Vazirmatn,Tahoma,sans-serif;fill:var(--m)}
+      .bx rect{fill:var(--c);stroke:var(--b);stroke-width:1.6;transition:fill .35s,stroke .35s}
+      .bx .bl{font:10.5px Vazirmatn,Tahoma,sans-serif;fill:var(--m)}
+      .bx .bv{font:600 14px "JetBrains Mono",Consolas,monospace;fill:var(--t);text-anchor:middle}
+      .bx.fl rect{fill:color-mix(in srgb,var(--a2) 32%,var(--c));stroke:var(--a2);stroke-width:2.6}
+      .bx.hot rect{stroke:var(--a);stroke-width:2.4}
+      #ctl rect{fill:color-mix(in srgb,var(--a) 7%,var(--c))}
+      #cmn{font:700 12.5px "JetBrains Mono",monospace;fill:var(--a);text-anchor:end}
+      #cop{font:11px "JetBrains Mono",monospace;fill:var(--t)}
+      #cin{font:10px Vazirmatn,Tahoma,sans-serif;fill:var(--m);direction:rtl}
+      #cfd rect{stroke:var(--a);stroke-width:1.6}
+      #cfd .f-opcode,.f-opcode{fill:var(--f0)} #cfd .f-reg,.f-reg{fill:var(--f1)} #cfd .f-addr,.f-addr{fill:var(--f2)} #cfd .f-imm,.f-imm{fill:var(--f3)}
+      #cfd .fn{font:600 10px Vazirmatn,sans-serif;fill:var(--t);text-anchor:middle}
+      #cfd .fv{font:600 11px "JetBrains Mono",monospace;fill:var(--a);text-anchor:middle}
+      #cfd g.hot rect{stroke-width:3.2;stroke:var(--e)}
+      #alf{fill:color-mix(in srgb,var(--a2) 10%,var(--c));stroke:var(--a2);stroke-width:2;transition:fill .3s}
+      #alf.fl{fill:color-mix(in srgb,var(--a2) 40%,var(--c))}
+      #aop{font:700 22px "JetBrains Mono",monospace;fill:var(--a2);text-anchor:middle}
+      .dec{fill:color-mix(in srgb,var(--a) 8%,var(--c));stroke:var(--a);stroke-width:2}
+      .dt{font:700 11px "JetBrains Mono",monospace;fill:var(--a);text-anchor:middle}
+      .memf{fill:var(--c);stroke:var(--a2);stroke-width:2.5}
+      .mr rect.mrr{fill:var(--k);stroke:var(--b);stroke-width:1;transition:fill .3s}
+      .mr .ma{font:11.5px "JetBrains Mono",monospace;fill:var(--m)}
+      .mr .mv{font:600 13px "JetBrains Mono",monospace;fill:var(--t);text-anchor:middle}
+      .mr .mn{font:10px "JetBrains Mono",monospace;fill:var(--a)}
+      .mr.chg .mv{fill:var(--a2)}
+      .mr.sel rect.mrr{fill:color-mix(in srgb,var(--a2) 30%,var(--c));stroke:var(--a2);stroke-width:2}
+      .mr.sel.wm rect.mrr{fill:color-mix(in srgb,var(--e) 24%,var(--c));stroke:var(--e)}
+      .swap{animation:swp .5s ease}
+      @keyframes swp{from{opacity:.15;transform:translateY(10px)}to{opacity:1;transform:none}}
+      .dl,.rs{stroke:var(--b);stroke-width:1.6}
+      .dl.on{stroke:var(--a);stroke-width:3.4}
+      .rs.on{stroke:var(--a2);stroke-width:3.4}
+      .lamp rect{fill:var(--k);stroke:var(--b);stroke-width:1.5;transition:fill .2s}
+      .lamp text{font:700 10.5px Vazirmatn,sans-serif;fill:var(--m);text-anchor:middle}
+      .lamp.on.lr rect{fill:var(--a2);stroke:var(--a2)}
+      .lamp.on.lw rect{fill:var(--e);stroke:var(--e)}
+      .lamp.on text{fill:#fff}
+      .wr .wl{fill:none;stroke:color-mix(in srgb,var(--m) 55%,transparent);stroke-width:2.4;stroke-linejoin:round}
+      .wr polygon{fill:color-mix(in srgb,var(--m) 65%,transparent)}
+      .wr .wf{fill:none;stroke:var(--wc);stroke-width:4;stroke-dasharray:8 10;opacity:0;stroke-linejoin:round}
+      .wr.on .wl{stroke:var(--wc);stroke-width:3.2}
+      .wr.on polygon{fill:var(--wc)}
+      .wr.on .wf{opacity:.55;animation:dsh .7s linear infinite}
+      @keyframes dsh{to{stroke-dashoffset:-36}}
+      .bd circle{fill:var(--bc);stroke:var(--c);stroke-width:2.5}
+      .bd text{font:700 12px "JetBrains Mono",monospace;fill:#fff;text-anchor:middle}
+      .bd{transition:opacity .3s;opacity:.55}
+      .bd.on{opacity:1}
+      .bd.on circle{animation:pop .9s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+      @keyframes pop{50%{transform:scale(1.3)}}
+      .pk rect{stroke:#fff;stroke-width:1.5;filter:drop-shadow(0 3px 5px #0006)}
+      .pk text{font:700 11.5px "JetBrains Mono",monospace;fill:#fff;text-anchor:middle}
+      .iot{fill:color-mix(in srgb,var(--a) 6%,var(--c));stroke:var(--a);stroke-width:2.2}
+      .iol{font:700 14px Vazirmatn,sans-serif;fill:var(--t);text-anchor:middle}
+      .gx2{margin-top:16px}
+      #nt{margin:0 0 6px;font-size:15px}
+      #nb{min-height:96px;line-height:1.9}
+      #nb code,.plg code{font-family:"JetBrains Mono",monospace;direction:ltr;unicode-bidi:embed;color:var(--a);background:var(--k);padding:0 6px;border-radius:6px}
+      .pls{display:grid;gap:8px}
+      .pl{display:grid;grid-template-columns:34px 1fr;gap:10px;padding:8px 10px;border:1px solid var(--b);border-radius:14px;background:var(--k);transition:border-color .3s,box-shadow .3s,background .3s}
+      .pl .pn{width:30px;height:30px;border-radius:50%;background:var(--pc);color:#fff;display:grid;place-items:center;font:700 14px "JetBrains Mono",monospace}
+      .pl p{margin:2px 0 6px;color:var(--m);font-size:12.5px;line-height:1.75}
+      .pl small{color:var(--m);font-family:"JetBrains Mono",monospace;direction:ltr;unicode-bidi:embed}
+      .pl .bt{padding:2px 10px;font-size:12px}
+      .pl.on{border-color:var(--pc);background:color-mix(in srgb,var(--pc) 13%,var(--k));box-shadow:0 0 0 2px color-mix(in srgb,var(--pc) 35%,transparent)}
+      .lgbox{max-height:230px;overflow:auto;font-size:12.5px;color:var(--m)}
+      .lgbox div{padding:2px 0;border-bottom:1px dashed var(--b)}
+      .lgbox b{color:var(--t)}
+      .labc{display:flex;gap:8px;flex-wrap:wrap;align-items:end;margin-bottom:12px}
+      .labc label{width:130px}
+      .notat{font-family:"JetBrains Mono",monospace;direction:ltr;text-align:left;background:var(--k);border:1px solid var(--b);border-radius:12px;padding:8px 14px;margin:12px 0 0;color:var(--a);font-weight:600;min-height:40px}
+      #lst .lrow{cursor:pointer}
+      @media (prefers-reduced-motion:reduce){.wr.on .wf,.bd.on circle,.swap{animation:none}}
     </style>
   </head>
   <body>
@@ -1168,12 +1258,14 @@ end`,
         const g = (j) => s.mem.get((a + j) % AM) || 0;
         if (m.en === "big") for (let j = 0; j < k; j++) v = v * 2 ** m.u + g(j);
         else for (let j = k - 1; j >= 0; j--) v = v * 2 ** m.u + g(j);
+        if (TR) TR.push({ k: "mr", a, v, adr: ADR > 0 });
         return v;
       }
       function ww(m, s, a, v) {
         const k = kk(m),
           AM = 2 ** m.a;
         v = mod(v, 2 ** m.w);
+        if (TR) TR.push({ k: "mw", a, v });
         for (let j = k - 1; j >= 0; j--) {
           const u = v % 2 ** m.u;
           v = Math.floor(v / 2 ** m.u);
@@ -1184,59 +1276,105 @@ end`,
         switch (n.t) {
           case "n":
             return n.v;
-          case "f":
-            return c.ft[n.n] === "reg" ? c.s.regs[c.fv[n.n]] : c.fv[n.n];
-          case "m":
-            return rw(c.m, c.s, mod(ev(n.a, c), 2 ** c.m.a));
-          case "r":
-            return c.s.regs[ev(n.a, c)] || 0;
-          case "s":
-            return c.s.sp[n.n];
-          case "x":
-            return sg(ev(n.a, c), ev(n.n, c));
+          case "f": {
+            const t = c.ft[n.n],
+              v = t === "reg" ? c.s.regs[c.fv[n.n]] : c.fv[n.n];
+            if (TR)
+              TR.push(
+                t === "reg"
+                  ? { k: "rr", i: c.fv[n.n], v, adr: ADR > 0 }
+                  : { k: ADR > 0 ? "adr" : "imm", n: n.n, v },
+              );
+            return v;
+          }
+          case "m": {
+            ADR++;
+            let a;
+            try {
+              a = mod(ev(n.a, c), 2 ** c.m.a);
+            } finally {
+              ADR--;
+            }
+            return rw(c.m, c.s, a);
+          }
+          case "r": {
+            const i = ev(n.a, c),
+              v = c.s.regs[i] || 0;
+            if (TR) TR.push({ k: "rr", i, v, adr: ADR > 0 });
+            return v;
+          }
+          case "s": {
+            const v = c.s.sp[n.n];
+            if (TR) TR.push({ k: "sr", n: n.n, v });
+            return v;
+          }
+          case "x": {
+            const a = ev(n.a, c),
+              b = ev(n.n, c),
+              r = sg(a, b);
+            if (TR) TR.push({ k: "alu", o: "sext", a, r, adr: ADR > 0 });
+            return r;
+          }
           case "u": {
-            const a = ev(n.a, c);
-            return n.o === "-" ? -a : ~a >>> 0;
+            const a = ev(n.a, c),
+              r = n.o === "-" ? -a : ~a >>> 0;
+            if (TR) TR.push({ k: "alu", o: n.o, a, r, adr: ADR > 0 });
+            return r;
           }
           case "b": {
             const a = ev(n.a, c),
-              b = ev(n.b, c);
-            return {
-              "+": a + b,
-              "-": a - b,
-              "*": a * b,
-              "&": (a & b) >>> 0,
-              "|": (a | b) >>> 0,
-              "^": (a ^ b) >>> 0,
-            }[n.o];
+              b = ev(n.b, c),
+              r = {
+                "+": a + b,
+                "-": a - b,
+                "*": a * b,
+                "&": (a & b) >>> 0,
+                "|": (a | b) >>> 0,
+                "^": (a ^ b) >>> 0,
+              }[n.o];
+            if (TR) TR.push({ k: "alu", o: n.o, a, b, r, adr: ADR > 0 });
+            return r;
           }
           case "c": {
             const w = c.m.w,
               a = sg(ev(n.a, c), w),
-              b = sg(ev(n.b, c), w);
-            return +{
-              "=": a === b,
-              "!=": a !== b,
-              "<": a < b,
-              ">": a > b,
-              "<=": a <= b,
-              ">=": a >= b,
-            }[n.o];
+              b = sg(ev(n.b, c), w),
+              r = +{
+                "=": a === b,
+                "!=": a !== b,
+                "<": a < b,
+                ">": a > b,
+                "<=": a <= b,
+                ">=": a >= b,
+              }[n.o];
+            if (TR) TR.push({ k: "alu", o: n.o, a, b, r, cmp: true, adr: ADR > 0 });
+            return r;
           }
         }
       }
       function exec(st, c) {
         const { m, s } = c;
-        if (st.t === "halt") s.halted = true;
-        else if (st.t === "if") {
-          if (ev(st.c, c)) exec(st.s, c);
+        if (st.t === "halt") {
+          s.halted = true;
+          if (TR) TR.push({ k: "halt" });
+        } else if (st.t === "if") {
+          const q = ev(st.c, c);
+          if (TR) TR.push({ k: "br", t: !!q });
+          if (q) exec(st.s, c);
         } else {
           const v = ev(st.r, c),
             l = st.l;
-          if (l.t === "f") s.regs[c.fv[l.n]] = mod(v, 2 ** m.rb);
-          else if (l.t === "r") s.regs[ev(l.a, c)] = mod(v, 2 ** m.rb);
-          else if (l.t === "m") ww(m, s, mod(ev(l.a, c), 2 ** m.a), v);
-          else s.sp[l.n] = mod(v, 2 ** (l.n === "PC" ? m.a : c.P.SP[l.n]));
+          if (l.t === "f" || l.t === "r") {
+            const i = l.t === "f" ? c.fv[l.n] : ev(l.a, c),
+              x = mod(v, 2 ** m.rb);
+            s.regs[i] = x;
+            if (TR) TR.push({ k: "rw", i, v: x });
+          } else if (l.t === "m") ww(m, s, mod(ev(l.a, c), 2 ** m.a), v);
+          else {
+            const x = mod(v, 2 ** (l.n === "PC" ? m.a : c.P.SP[l.n]));
+            s.sp[l.n] = x;
+            if (TR) TR.push({ k: "sw", n: l.n, v: x });
+          }
         }
       }
       /* ---------- prepare + assemble ---------- */
@@ -1254,7 +1392,7 @@ end`,
           f.f.forEach((x) => (ft[x.n] = x.t));
           maxB = Math.max(maxB, bits);
           f.i.forEach((i) => {
-            const I = { fi, f, bits, sz: bits / m.u, ft, s: i.s, err: "" };
+            const I = { fi, f, bits, sz: bits / m.u, ft, s: i.s, op: i.op, err: "" };
             try {
               if (bits % m.u)
                 throw Error(
@@ -1532,6 +1670,8 @@ end`,
           s.msg = "پایان برنامه: PC روی دستوری نیست (" + H(pc) + ")";
           return;
         }
+        s.last = null;
+        s.tr = null;
         const mu = P.maxB / m.u;
         let W = 0n;
         for (let j = 0; j < mu; j++)
@@ -1574,11 +1714,16 @@ end`,
         );
         s.sp.PC = (pc + I.sz) % AM;
         s.steps++;
+        s.last = { pc, I, fv, V, sz: I.sz };
         try {
           const c = { m, s, fv, ft: I.ft, P };
+          TR = s.tr = [];
+          ADR = 0;
           for (const st of I.ast) exec(st, c);
+          TR = null;
           if (m.z && s.regs.length) s.regs[0] = 0;
         } catch (e) {
+          TR = null;
           s.halted = true;
           s.msg = "خطای اجرا: " + e.message;
         }
@@ -1632,7 +1777,7 @@ end`,
         $("#res").innerHTML = h;
         tr($("#res"));
       }
-      function rSim(m) {
+      function rSimTbl(m) {
         if (!sim) resetSim();
         const s = sim,
           hd = Math.ceil(m.a / 4),
@@ -1668,6 +1813,7 @@ end`,
         return h;
       }
       function render() {
+        gfxStop();
         const m = cur(),
           en = S.lang === "en";
         document.documentElement.dir = en ? "ltr" : "rtl";
@@ -1696,6 +1842,7 @@ end`,
           tab === "def" ? rDef(m) : tab === "asm" ? rAsm(m) : rSim(m);
         if (tab === "asm") upd();
         tr($("#main"));
+        if (tab === "sim") gfxMount();
       }
       /* ---------- i18n / export / slides ---------- */
       const L = (fa, en) => (S.lang === "en" ? en : fa);
@@ -1991,6 +2138,1437 @@ end`,
           cs.forEach((c, i) => setTimeout(() => d1(c, i), i * 350));
         document.body.append(o);
       }
+      /* ================= Graphic simulation (v1.2) ================= */
+      const NS = "http://www.w3.org/2000/svg";
+      let SM = "tbl"; // sub-mode of the simulator tab: tbl | cpu | mem
+      let TR = null,
+        ADR = 0; // execution trace + "inside an address expression" depth
+      const AN = {
+        speed: 1,
+        manual: false,
+        paused: false,
+        busy: false,
+        busyG: 0,
+        gen: 0,
+        gate: null,
+        auto: false,
+      };
+      let VM = null,
+        LB = null;
+      const PCOL = {
+        1: "#7c6cff",
+        2: "#12b5a0",
+        3: "#f59f00",
+        4: "#2f80ed",
+        5: "#e64980",
+        6: "#e8590c",
+      };
+      const PINFO = {
+        1: [
+          "واکشی دستور",
+          "Fetching instructions",
+          "دستور از حافظه (از طریق MBR) به IR و واحد کنترل CU می‌رسد. آدرس دستور را PC از راه MAR می‌دهد. شروع هر چرخهٔ اجرا همین مسیر است.",
+        ],
+        2: [
+          "دسترسی به داده",
+          "Data access",
+          "عملوندها از حافظه خوانده و نتیجه در حافظه نوشته می‌شود: حافظه ↔ MBR ↔ ALU / ثبات‌ها. آدرس داده از فیلد دستور، ثبات یا حافظه می‌آید.",
+        ],
+        3: [
+          "فرمان / وضعیت",
+          "Command / status communication",
+          "CU کد عمل را به ALU می‌فرستد (چه عملی انجام شود) و با دستگاه‌های I/O فرمان و وضعیت (آماده / مشغول) رد و بدل می‌کند.",
+        ],
+        4: [
+          "داده فوری",
+          "Special data access (immediate)",
+          "مقداری که خودش داخل دستور است (مثل #10 یا data) مستقیم از IR / CU به ALU می‌رود؛ برای آن دوباره به حافظه مراجعه نمی‌شود.",
+        ],
+        5: [
+          "داده I/O از طریق CPU",
+          "I/O data (via CPU)",
+          "داده دستگاه ورودی/خروجی از ثبات‌های CPU عبور می‌کند (مثل دستورهای in / out). CPU خودش درگیر انتقال هر کلمه است.",
+        ],
+        6: [
+          "داده I/O با DMA",
+          "I/O data (by DMA)",
+          "کنترلر DMA داده را مستقیم بین دستگاه و حافظه جابه‌جا می‌کند و CPU در این مدت آزاد است؛ فقط شروع و پایان انتقال را می‌داند.",
+        ],
+      };
+      const OPS = {
+        "&": "∧",
+        "|": "∨",
+        "^": "⊕",
+        "!=": "≠",
+        "<=": "≤",
+        ">=": "≥",
+        "-": "−",
+        "*": "×",
+      };
+      const OPX = (t) =>
+        t
+          .replace(/<-/g, "←")
+          .replace(/!=/g, "≠")
+          .replace(/&/g, "∧")
+          .replace(/\|/g, "∨")
+          .replace(/\^/g, "⊕");
+      const hv = (v) => {
+        const m = cur();
+        return H(mod(v, 2 ** m.w), Math.ceil(m.w / 4));
+      };
+      const T = (id, t) => {
+        const e = document.getElementById(id);
+        if (e) e.textContent = t;
+      };
+      const fl = (id) => {
+        const e = document.getElementById(id);
+        if (!e) return;
+        e.classList.remove("fl");
+        void e.getBoundingClientRect();
+        e.classList.add("fl");
+        setTimeout(() => e.classList.remove("fl"), 700 / AN.speed + 300);
+      };
+      /* ----- svg helpers ----- */
+      const ahd = (p, q) => {
+        const a = Math.atan2(p[1] - q[1], p[0] - q[0]),
+          bx = p[0] - 10 * Math.cos(a),
+          by = p[1] - 10 * Math.sin(a),
+          nx = -Math.sin(a) * 5.5,
+          ny = Math.cos(a) * 5.5;
+        return `<polygon points="${p[0]},${p[1]} ${bx + nx},${by + ny} ${bx - nx},${by - ny}"/>`;
+      };
+      function wire(id, pts, col, o = {}) {
+        const d = pts.map((p) => p.join(",")).join(" ");
+        return `<g class="wr" id="${id}" style="--wc:${col}"><polyline class="wl" points="${d}"/><polyline class="wf" points="${d}"/>${o.noah ? "" : ahd(pts[pts.length - 1], pts[pts.length - 2])}${o.bi ? ahd(pts[0], pts[1]) : ""}</g>`;
+      }
+      const bxs = (id, x, y, w, h, label, val = "—", cls = "") =>
+        `<g class="bx ${cls}" id="${id}"><rect x="${x}" y="${y}" width="${w}" height="${h}" rx="9"/><text class="bl" x="${x + 8}" y="${y + 14}">${label}</text><text class="bv" id="${id}v" x="${x + w / 2}" y="${y + h - 8}">${val}</text></g>`;
+      const badge = (p, x, y) =>
+        `<g class="bd" data-p="${p}" style="--bc:${PCOL[p]}"><circle cx="${x}" cy="${y}" r="11"/><text x="${x}" y="${y + 4.5}">${p}</text></g>`;
+      /* ----- geometry helpers ----- */
+      const cellC = (kind, i) => {
+        if (kind === "s") return [48 + (i % 8) * 86 + 40, 500 + 22];
+        const k = i < 16 ? i : 15;
+        return [48 + (k % 8) * 86 + 40, 392 + Math.floor(k / 8) * 50 + 22];
+      };
+      const rowY = (i) => 136 + 32 * i;
+      /* ----- CPU scene ----- */
+      function cpuSVG(m) {
+        const n = Math.min(m.rc, 16),
+          sps = Object.keys(A.P.SP).slice(0, 8),
+          hd = Math.ceil(m.a / 4);
+        let h = "";
+        h += `<rect class="cpu" x="16" y="24" width="744" height="566" rx="22"/><text class="gt" x="30" y="46">CPU</text>`;
+        h += `<rect class="grp" x="36" y="84" width="300" height="256" rx="14"/><text class="gt fa" x="48" y="104">CU · واحد کنترل</text>`;
+        h += `<rect class="grp" x="372" y="84" width="240" height="256" rx="14"/><text class="gt fa" x="384" y="104">ALU · واحد محاسبه و منطق</text>`;
+        h += `<rect class="grp" x="36" y="364" width="712" height="200" rx="14"/><text class="gt fa" x="48" y="383">ثبات‌ها · Register File</text>`;
+        h += bxs("pc", 52, 112, 124, 36, "PC");
+        h += `<g class="bx" id="ctl"><rect x="52" y="158" width="272" height="92" rx="9"/><text class="bl" x="60" y="172">Decoder / Control logic</text><text id="cmn" x="316" y="172"></text><g id="cfd"></g><text id="cop" x="60" y="234"></text><text id="cin" class="fa" x="60" y="246"></text></g>`;
+        h += bxs("ir", 52, 272, 272, 44, "IR · Instruction Register");
+        h += `<polygon id="alf" points="396,262 588,262 540,170 444,170"/><text id="aop" x="492" y="228"></text>`;
+        h += bxs("alR", 432, 112, 120, 34, "Result");
+        h += bxs("alA", 392, 272, 92, 34, "A");
+        h += bxs("alB", 500, 272, 92, 34, "B");
+        h += bxs("mar", 640, 100, 100, 44, "MAR");
+        h += `<text id="marb" x="690" y="160" font-size="9" fill="var(--m)" text-anchor="middle" style="font-family:'JetBrains Mono',monospace"></text>`;
+        h += bxs("mbr", 640, 240, 100, 56, "MBR");
+        h += `<text class="gs" x="690" y="190" text-anchor="middle">Memory interface</text>`;
+        if (n) {
+          for (let i = 0; i < n; i++) {
+            const x = 48 + (i % 8) * 86,
+              y = 392 + Math.floor(i / 8) * 50;
+            h += bxs("rc" + i, x, y, 80, 44, E(rnm(m, i)));
+          }
+          if (m.rc > 16)
+            h += `<text class="gs" x="740" y="478" text-anchor="end">… ${m.rc - 15} more</text>`;
+        } else
+          h += `<text class="gs fa" x="60" y="430">این ماشین ثبات عمومی ندارد</text>`;
+        sps.forEach((nm, j) => {
+          h += bxs("sc" + j, 48 + (j % 8) * 86, 500, 80, 44, E(nm));
+        });
+        /* decoder + memory */
+        h += `<text class="dt" x="832" y="104">DECODER</text><text class="dt" x="832" y="122" style="font-size:9px" id="dect">${m.a}→2^${m.a}</text>`;
+        h += `<rect class="dec" x="806" y="136" width="52" height="384" rx="10"/>`;
+        h += `<rect class="memf" x="900" y="84" width="340" height="468" rx="16"/><text class="gt fa" x="912" y="106">Main Memory</text><text class="gs" x="912" y="124">2^${m.a} × ${m.u} bit</text>`;
+        h += `<g class="lamp lr" id="lmR"><rect x="1150" y="94" width="40" height="22" rx="6"/><text x="1170" y="109">READ</text></g><g class="lamp lw" id="lmW"><rect x="1196" y="94" width="40" height="22" rx="6"/><text x="1216" y="109">WRITE</text></g>`;
+        h += `<g id="mrows">`;
+        for (let i = 0; i < 12; i++) {
+          const y = rowY(i);
+          h += `<line class="dl" id="dl${i}" x1="858" y1="${y + 15}" x2="900" y2="${y + 15}"/><line class="rs" id="rs${i}" x1="1228" y1="${y + 15}" x2="1250" y2="${y + 15}"/>`;
+          h += `<g class="mr" id="mr${i}"><rect class="mrr" x="912" y="${y}" width="316" height="30" rx="6"/><text class="ma" id="ma${i}" x="920" y="${y + 20}"></text><text class="mv" id="mv${i}" x="1047" y="${y + 20}"></text><text class="mn" id="mn${i}" x="1098" y="${y + 20}"></text></g>`;
+        }
+        h += `</g>`;
+        /* I/O */
+        h += `<rect class="iot" x="60" y="640" width="840" height="84" rx="16"/><text class="iol" x="480" y="676">Input / Output (I/O) Devices</text><text x="480" y="706" text-anchor="middle" style="font-size:20px;letter-spacing:14px">⌨ 🖱 🖥 💾 🖨 🌐</text>`;
+        /* wires */
+        h += wire("wpc", [[114, 112], [114, 58], [250, 58]], PCOL[1], { noah: 1 });
+        h += wire("wctl", [[250, 158], [250, 58]], PCOL[4], { noah: 1 });
+        h += wire("wmf", [[250, 58], [690, 58], [690, 100]], PCOL[1]);
+        h += wire("walu", [[492, 112], [492, 68], [150, 68], [150, 112]], PCOL[3]);
+        h += wire("wadr", [[740, 122], [806, 122]], "#7c6cff");
+        h += wire("wdv", [[1250, 148], [1250, 574]], PCOL[2], { noah: 1 });
+        h += wire("wdbus", [[1250, 574], [780, 574], [780, 268], [740, 268]], PCOL[2], { bi: 1 });
+        h += wire("w1", [[650, 296], [650, 352], [188, 352], [188, 316]], PCOL[1]);
+        h += wire("w2a", [[640, 288], [620, 288], [620, 322], [546, 322], [546, 306]], PCOL[2], { bi: 1 });
+        h += wire("w2r", [[552, 129], [626, 129], [626, 262], [640, 262]], PCOL[2]);
+        h += wire("w2b", [[722, 296], [722, 364]], PCOL[2], { bi: 1 });
+        h += wire("w3", [[324, 172], [380, 172], [380, 186], [436, 186]], PCOL[3]);
+        h += wire("w4", [[324, 203], [350, 203], [350, 322], [438, 322], [438, 306]], PCOL[4]);
+        h += wire("w3io", [[36, 300], [6, 300], [6, 682], [60, 682]], PCOL[3], { bi: 1 });
+        h += wire("w5", [[400, 564], [400, 640]], PCOL[5], { bi: 1 });
+        h += wire("w6", [[900, 682], [1160, 682], [1160, 552]], PCOL[6], { bi: 1 });
+        h += `<text class="gs" x="773" y="114" text-anchor="middle" style="font-size:9px">Address bus</text><text class="gs" x="1010" y="566" text-anchor="middle" style="font-size:10px">Data bus</text>`;
+        h += badge(1, 420, 352) + badge(2, 722, 334) + badge(2, 1000, 574) + badge(3, 352, 172) + badge(4, 350, 262) + badge(3, 6, 490) + badge(5, 400, 602) + badge(6, 1160, 620);
+        h += `<g id="pkl"></g>`;
+        return h;
+      }
+      /* ----- VM (what the stage currently displays) ----- */
+      function initVM() {
+        const m = cur();
+        VM = {
+          sim,
+          pc: sim.sp.PC,
+          ir: "",
+          mar: null,
+          mbr: null,
+          regs: sim.regs.slice(),
+          sp: { ...sim.sp },
+          mem: new Map(sim.mem),
+          win: 0,
+          sel: [],
+          selw: false,
+          dec: null,
+          alias: null,
+          log: 0,
+        };
+        focus(VM.pc, true);
+      }
+      function syncVM() {
+        if (!VM) return;
+        VM.pc = sim.sp.PC;
+        VM.regs = sim.regs.slice();
+        VM.sp = { ...sim.sp };
+        VM.mem = new Map(sim.mem);
+        VM.sel = [];
+        VM.alias = null;
+      }
+      function focus(a, quiet) {
+        const AM = 2 ** cur().a;
+        if (a >= VM.win && a < VM.win + 12 && !quiet) return;
+        const nw = Math.max(0, Math.min(Math.max(0, AM - 12), a - (a % 4) - 4));
+        if (nw === VM.win && !quiet) return;
+        VM.win = nw;
+        const g = document.getElementById("mrows");
+        if (g && !quiet) {
+          g.classList.remove("swap");
+          void g.getBoundingClientRect();
+          g.classList.add("swap");
+        }
+        if (!quiet) paintMem();
+      }
+      function annMap() {
+        const mp = new Map();
+        A.syms.forEach(([n, l]) => mp.set(l, { sym: n }));
+        A.rows.forEach((r) => {
+          if (r.k === "i" && !r.err && r.loc !== undefined) {
+            const o = mp.get(r.loc) || {};
+            o.ins = r.raw
+              .split(";")[0]
+              .replace(/^\s*[A-Za-z_]\w*\s*:/, "")
+              .trim();
+            mp.set(r.loc, o);
+          }
+        });
+        return mp;
+      }
+      function paintMem() {
+        const m = cur(),
+          hd = Math.ceil(m.a / 4),
+          u = Math.ceil(m.u / 4),
+          AM = 2 ** m.a,
+          an = annMap();
+        for (let i = 0; i < 12; i++) {
+          const g = document.getElementById("mr" + i);
+          if (!g) continue;
+          const a = VM.win + i,
+            ok = a < AM,
+            v = VM.mem.get(a) || 0,
+            x = an.get(a),
+            sel = VM.sel.includes(a);
+          T("ma" + i, ok ? H(a, hd) : "");
+          T("mv" + i, ok ? H(v, u) : "");
+          let t = VM.pc === a ? "▶PC " : "";
+          if (x) {
+            if (x.sym) t += x.sym + (x.ins ? ": " : "");
+            if (x.ins) t += x.ins;
+          }
+          T("mn" + i, t.length > 21 ? t.slice(0, 20) + "…" : t);
+          g.classList.toggle("sel", sel);
+          g.classList.toggle("wm", sel && VM.selw);
+          g.classList.toggle("chg", ok && v !== (A.mem.get(a) || 0));
+          [["dl", "on"], ["rs", "on"]].forEach(([p, c]) => {
+            const e = document.getElementById(p + i);
+            if (e) e.classList.toggle(c, sel);
+          });
+        }
+      }
+      function paintCtl() {
+        const g = document.getElementById("cfd");
+        if (!g) return;
+        const d = VM.dec;
+        T("cmn", d ? d.mn : "");
+        T("cop", d ? OPX(d.op).slice(0, 44) : "");
+        T("cin", d ? d.info : "");
+        if (!d) {
+          g.innerHTML = "";
+          return;
+        }
+        const tot = d.f.reduce((a, f) => a + Math.max(f.b, 6), 0);
+        let x = 62,
+          s = "";
+        d.f.forEach((f, i) => {
+          const w = (252 * Math.max(f.b, 6)) / tot;
+          s += `<g id="cf${i}"><rect class="f-${f.t}" x="${x}" y="180" width="${w}" height="34"/><text class="fn" x="${x + w / 2}" y="194">${E(f.n)}</text><text class="fv" x="${x + w / 2}" y="208">${E(f.v)}</text></g>`;
+          x += w;
+        });
+        g.innerHTML = s;
+      }
+      function hlField(name) {
+        const d = VM.dec;
+        if (!d) return;
+        d.f.forEach((f, i) => {
+          const e = document.getElementById("cf" + i);
+          if (e) e.classList.toggle("hot", f.n === name);
+        });
+      }
+      function paintAll() {
+        const m = cur(),
+          hd = Math.ceil(m.a / 4),
+          rd = Math.ceil(m.rb / 4),
+          n = Math.min(m.rc, 16);
+        T("pcv", H(VM.pc, hd));
+        T("irv", VM.ir || "—");
+        paintMar();
+        T("mbrv", VM.mbr == null ? "—" : H(VM.mbr, Math.ceil(m.w / 4)));
+        for (let i = 0; i < n; i++) {
+          if (i === 15 && VM.alias != null && VM.alias >= 16) {
+            T("rc15", "");
+            const g = document.getElementById("rc15");
+            if (g) g.querySelector(".bl").textContent = rnm(m, VM.alias);
+            T("rc15v", H(VM.regs[VM.alias] || 0, rd));
+          } else {
+            const g = document.getElementById("rc" + i);
+            if (g) g.querySelector(".bl").textContent = rnm(m, i);
+            T("rc" + i + "v", H(VM.regs[i] || 0, rd));
+          }
+        }
+        Object.keys(A.P.SP)
+          .slice(0, 8)
+          .forEach((nm, j) =>
+            T("sc" + j + "v", H(VM.sp[nm] || 0, Math.ceil((A.P.SP[nm] || m.w) / 4))),
+          );
+        paintMem();
+        paintCtl();
+      }
+      function paintMar() {
+        const m = cur();
+        T("marv", VM.mar == null ? "—" : H(VM.mar, Math.ceil(m.a / 4)));
+        let b = VM.mar == null ? "" : VM.mar.toString(2).padStart(m.a, "0");
+        if (b.length > 16) b = "…" + b.slice(-16);
+        T("marb", b);
+      }
+      /* ----- explanation panel ----- */
+      function lightPaths(ps) {
+        document
+          .querySelectorAll(".bd,.pl")
+          .forEach((e) => e.classList.toggle("on", ps.includes(+e.dataset.p)));
+      }
+      function light(ids = [], ps = [], col) {
+        document.querySelectorAll(".wr").forEach((e) => e.classList.remove("on"));
+        ids.forEach((i) => {
+          const e = document.getElementById(i);
+          if (e) {
+            if (col) e.style.setProperty("--wc", col);
+            e.classList.add("on");
+          }
+        });
+        lightPaths(ps);
+      }
+      function note(title, body, ps = []) {
+        const t = document.getElementById("nt"),
+          b = document.getElementById("nb"),
+          lg = document.getElementById("lg");
+        if (t) t.innerHTML = title;
+        if (b) b.innerHTML = body;
+        lightPaths(ps);
+        if (lg) {
+          lg.insertAdjacentHTML(
+            "beforeend",
+            `<div>${ps.map((p) => `<span class="chip" style="border-color:${PCOL[p]}">${p}</span>`).join("")} <b>${title}</b></div>`,
+          );
+          while (lg.children.length > 120) lg.firstChild.remove();
+          lg.scrollTop = lg.scrollHeight;
+        }
+      }
+      /* ----- animation engine ----- */
+      function mkEng() {
+        const G = AN.gen,
+          chk = () => {
+            if (G !== AN.gen) throw "stop";
+          };
+        const gate = async () => {
+          chk();
+          if (AN.manual) {
+            refreshCtl(true);
+            await new Promise((r) => (AN.gate = r));
+            AN.gate = null;
+            refreshCtl();
+            chk();
+          }
+          while (AN.paused) {
+            await new Promise((r) => setTimeout(r, 80));
+            chk();
+          }
+        };
+        const wait = async (ms) => {
+          chk();
+          await new Promise((r) => setTimeout(r, ms / AN.speed));
+          chk();
+        };
+        const fly = (pts, label, col, ms = 650) => {
+          const layer = document.getElementById("pkl");
+          if (!layer || !pts || pts.length < 2) return Promise.resolve();
+          const seg = [];
+          let tot = 0;
+          for (let i = 1; i < pts.length; i++) {
+            const l = Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1]);
+            seg.push(l);
+            tot += l;
+          }
+          const w = String(label).length * 7.4 + 16,
+            g = document.createElementNS(NS, "g");
+          g.setAttribute("class", "pk");
+          g.innerHTML = `<rect x="${-w / 2}" y="-11" width="${w}" height="22" rx="11" fill="${col}"/><text y="4">${E(label)}</text>`;
+          layer.appendChild(g);
+          const place = (d) => {
+            let i = 0;
+            while (i < seg.length - 1 && d > seg[i]) {
+              d -= seg[i];
+              i++;
+            }
+            const f = seg[i] ? Math.min(1, d / seg[i]) : 1,
+              x = pts[i][0] + (pts[i + 1][0] - pts[i][0]) * f,
+              y = pts[i][1] + (pts[i + 1][1] - pts[i][1]) * f;
+            g.setAttribute("transform", `translate(${x},${y})`);
+          };
+          place(0);
+          const D = Math.max(300, (ms * Math.max(0.6, tot / 300)) / AN.speed);
+          return new Promise((res) => {
+            const t0 = performance.now();
+            const f = (t) => {
+              const p = Math.min(1, (t - t0) / D),
+                e = p < 0.5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2;
+              place(e * tot);
+              if (p < 1 && G === AN.gen) requestAnimationFrame(f);
+              else {
+                g.remove();
+                res();
+              }
+            };
+            requestAnimationFrame(f);
+          });
+        };
+        return { G, chk, gate, wait, fly };
+      }
+      async function micro(E_, title, body, ps, fn) {
+        await E_.gate();
+        note(title, body, ps);
+        await fn();
+        await E_.wait(180);
+      }
+      async function guard(fn, after) {
+        if (AN.busy) return;
+        const E_ = mkEng();
+        AN.busy = true;
+        AN.busyG = E_.G;
+        try {
+          await fn(E_);
+        } catch (e) {
+          if (e !== "stop") console.error(e);
+        } finally {
+          if (AN.busyG === E_.G) AN.busy = false;
+          if (after && E_.G === AN.gen) after();
+          refreshCtl();
+        }
+      }
+      function refreshCtl(waiting) {
+        const b = document.getElementById("bmicro"),
+          n = document.getElementById("annext"),
+          p = document.getElementById("bpause");
+        if (b) b.textContent = AN.manual ? "گام ریز: روشن" : "گام ریز: خاموش";
+        if (b) b.classList.toggle("pr", AN.manual);
+        if (n) {
+          n.hidden = !AN.manual;
+          n.classList.toggle("pr", !!waiting);
+        }
+        if (p) p.textContent = AN.paused ? "▶ ادامه" : "⏸ مکث";
+        const c = document.getElementById("stc");
+        if (c && sim) c.textContent = sim.steps;
+      }
+      /* ----- CPU animation: routes ----- */
+      const aluX = (sl) => (sl === "A" ? 438 : 546);
+      const ROUTE = {
+        pc: [[114, 112], [114, 58], [690, 58], [690, 100]],
+        ir: [[250, 158], [250, 58], [690, 58], [690, 100]],
+        mbr: [[690, 240], [690, 144]],
+        alu: [[552, 129], [626, 129], [626, 122], [640, 122]],
+        reg: (c) => [c, [c[0], 358], [626, 358], [626, 122], [640, 122]],
+      };
+      const busPts = (i, rd) => {
+        const y = rowY(i) + 15,
+          p = [[1047, y], [1250, y], [1250, 574], [780, 574], [780, 268], [740, 268]];
+        return rd ? p : p.slice().reverse();
+      };
+      const toAlu = (src, sl, c) => {
+        const ax = aluX(sl);
+        if (src === "mbr") return [[640, 288], [620, 288], [620, 322], [ax, 322], [ax, 306]];
+        if (src === "ir") return [[314, 203], [350, 203], [350, 322], [ax, 322], [ax, 306]];
+        if (src === "pc") return [[176, 130], [358, 130], [358, 322], [ax, 322], [ax, 306]];
+        return [c, [c[0], 358], [ax, 358], [ax, 306]];
+      };
+      const aluOut = (kind, c) => {
+        if (kind === "mbr") return [[552, 129], [626, 129], [626, 262], [640, 262]];
+        if (kind === "pc") return [[492, 112], [492, 68], [150, 68], [150, 112]];
+        return [[552, 129], [626, 129], [626, 358], [c[0], 358], c];
+      };
+      const lamp = (id, on) => {
+        const e = document.getElementById(id);
+        if (e) e.classList.toggle("on", on);
+      };
+      const selRange = (a, k) => {
+        const AM = 2 ** cur().a;
+        return Array.from({ length: k }, (_, j) => (a + j) % AM);
+      };
+      const regName = (m, i) => rnm(m, i);
+      const regCell = (m, i) => {
+        if (i >= 16) {
+          VM.alias = i;
+          paintAll();
+        }
+        return cellC("r", i);
+      };
+      /* decoder + memory read / write (shared by fetch and data access) */
+      async function stepDecoder(E_, m, a, k, wr, p, title, body) {
+        await micro(E_, title, body, [p], async () => {
+          focus(a);
+          light(["wadr"], [p]);
+          await E_.fly([[740, 122], [806, 122]], "addr", "#7c6cff", 380);
+          VM.sel = selRange(a, k);
+          VM.selw = wr;
+          paintMem();
+        });
+      }
+      async function stepRead(E_, m, a, p, title, body) {
+        const k = kk(m);
+        await micro(E_, title, body, [p], async () => {
+          const i = a - VM.win,
+            v = rw(m, { mem: VM.mem }, a);
+          lamp("lmR", true);
+          light(["wdbus", "wdv"], [p], PCOL[p]);
+          await E_.wait(350);
+          await E_.fly(busPts(Math.max(0, Math.min(11, i)), true), hv(v), PCOL[p], 900);
+          VM.mbr = v;
+          T("mbrv", H(v, Math.ceil(m.w / 4)));
+          fl("mbr");
+          lamp("lmR", false);
+        });
+        return rw(m, { mem: VM.mem }, a);
+      }
+      async function stepWrite(E_, m, a, v, p, title, body) {
+        await micro(E_, title, body, [p], async () => {
+          const i = a - VM.win;
+          lamp("lmW", true);
+          light(["wdbus", "wdv"], [p], PCOL[p]);
+          await E_.wait(350);
+          await E_.fly(busPts(Math.max(0, Math.min(11, i)), false), hv(v), PCOL[p], 900);
+          ww(m, { mem: VM.mem }, a, v);
+          paintMem();
+          lamp("lmW", false);
+        });
+      }
+      async function toMAR(E_, m, it, a, why) {
+        let route, wires, title, body;
+        if (it.src === "pc") {
+          route = ROUTE.pc;
+          wires = ["wpc", "wmf"];
+          title = "MAR ← (PC)";
+          body = why;
+        } else if (it.src === "reg") {
+          route = ROUTE.reg(regCell(m, it.i));
+          wires = [];
+          title = `MAR ← (${E(regName(m, it.i))})`;
+          body = `آدرس داده در ثبات <b>${E(regName(m, it.i))}</b> است (آدرس‌دهی غیرمستقیم با ثبات): مقدار <code>${H(a)}</code> به MAR می‌رود.`;
+        } else if (it.src === "mbr") {
+          route = ROUTE.mbr;
+          wires = [];
+          title = "MAR ← (MBR)";
+          body = `مقداری که همین الان از حافظه خوانده شد (<code>${H(a)}</code>) خودش یک آدرس است (آدرس‌دهی غیرمستقیم)؛ از MBR به MAR برمی‌گردد.`;
+        } else if (it.src === "alu") {
+          route = ROUTE.alu;
+          wires = ["w2r"];
+          title = "MAR ← نتیجهٔ ALU";
+          body = `آدرس مؤثر در ALU محاسبه شد (<code>${H(a)}</code>) و حالا در MAR قرار می‌گیرد.`;
+        } else {
+          route = ROUTE.ir;
+          wires = ["wctl", "wmf"];
+          title = "MAR ← آدرسِ داخل دستور";
+          body = `فیلد <b>${E(it.n || "addr")}</b> در IR آدرس عملوند را دارد (<code>${H(a)}</code>)؛ برای دسترسی به حافظه به MAR می‌رود.`;
+          if (it.n) hlField(it.n);
+        }
+        await micro(E_, title, body, [], async () => {
+          light(wires, []);
+          await E_.fly(route, H(a), "#7c6cff", 700);
+          VM.mar = a;
+          paintMar();
+          fl("mar");
+          focus(a);
+        });
+      }
+      /* ----- fetch ----- */
+      async function fetchPhase(E_, m, L) {
+        const w = m.w,
+          k = kk(m),
+          AM = 2 ** m.a,
+          bits = L.I.bits,
+          n = Math.ceil(bits / w),
+          hxl = Math.ceil(bits / 4),
+          full = L.V.toString(16).toUpperCase().padStart(hxl, "0");
+        VM.ir = "";
+        VM.dec = null;
+        T("irv", "—");
+        paintCtl();
+        for (let j = 0; j < n; j++) {
+          const addr = (L.pc + j * k) % AM,
+            tag = n > 1 ? ` (دسترسی ${j + 1} از ${n})` : "";
+          await toMAR(
+            E_,
+            m,
+            { src: "pc" },
+            addr,
+            j === 0
+              ? `آدرس دستور بعدی در PC است (<code>${H(addr)}</code>). برای خواندنش از حافظه، اول آن را در MAR می‌گذاریم: <code>MAR ← (PC)</code>. <b>مسیر ۱ — واکشی</b>`
+              : `این دستور ${bits} بیت است و از عرض دسترسی (${w} بیت) بلندتر؛ کلمهٔ بعدی از آدرس <code>${H(addr)}</code> خوانده می‌شود: <code>MAR ← (PC) + ${j * k}</code>.`,
+          );
+          await stepDecoder(
+            E_, m, addr, k, false, 1,
+            `DECODER${tag}`,
+            `آدرس <code>${H(addr)}</code> (${m.a} بیت) از MAR به DECODER می‌رود. دیکدر یکی از ${2 ** m.a > 1e6 ? "۲^" + m.a : 2 ** m.a} خروجی را فعال می‌کند و ${k > 1 ? k + " خانهٔ پشت‌سرهم" : "خانهٔ"} <b>${selRange(addr, k).map((x) => H(x, Math.ceil(m.a / 4))).join(" ، ")}</b> انتخاب می‌شود.`,
+          );
+          const v = await stepRead(
+            E_, m, addr, 1,
+            `Read${tag}`,
+            `سیگنال <b>Read</b> فعال می‌شود: <code>MBR ← (M(MAR))</code>. محتوای ${k} خانه (${w} بیت) = <code>${hv(rw(m, { mem: VM.mem }, addr))}</code> روی گذرگاه داده به MBR می‌آید.`,
+          );
+          const got = Math.min(bits, (j + 1) * w),
+            part = full.slice(0, Math.ceil(got / 4)) + (got < bits ? "…" : "");
+          await micro(
+            E_, `MBR → IR${tag}`,
+            `محتوای MBR در ثبات دستور <b>IR</b> قرار می‌گیرد و (مسیر ۱) به واحد کنترل CU می‌رسد. IR تا اینجا: <code>${part}</code>`,
+            [1],
+            async () => {
+              light(["w1"], [1]);
+              await E_.fly([[650, 296], [650, 352], [188, 352], [188, 316]], hv(v), PCOL[1], 800);
+              VM.ir = part;
+              T("irv", part);
+              fl("ir");
+            },
+          );
+        }
+        VM.sel = [];
+        paintMem();
+        await micro(
+          E_, "PC ← PC + طول دستور",
+          `دستور ${L.I.sz} خانه (${bits} بیت) است؛ PC به دستور بعدی اشاره می‌کند: <code>${H(L.pc)} → ${H((L.pc + L.I.sz) % AM)}</code>. (در زمان اجرا PC از قبل به دستور بعدی اشاره دارد.)`,
+          [],
+          async () => {
+            light([], []);
+            VM.pc = (L.pc + L.I.sz) % AM;
+            T("pcv", H(VM.pc, Math.ceil(m.a / 4)));
+            fl("pc");
+            paintMem();
+          },
+        );
+      }
+      /* ----- decode ----- */
+      const modeOf = (I) => {
+        const s = I.s;
+        if (/#/.test(s)) return "فوری (Immediate)";
+        if (/\w\(\s*\w+\s*(,\s*\w+\s*)?\)/.test(s.replace(/^\S+\s*/, ""))) return "اندیس‌دار / پایه (Indexed)";
+        if (/\(/.test(s)) return "غیرمستقیم (Indirect)";
+        if (Object.values(I.ft).includes("reg") && !Object.values(I.ft).includes("addr")) return "ثبات (Register)";
+        return "مستقیم (Direct)";
+      };
+      async function decodePhase(E_, m, L) {
+        const I = L.I,
+          fv = L.fv,
+          ob = I.f.f.filter((f) => f.t === "opcode").map((f) => fv[f.n].toString(2).padStart(f.b, "0")).join(""),
+          opers = I.f.f.filter((f) => f.t !== "opcode").length;
+        await micro(
+          E_, "Decode — شناسایی دستور در CU",
+          `CU بیت‌های opcode (<code>${ob}</code>) را در جدول دستورات پیدا می‌کند: <code>${E(I.s)}</code>. Opcode این اطلاعات را می‌دهد: <ul style="margin:4px 0 0;padding-inline-start:18px"><li>نوع عملیات: <code>${E(OPX(I.op || ""))}</code></li><li>قالب: ${E(I.f.n)} — ${opers} فیلد عملوند — طول ${I.bits} بیت (${I.sz} خانه)</li><li>حالت آدرس‌دهی: ${modeOf(I)}</li></ul>`,
+          [],
+          async () => {
+            VM.dec = {
+              mn: I.s,
+              op: I.op || "",
+              info: `${I.f.n} · ${I.bits} bit · opcode=${ob}`,
+              f: I.f.f.map((f) => ({
+                n: f.n,
+                t: f.t,
+                b: f.b,
+                v: f.t === "reg" ? rnm(m, fv[f.n]) : H(fv[f.n], Math.ceil(f.b / 4)),
+              })),
+            };
+            paintCtl();
+            fl("ctl");
+          },
+        );
+      }
+      /* ----- execute (driven by the recorded trace) ----- */
+      async function execPhase(E_, m, L, tr) {
+        const I = L.I;
+        let adrQ = [],
+          st = { A: null, B: null, res: null };
+        const clr = () => {
+          st = { A: null, B: null, res: null };
+          ["A", "B", "R"].forEach((x) => T("al" + x + "v", "—"));
+          T("aop", "");
+          const f = document.getElementById("alf");
+          if (f) f.classList.remove("fl");
+        };
+        const slot = () => (st.A === null ? "A" : "B");
+        const put = (sl, v) => {
+          st[sl] = v;
+          T("al" + sl + "v", hv(v));
+          fl("al" + sl);
+        };
+        const sw = (e) => OPS[e] || e;
+        clr();
+        let lastV = null;
+        for (const ev of tr) {
+          if (ev.k === "adr") {
+            adrQ.push({ src: "ir", n: ev.n, v: ev.v });
+          } else if (ev.k === "rr" && ev.adr) {
+            adrQ.push({ src: "reg", i: ev.i, v: ev.v });
+          } else if (ev.k === "rr") {
+            const sl = slot(),
+              c = regCell(m, ev.i);
+            await micro(
+              E_, `ثبات ${E(regName(m, ev.i))} → ALU`,
+              `مقدار ثبات <b>${E(regName(m, ev.i))}</b> (<code>${hv(ev.v)}</code>) از Register File به ورودی ${sl} در ALU می‌رود. این انتقال داخل CPU است و به حافظه نیاز ندارد.`,
+              [],
+              async () => {
+                light([], []);
+                await E_.fly(toAlu("reg", sl, c), hv(ev.v), "#12b5a0", 750);
+                put(sl, ev.v);
+              },
+            );
+            lastV = ev.v;
+          } else if (ev.k === "sr") {
+            const sl = slot();
+            await micro(
+              E_, `${E(ev.n)} → ALU`,
+              `مقدار ثبات ویژهٔ <b>${E(ev.n)}</b> (<code>${hv(ev.v)}</code>) به ALU می‌رود.`,
+              [],
+              async () => {
+                const j = Object.keys(A.P.SP).slice(0, 8).indexOf(ev.n);
+                await E_.fly(ev.n === "PC" ? toAlu("pc", sl) : toAlu("s", sl, cellC("s", Math.max(0, j))), hv(ev.v), "#12b5a0", 750);
+                put(sl, ev.v);
+              },
+            );
+            lastV = ev.v;
+          } else if (ev.k === "imm") {
+            const sl = slot();
+            await micro(
+              E_, `داده فوری ${E(ev.n)} → ALU (مسیر ۴)`,
+              `مقدار <b>${E(ev.n)}</b> = <code>${hv(ev.v)}</code> داخل خود دستور است؛ بدون دسترسی به حافظه مستقیم از IR/CU به ALU می‌رود. <b>مسیر ۴ — Special data access</b>`,
+              [4],
+              async () => {
+                hlField(ev.n);
+                light(["w4"], [4]);
+                await E_.fly(toAlu("ir", sl), hv(ev.v), PCOL[4], 800);
+                put(sl, ev.v);
+              },
+            );
+            lastV = ev.v;
+          } else if (ev.k === "mr") {
+            const it = adrQ.length ? adrQ.pop() : { src: "ir", n: null, v: ev.a };
+            adrQ = [];
+            await toMAR(E_, m, it, ev.a);
+            await stepDecoder(
+              E_, m, ev.a, kk(m), false, 2, "DECODER · خانهٔ داده",
+              `دیکدر خانهٔ <b>${H(ev.a, Math.ceil(m.a / 4))}</b> را انتخاب می‌کند تا عملوند خوانده شود.`,
+            );
+            await stepRead(
+              E_, m, ev.a, 2, "Read · داده → MBR",
+              `سیگنال Read: <code>MBR ← (M(MAR))</code> = <code>${hv(ev.v)}</code>. <b>مسیر ۲ — Data access</b>`,
+            );
+            if (ev.adr) {
+              adrQ.push({ src: "mbr", v: ev.v });
+            } else {
+              const sl = slot();
+              await micro(
+                E_, `MBR → ALU (مسیر ۲)`,
+                `داده از MBR به ورودی ${sl} در ALU می‌رود تا عملیات روی آن انجام شود.`,
+                [2],
+                async () => {
+                  light(["w2a"], [2]);
+                  await E_.fly(toAlu("mbr", sl), hv(ev.v), PCOL[2], 750);
+                  put(sl, ev.v);
+                },
+              );
+              lastV = ev.v;
+            }
+          } else if (ev.k === "alu" && ev.adr) {
+            clr();
+            const n = ev.b === undefined ? 1 : 2,
+              its = adrQ.splice(-n);
+            for (const it of its) {
+              const sl = slot(),
+                c = it.src === "reg" ? regCell(m, it.i) : null;
+              await micro(
+                E_, `عنصر آدرس → ALU`,
+                `برای محاسبهٔ آدرس مؤثر، مقدار <code>${hv(it.v)}</code> ${it.src === "reg" ? "از ثبات " + E(regName(m, it.i)) : it.src === "mbr" ? "از MBR" : "از فیلد دستور"} به ALU می‌رود.`,
+                it.src === "ir" ? [4] : it.src === "mbr" ? [2] : [],
+                async () => {
+                  light(it.src === "ir" ? ["w4"] : it.src === "mbr" ? ["w2a"] : [], it.src === "ir" ? [4] : it.src === "mbr" ? [2] : []);
+                  await E_.fly(toAlu(it.src, sl, c), hv(it.v), "#12b5a0", 750);
+                  put(sl, it.v);
+                },
+              );
+            }
+            await micro(
+              E_, `ALU: آدرس مؤثر`,
+              `CU فرمان <code>${sw(ev.o)}</code> را می‌دهد (مسیر ۳) و ALU آدرس مؤثر را حساب می‌کند: <code>${hv(ev.r)}</code>.`,
+              [3],
+              async () => {
+                light(["w3"], [3]);
+                await E_.fly([[324, 172], [380, 172], [380, 186], [436, 186]], sw(ev.o), PCOL[3], 600);
+                T("aop", sw(ev.o));
+                T("alRv", hv(ev.r));
+                st.res = ev.r;
+                fl("alR");
+                fl("alf");
+              },
+            );
+            adrQ.push({ src: "alu", v: ev.r });
+          } else if (ev.k === "alu") {
+            const two = ev.b !== undefined;
+            await micro(
+              E_, `CU → ALU : ${sw(ev.o)} (مسیر ۳)`,
+              ev.cmp
+                ? `CU فرمان مقایسه <code>${sw(ev.o)}</code> را به ALU می‌دهد. نتیجه (۱ = برقرار، ۰ = برقرار نیست) = <code>${ev.r}</code>. <b>مسیر ۳ — Command</b>`
+                : `CU کد عمل را (از opcode دستور) به ALU می‌فرستد: <code>${hv(ev.a)} ${sw(ev.o)}${two ? " " + hv(ev.b) : ""}</code> = <code>${hv(ev.r)}</code>. <b>مسیر ۳ — Command</b>`,
+              [3],
+              async () => {
+                if (st.A === null) put("A", ev.a);
+                if (two && st.B === null) put("B", ev.b);
+                light(["w3"], [3]);
+                await E_.fly([[324, 172], [380, 172], [380, 186], [436, 186]], sw(ev.o), PCOL[3], 650);
+                T("aop", sw(ev.o));
+                T("alRv", ev.cmp ? String(ev.r) : hv(ev.r));
+                st.res = ev.r;
+                fl("alR");
+                fl("alf");
+              },
+            );
+            lastV = ev.r;
+          } else if (ev.k === "br") {
+            await micro(
+              E_, ev.t ? "شرط برقرار است" : "شرط برقرار نیست",
+              ev.t ? "نتیجهٔ مقایسه درست است؛ دستور بعد از <code>then</code> اجرا می‌شود." : "شرط برقرار نیست؛ هیچ تغییری در PC نمی‌دهیم و برنامه به دستور بعدی می‌رود.",
+              [],
+              async () => {
+                fl("alR");
+              },
+            );
+          } else if (ev.k === "mw") {
+            const it = adrQ.length ? adrQ.pop() : { src: "ir", n: null, v: ev.a };
+            adrQ = [];
+            await toMAR(E_, m, it, ev.a);
+            if (st.res === null) {
+              T("alRv", hv(ev.v));
+              st.res = ev.v;
+            }
+            await micro(
+              E_, "نتیجه → MBR (مسیر ۲)",
+              `نتیجه (<code>${hv(ev.v)}</code>) از ALU به MBR منتقل می‌شود تا در حافظه نوشته شود.${st.res === lastV && !st.A ? "" : ""}`,
+              [2],
+              async () => {
+                light(["w2r"], [2]);
+                await E_.fly(aluOut("mbr"), hv(ev.v), PCOL[2], 700);
+                VM.mbr = ev.v;
+                T("mbrv", H(ev.v, Math.ceil(m.w / 4)));
+                fl("mbr");
+              },
+            );
+            await stepDecoder(
+              E_, m, ev.a, kk(m), true, 2, "DECODER · خانهٔ مقصد",
+              `دیکدر خانهٔ مقصد <b>${H(ev.a, Math.ceil(m.a / 4))}</b> را انتخاب می‌کند.`,
+            );
+            await stepWrite(
+              E_, m, ev.a, ev.v, 2, "Write · MBR → حافظه",
+              `سیگنال <b>Write</b> فعال می‌شود: <code>M(MAR) ← (MBR)</code>. مقدار <code>${hv(ev.v)}</code> در خانهٔ ${H(ev.a, Math.ceil(m.a / 4))} نوشته شد. <b>مسیر ۲ — Data access</b>`,
+            );
+            VM.sel = [];
+            paintMem();
+            clr();
+          } else if (ev.k === "rw") {
+            const c = regCell(m, ev.i);
+            if (st.res === null) {
+              T("alRv", hv(ev.v));
+              st.res = ev.v;
+            }
+            await micro(
+              E_, `نتیجه → ثبات ${E(regName(m, ev.i))}`,
+              `نتیجهٔ ALU (<code>${hv(ev.v)}</code>) در ثبات <b>${E(regName(m, ev.i))}</b> نوشته می‌شود. نوشتن در ثبات داخل CPU انجام می‌شود و به حافظه دسترسی ندارد.`,
+              [],
+              async () => {
+                light([], []);
+                await E_.fly(aluOut("reg", c), hv(ev.v), "#12b5a0", 800);
+                VM.regs[ev.i] = ev.v;
+                paintAll();
+                fl(ev.i < 16 ? "rc" + ev.i : "rc15");
+              },
+            );
+            clr();
+          } else if (ev.k === "sw") {
+            if (st.res === null) {
+              T("alRv", hv(ev.v));
+              st.res = ev.v;
+            }
+            if (ev.n === "PC") {
+              await micro(
+                E_, "پرش: PC ← مقصد",
+                `مقدار جدید <code>${H(ev.v, Math.ceil(m.a / 4))}</code> از ALU در PC نوشته می‌شود؛ دستور بعدی از این آدرس واکشی خواهد شد.`,
+                [],
+                async () => {
+                  light(["walu"], []);
+                  await E_.fly(aluOut("pc"), H(ev.v, Math.ceil(m.a / 4)), PCOL[3], 800);
+                  VM.pc = ev.v;
+                  T("pcv", H(ev.v, Math.ceil(m.a / 4)));
+                  fl("pc");
+                  focus(ev.v);
+                  paintMem();
+                },
+              );
+            } else {
+              const j = Object.keys(A.P.SP).slice(0, 8).indexOf(ev.n);
+              await micro(
+                E_, `نتیجه → ${E(ev.n)}`,
+                `نتیجه در ثبات ویژهٔ <b>${E(ev.n)}</b> نوشته می‌شود.`,
+                [],
+                async () => {
+                  light([], []);
+                  if (j >= 0) await E_.fly(aluOut("reg", cellC("s", j)), hv(ev.v), "#12b5a0", 800);
+                  VM.sp[ev.n] = ev.v;
+                  paintAll();
+                  if (j >= 0) fl("sc" + j);
+                },
+              );
+            }
+            clr();
+          } else if (ev.k === "halt") {
+            await micro(E_, "halt", "دستور <code>halt</code> اجرای برنامه را متوقف کرد.", [], async () => {});
+          }
+        }
+      }
+      /* ----- one instruction ----- */
+      async function animStep() {
+        if (!sim) return;
+        if (sim.halted) {
+          note("پایان برنامه", E(sim.msg || "برنامه متوقف شده است. با «بازنشانی» از اول شروع کنید."), []);
+          return;
+        }
+        await guard(
+          async (E_) => {
+            const m = cur(),
+              s = sim;
+            if (!VM || VM.sim !== s) initVM();
+            step1();
+            const L = s.last,
+              tr = s.tr || [];
+            if (!L) {
+              note("پایان برنامه", E(s.msg || ""), []);
+              syncVM();
+              paintAll();
+              return;
+            }
+            await fetchPhase(E_, m, L);
+            await decodePhase(E_, m, L);
+            await execPhase(E_, m, L, tr);
+            syncVM();
+            paintAll();
+            light([], []);
+            document.querySelectorAll(".pl").forEach((e) => e.classList.remove("on"));
+            note(
+              `پایان دستور ${s.steps}`,
+              `<code>${E(L.I.s)}</code> کامل شد. PC = <code>${H(s.sp.PC, Math.ceil(m.a / 4))}</code>${s.halted ? "<br><b>" + E(s.msg || "برنامه متوقف شد.") + "</b>" : ""}`,
+              [],
+            );
+          },
+          () => {
+            syncVM();
+            paintAll();
+          },
+        );
+      }
+      async function animAuto() {
+        if (AN.auto) {
+          AN.auto = false;
+          return;
+        }
+        AN.auto = true;
+        const g = AN.gen;
+        T("bauto", "⏹ توقف");
+        while (AN.auto && g === AN.gen && sim && !sim.halted) {
+          await animStep();
+          while (AN.busy && g === AN.gen) await new Promise((r) => setTimeout(r, 40));
+        }
+        AN.auto = false;
+        T("bauto", "⏵ اجرای پیوسته");
+      }
+      function animFast() {
+        AN.gen++;
+        AN.busy = false;
+        AN.auto = false;
+        if (AN.gate) AN.gate();
+        if (!VM || VM.sim !== sim) initVM();
+        let n = 0;
+        while (!sim.halted && n++ < 100000) step1();
+        syncVM();
+        mountCpu();
+        note("پرش به پایان", `برنامه بدون انیمیشن تا پایان اجرا شد (${sim.steps} گام). ${E(sim.msg || "")}`, []);
+      }
+      /* ----- path demos (do not change machine state) ----- */
+      async function demo(p) {
+        await guard(async (E_) => {
+          const m = cur(),
+            hd = Math.ceil(m.a / 4);
+          if (!VM || VM.sim !== sim) initVM();
+          const pc = VM.pc,
+            dataA = (A.syms.find(([n, l]) => !A.locs.has(l)) || [0, pc])[1];
+          const info = PINFO[p];
+          const head = `<b>مسیر ${p} — ${info[0]}</b> <small style="color:var(--m)">${info[1]}</small><br>`;
+          if (p === 1) {
+            await micro(E_, `نمایش مسیر ۱ — ${info[0]}`, head + info[2], [1], async () => {
+              focus(pc);
+              VM.sel = selRange(pc, kk(m));
+              VM.selw = false;
+              paintMem();
+              light(["wdbus", "wdv", "w1"], [1], PCOL[1]);
+              await E_.fly(busPts(Math.max(0, pc - VM.win), true), "instr", PCOL[1], 900);
+              await E_.fly([[650, 296], [650, 352], [188, 352], [188, 316]], "instr", PCOL[1], 800);
+              fl("ir");
+              fl("ctl");
+            });
+          } else if (p === 2) {
+            await micro(E_, `نمایش مسیر ۲ — ${info[0]}`, head + info[2], [2], async () => {
+              focus(dataA);
+              VM.sel = selRange(dataA, kk(m));
+              paintMem();
+              light(["wdbus", "wdv", "w2a", "w2r"], [2], PCOL[2]);
+              await E_.fly(busPts(Math.max(0, dataA - VM.win), true), "data", PCOL[2], 800);
+              await E_.fly(toAlu("mbr", "B"), "data", PCOL[2], 700);
+              fl("alf");
+              await E_.fly(aluOut("mbr"), "result", PCOL[2], 700);
+              await E_.fly(busPts(Math.max(0, dataA - VM.win), false), "result", PCOL[2], 800);
+              fl("mbr");
+            });
+          } else if (p === 3) {
+            await micro(E_, `نمایش مسیر ۳ — ${info[0]}`, head + info[2] + "<br>بالا: CU → ALU (کد عمل). پایین: CU ↔ I/O (فرمان و وضعیت).", [3], async () => {
+              light(["w3", "w3io"], [3], PCOL[3]);
+              await E_.fly([[324, 172], [380, 172], [380, 186], [436, 186]], "opcode", PCOL[3], 700);
+              fl("alf");
+              await E_.fly([[36, 300], [6, 300], [6, 682], [60, 682]], "command", PCOL[3], 900);
+              await E_.fly([[60, 694], [6, 694], [6, 310], [36, 310]], "status", PCOL[3], 900);
+              fl("ctl");
+            });
+          } else if (p === 4) {
+            await micro(E_, `نمایش مسیر ۴ — ${info[0]}`, head + info[2], [4], async () => {
+              light(["w4"], [4], PCOL[4]);
+              await E_.fly(toAlu("ir", "A"), "#data", PCOL[4], 800);
+              fl("alA");
+            });
+          } else if (p === 5) {
+            await micro(E_, `نمایش مسیر ۵ — ${info[0]}`, head + info[2], [5], async () => {
+              light(["w5"], [5], PCOL[5]);
+              const c = m.rc ? cellC("r", 0) : [400, 420];
+              await E_.fly([[400, 640], [400, 564], [400, 540], [c[0], 540], c], "in", PCOL[5], 900);
+              await E_.fly([c, [c[0], 540], [400, 540], [400, 564], [400, 640]], "out", PCOL[5], 900);
+            });
+          } else {
+            await micro(E_, `نمایش مسیر ۶ — ${info[0]}`, head + info[2] + "<br>توجه کنید: CPU در این انتقال شرکت ندارد.", [6], async () => {
+              focus(dataA);
+              light(["w6", "wdv"], [6], PCOL[6]);
+              for (let q = 0; q < 3; q++) {
+                const i = Math.max(0, Math.min(11, dataA - VM.win + q));
+                VM.sel = [VM.win + i];
+                VM.selw = true;
+                paintMem();
+                await E_.fly([[900, 682], [1160, 682], [1160, 552], [1160, rowY(i) + 15], [1047, rowY(i) + 15]], "DMA", PCOL[6], 700);
+              }
+              VM.sel = [];
+              VM.selw = false;
+              paintMem();
+            });
+          }
+          light([], []);
+        });
+      }
+      /* ----- views ----- */
+      const pills = () =>
+        `<div class="pills">${[["tbl", "📋 جدولی (ثبات‌ها و حافظه)"], ["cpu", "🎬 انیمیشن CPU · حافظه · مسیرها"], ["mem", "🧪 آزمایشگاه حافظه (MAR / MBR / Decoder)"]].map(([k, t]) => `<button class="pill ${SM === k ? "on" : ""}" data-act="smode:${k}">${t}</button>`).join("")}</div>`;
+      function rSim(m) {
+        if (!sim) resetSim();
+        return pills() + (SM === "cpu" ? rCpu(m) : SM === "mem" ? rLab(m) : rSimTbl(m));
+      }
+      function rCpu(m) {
+        const bt = (id, a, t, c = "") => `<button class="bt ${c}" id="${id}" data-act="${a}">${t}</button>`;
+        let h = `<section class="card gx"><div class="sw">${bt("", "anstep", "▶ اجرای یک دستور", "pr").replace('id=""', "")}${bt("bauto", "anauto", AN.auto ? "⏹ توقف" : "⏵ اجرای پیوسته")}${bt("bpause", "anpause", "⏸ مکث")}${bt("bmicro", "anmicro", "گام ریز: خاموش")}<button class="bt" id="annext" data-act="annext" hidden>گام ریز بعدی ▸</button>${bt("", "anfast", "⏩ پرش به پایان").replace('id=""', "")}${bt("", "anreset", "↺ بازنشانی").replace('id=""', "")}<label class="spd">سرعت<input type="range" id="spd" min="0.25" max="3" step="0.25" value="${AN.speed}"></label><span class="chip">گام‌ها: <b id="stc">${sim.steps}</b></span></div>`;
+        if (A.errs) h += `<p class="warn">برنامه ${A.errs} خطای کامپایل دارد؛ در تب «برنامه و کامپایل» اصلاحش کنید.</p>`;
+        h += `<div class="gscroll"><svg id="stg" viewBox="-20 0 1280 744" xmlns="${NS}"></svg></div></section>`;
+        h += `<div class="two gx2"><section class="card"><h2 id="nt">آماده</h2><div id="nb"></div><h2 style="margin-top:14px">گزارش گام‌ها</h2><div class="lgbox" id="lg"></div></section><section class="card"><h2>مسیرهای داخلی ماشین (مدل فون‌نویمان)</h2><div class="pls">${[1, 2, 3, 4, 5, 6].map((p) => `<div class="pl" data-p="${p}" style="--pc:${PCOL[p]}"><span class="pn">${p}</span><div><b>${PINFO[p][0]}</b> <small>${PINFO[p][1]}</small><p>${PINFO[p][2]}</p><button class="bt" data-act="andemo:${p}">▶ نمایش مسیر</button></div></div>`).join("")}</div></section></div>`;
+        return h;
+      }
+      function mountCpu() {
+        const svg = document.getElementById("stg");
+        if (!svg) return;
+        if (!VM || VM.sim !== sim) initVM();
+        svg.innerHTML = cpuSVG(cur());
+        paintAll();
+        refreshCtl();
+        const m = cur();
+        note(
+          "آماده",
+          `PC = <code>${H(VM.pc, Math.ceil(m.a / 4))}</code> · دکمهٔ <b>«اجرای یک دستور»</b> را بزنید تا واکشی (Fetch)، رمزگشایی (Decode) و اجرا با همهٔ مسیرها نمایش داده شود. با <b>«گام ریز»</b> می‌توانید هر حرکت داده را جداگانه جلو ببرید، و با دکمهٔ «نمایش مسیر» هر یک از ۶ مسیر را مستقل ببینید.`,
+          [],
+        );
+      }
+      /* ----- Memory lab (lecture #2, slides 3-9) ----- */
+      function labInit(a) {
+        a = a || (LB ? LB.a : 4);
+        const R = 2 ** a;
+        LB = { a, R, mem: Array.from({ length: R }, (_, i) => 10 + i), mar: null, mbr: null, sel: [], selw: false, chg: new Set(), A: null, B: null, R_: null };
+      }
+      const labG = () => {
+        const R = LB.R,
+          rh = Math.min(32, Math.floor(480 / R)),
+          top = 100,
+          H_ = R * rh;
+        return { R, rh, top, H: H_, busY: top + H_ + 30 };
+      };
+      const lRow = (i) => labG().top + i * labG().rh + labG().rh / 2;
+      function labSVG() {
+        const g = labG(),
+          a = LB.a;
+        let h = "";
+        h += `<rect class="cpu" x="14" y="20" width="304" height="${g.busY + 10}" rx="20"/><text class="gt" x="28" y="44">CPU side</text>`;
+        h += bxs("lmar", 40, 76, 190, 72, `MAR · ${a} bit`);
+        h += `<text id="lmarb" x="222" y="90" text-anchor="end" style="font:10px 'JetBrains Mono',monospace;fill:var(--m)"></text>`;
+        h += `<g class="lamp lr" id="llR"><rect x="40" y="168" width="84" height="26" rx="7"/><text x="82" y="186">READ</text></g><g class="lamp lw" id="llW"><rect x="146" y="168" width="84" height="26" rx="7"/><text x="188" y="186">WRITE</text></g>`;
+        h += bxs("lmbr", 40, 300, 260, 72, "MBR · 16 bit");
+        h += `<text id="lmbrh" x="292" y="314" text-anchor="end" style="font:10px 'JetBrains Mono',monospace;fill:var(--m)"></text>`;
+        h += `<g class="bx" id="lalu"><rect x="40" y="430" width="260" height="80" rx="9"/><text class="bl" x="48" y="446">ALU</text><text id="lalut" class="bv" x="170" y="484" style="font-size:15px">—</text></g>`;
+        h += `<text class="dt" x="425" y="${g.top - 24}">DECODER</text><text class="dt" x="425" y="${g.top - 10}" style="font-size:9px">${a} → ${g.R}</text>`;
+        h += `<rect class="dec" x="400" y="${g.top}" width="50" height="${g.H}" rx="10"/>`;
+        h += `<rect class="memf" x="490" y="40" width="316" height="${g.H + 70}" rx="16"/><text class="gt" x="506" y="68">Main Memory</text><text class="gs" x="506" y="86">${g.R} × 16 bit</text>`;
+        for (let i = 0; i < g.R; i++) {
+          const y = g.top + i * g.rh,
+            cy = y + g.rh / 2;
+          h += `<line class="dl" id="ldl${i}" x1="450" y1="${cy}" x2="490" y2="${cy}"/><line class="rs" id="lrs${i}" x1="778" y1="${cy}" x2="806" y2="${cy}"/>`;
+          h += `<g class="mr lrow" id="lmr${i}" data-act="labset:${i}"><rect class="mrr" x="500" y="${y + 1}" width="278" height="${g.rh - 2}" rx="5"/><text class="ma" x="508" y="${cy + 4}">${i}</text><text class="ma" x="548" y="${cy + 4}" style="font-size:9.5px">${i.toString(2).padStart(a, "0")}</text><text class="mv" id="lmv${i}" x="660" y="${cy + 5}"></text><text class="mn" id="lmh${i}" x="722" y="${cy + 4}"></text></g>`;
+        }
+        h += wire("lwa", [[230, 112], [350, 112], [350, g.top + g.H / 2], [400, g.top + g.H / 2]], "#7c6cff");
+        h += wire("lwv", [[806, lRow(0)], [806, g.busY]], PCOL[2], { noah: 1 });
+        h += wire("lwd", [[806, g.busY], [340, g.busY], [340, 336], [300, 336]], PCOL[2], { bi: 1 });
+        h += wire("lwm", [[135, 300], [135, 148]], "#7c6cff");
+        h += wire("lwu", [[170, 430], [170, 372]], PCOL[3], { bi: 1 });
+        h += `<text class="gs fa" x="40" y="${g.busY + 2}" style="font-size:10.5px">گذرگاه داده</text><text class="gs fa" x="352" y="${g.top - 30}" style="font-size:10.5px" text-anchor="middle">آدرس</text>`;
+        h += `<g id="pkl"></g>`;
+        return h;
+      }
+      function labPaint() {
+        const g = labG();
+        T("lmarv", LB.mar == null ? "—" : String(LB.mar));
+        T("lmarb", LB.mar == null ? "" : LB.mar.toString(2).padStart(LB.a, "0"));
+        T("lmbrv", LB.mbr == null ? "—" : String(LB.mbr));
+        T("lmbrh", LB.mbr == null ? "" : "0x" + H(LB.mbr, 4));
+        for (let i = 0; i < g.R; i++) {
+          T("lmv" + i, String(LB.mem[i]));
+          T("lmh" + i, g.rh >= 20 ? H(LB.mem[i], 4) : "");
+          const e = document.getElementById("lmr" + i),
+            s = LB.sel.includes(i);
+          if (e) {
+            e.classList.toggle("sel", s);
+            e.classList.toggle("wm", s && LB.selw);
+            e.classList.toggle("chg", LB.chg.has(i));
+          }
+          [["ldl", "on"], ["lrs", "on"]].forEach(([p, c]) => {
+            const x = document.getElementById(p + i);
+            if (x) x.classList.toggle(c, s);
+          });
+        }
+      }
+      const LNOT = (s) => {
+        const e = document.getElementById("lnot");
+        if (e) e.textContent = s;
+      };
+      const LROUTE = (a, rd) => {
+        const g = labG(),
+          y = lRow(a),
+          p = [[700, y], [806, y], [806, g.busY], [340, g.busY], [340, 336], [300, 336]];
+        return rd ? p : p.slice().reverse();
+      };
+      /* primitive micro-ops */
+      async function lMAR(E_, a, src, title, body) {
+        await micro(E_, title, body, [], async () => {
+          light(["lwm"].slice(0, src === "mbr" ? 1 : 0), []);
+          await E_.fly(src === "mbr" ? [[135, 300], [135, 148]] : [[2, 112], [40, 112]], String(a), "#7c6cff", 650);
+          LB.mar = a;
+          labPaint();
+          fl("lmar");
+        });
+      }
+      async function lMBRin(E_, v, title, body) {
+        await micro(E_, title, body, [], async () => {
+          await E_.fly([[2, 336], [40, 336]], String(v), PCOL[2], 650);
+          LB.mbr = v;
+          labPaint();
+          fl("lmbr");
+        });
+      }
+      async function lDec(E_, a, wr) {
+        await micro(
+          E_, "DECODER", `آدرس ${a} (<code>${a.toString(2).padStart(LB.a, "0")}</code>) از MAR به DECODER می‌رود؛ دیکدر ${LB.a} بیت را به یکی از ${LB.R} خط خروجی تبدیل می‌کند و فقط خانهٔ <b>${a}</b> انتخاب می‌شود.`, [],
+          async () => {
+            light(["lwa"], []);
+            await E_.fly([[230, 112], [350, 112], [350, labG().top + labG().H / 2], [400, labG().top + labG().H / 2]], "addr", "#7c6cff", 700);
+            LB.sel = [a];
+            LB.selw = wr;
+            labPaint();
+          },
+        );
+      }
+      async function lRead(E_, a) {
+        await lMAR(E_, a, "cpu", `MAR ← ${a}`, `آدرس خانه‌ای که باید خوانده شود در MAR قرار می‌گیرد.`);
+        LNOT(`MAR ← ${a}`);
+        await lDec(E_, a, false);
+        await micro(E_, "Read: MBR ← (M(MAR))", `سیگنال <b>Read</b> فعال می‌شود و محتوای خانهٔ ${a} روی گذرگاه داده به MBR می‌آید: <code>(M${a}) = ${LB.mem[a]}</code>`, [], async () => {
+          lamp("llR", true);
+          light(["lwv", "lwd"], [], PCOL[2]);
+          await E_.wait(350);
+          await E_.fly(LROUTE(a, true), String(LB.mem[a]), PCOL[2], 900);
+          LB.mbr = LB.mem[a];
+          labPaint();
+          fl("lmbr");
+          lamp("llR", false);
+          LNOT(`MBR ← (M(MAR)) = (M${a}) = ${LB.mem[a]}`);
+        });
+        return LB.mem[a];
+      }
+      async function lWrite(E_, a) {
+        await lMAR(E_, a, "cpu", `MAR ← ${a}`, `آدرس خانهٔ مقصد در MAR قرار می‌گیرد.`);
+        await lDec(E_, a, true);
+        await micro(E_, "Write: M(MAR) ← (MBR)", `سیگنال <b>Write</b> فعال می‌شود و محتوای MBR (<code>${LB.mbr}</code>) در خانهٔ ${a} نوشته می‌شود.`, [], async () => {
+          lamp("llW", true);
+          light(["lwv", "lwd"], [], "#e5484d");
+          await E_.wait(350);
+          await E_.fly(LROUTE(a, false), String(LB.mbr), "#e5484d", 900);
+          LB.mem[a] = LB.mbr;
+          LB.chg.add(a);
+          labPaint();
+          lamp("llW", false);
+          LNOT(`M${a} ← ${LB.mbr}   ⇒   (M${a}) = ${LB.mem[a]}`);
+        });
+      }
+      const lAlu = async (E_, op, x, y, r) => {
+        await micro(E_, `ALU: ${x} ${op} ${y}`, `ALU عملیات را انجام می‌دهد: <code>${x} ${op} ${y} = ${r}</code>`, [], async () => {
+          light(["lwu"], [], PCOL[3]);
+          await E_.fly([[170, 372], [170, 430]], String(y), PCOL[3], 500);
+          T("lalut", `${x} ${op} ${y} = ${r}`);
+          fl("lalu");
+          await E_.fly([[170, 430], [170, 372]], String(r), PCOL[3], 500);
+          LB.mbr = r;
+          labPaint();
+          fl("lmbr");
+        });
+      };
+      const rdv = (id, d) => {
+        const v = parseInt((document.getElementById(id) || {}).value, 10);
+        return Number.isFinite(v) ? ((v % 65536) + 65536) % 65536 : d;
+      };
+      const rda = (id) => {
+        const v = parseInt((document.getElementById(id) || {}).value, 10);
+        return Number.isFinite(v) ? ((v % LB.R) + LB.R) % LB.R : 0;
+      };
+      async function labDo(kind) {
+        await guard(async (E_) => {
+          const R = LB.R;
+          if (kind === "write") {
+            const a = rda("lad"),
+              v = rdv("lav", 0);
+            LNOT(`Write: M${a} ← ${v}`);
+            await lMAR(E_, a, "cpu", `Write ① MAR ← ${a}`, `برای نوشتن، اول آدرس را در MAR می‌گذاریم (گام ۱). <code>MAR ← ${a}</code>`);
+            await lMBRin(E_, v, `Write ② MBR ← ${v}`, `سپس داده در MBR قرار می‌گیرد (گام ۲). <code>MBR ← ${v}</code>`);
+            await lDec(E_, a, true);
+            await micro(E_, "Write ③ سیگنال Write", `سیگنال <b>Write</b> فعال می‌شود (گام ۳): داده در خانهٔ ${a} ذخیره می‌شود.`, [], async () => {
+              lamp("llW", true);
+              light(["lwv", "lwd"], [], "#e5484d");
+              await E_.wait(350);
+              await E_.fly(LROUTE(a, false), String(v), "#e5484d", 900);
+              LB.mem[a] = v;
+              LB.chg.add(a);
+              labPaint();
+              lamp("llW", false);
+              LNOT(`M${a} ← ${v}   ⇒   (M${a}) = ${v}`);
+            });
+          } else if (kind === "read") {
+            await lRead(E_, rda("lad"));
+          } else if (kind === "ex1") {
+            LNOT("M10 ← (M12)");
+            await lRead(E_, 12);
+            await lWrite(E_, 10);
+          } else if (kind === "ex2") {
+            LNOT("M(M0) ← (M0) + (M(M4))");
+            const a0 = await lRead(E_, 0),
+              p4 = await lRead(E_, 4);
+            await lMAR(E_, p4 % R, "mbr", `MAR ← (MBR)`, `مقدار M4 برابر ${p4} است و خودش آدرس است؛ از MBR به MAR می‌رود (<code>M(M4)</code> یعنی خانه‌ای که M4 به آن اشاره می‌کند).`);
+            await lDec(E_, p4 % R, false);
+            const v2 = LB.mem[p4 % R];
+            await micro(E_, "Read: MBR ← (M(M4))", `خواندن خانهٔ ${p4 % R}: مقدار <code>${v2}</code>`, [], async () => {
+              lamp("llR", true);
+              light(["lwv", "lwd"], [], PCOL[2]);
+              await E_.wait(300);
+              await E_.fly(LROUTE(p4 % R, true), String(v2), PCOL[2], 900);
+              LB.mbr = v2;
+              labPaint();
+              fl("lmbr");
+              lamp("llR", false);
+            });
+            const sum = (a0 + v2) % 65536;
+            await lAlu(E_, "+", a0, v2, sum);
+            await lMAR(E_, a0 % R, "cpu", `MAR ← (M0) = ${a0}`, `مقصد <code>M(M0)</code> است: مقدار M0 (برابر ${a0}) آدرس خانهٔ مقصد می‌شود.`);
+            await lDec(E_, a0 % R, true);
+            await micro(E_, "Write: M(M0) ← نتیجه", `نتیجه (<code>${sum}</code>) در خانهٔ ${a0 % R} نوشته می‌شود.`, [], async () => {
+              lamp("llW", true);
+              light(["lwv", "lwd"], [], "#e5484d");
+              await E_.wait(300);
+              await E_.fly(LROUTE(a0 % R, false), String(sum), "#e5484d", 900);
+              LB.mem[a0 % R] = sum;
+              LB.chg.add(a0 % R);
+              labPaint();
+              lamp("llW", false);
+              LNOT(`M(M0) ← (M0) + (M(M4))  ⇒  M${a0 % R} = ${a0} + ${v2} = ${sum}`);
+            });
+          }
+          light([], []);
+          LB.sel = [];
+          labPaint();
+        });
+      }
+      function rLab() {
+        if (!LB) labInit(4);
+        const lb = (a, t, c = "") => `<button class="bt ${c}" data-act="lab:${a}">${t}</button>`;
+        return `<section class="card gx"><div class="labc"><label>آدرس (دهدهی)<input id="lad" type="number" min="0" value="5"></label><label>داده (دهدهی)<input id="lav" type="number" min="0" value="50"></label>${lb("write", "✍ Write", "pr")}${lb("read", "👁 Read")}<label style="width:120px">عرض آدرس<select id="lbits" data-act-change="1">${[3, 4, 5].map((n) => `<option value="${n}" ${LB.a === n ? "selected" : ""}>${n} بیت (${2 ** n} خانه)</option>`).join("")}</select></label>${lb("rst", "↺ حافظه اولیه")}<span class="spd chip">${"سرعت"}<input type="range" id="spd" min="0.25" max="3" step="0.25" value="${AN.speed}"></span><button class="bt" id="bmicro" data-act="anmicro">گام ریز: خاموش</button><button class="bt" id="annext" data-act="annext" hidden>گام ریز بعدی ▸</button><button class="bt" id="bpause" data-act="anpause">⏸ مکث</button></div><div class="labc"><span class="hint" style="margin:0">مثال‌های اسلاید:</span>${lb("ex1", "M10 ← (M12)")}${lb("ex2", "M(M0) ← (M0) + (M(M4))")}<span class="hint" style="margin:0">روی هر خانهٔ حافظه کلیک کنید تا مقدارش را عوض کنید.</span></div><div class="gscroll"><svg id="lst" viewBox="0 0 830 ${labG().busY + 40}" xmlns="${NS}"></svg></div><div class="notat" id="lnot">—</div></section><div class="two gx2"><section class="card"><h2 id="nt">آماده</h2><div id="nb"></div></section><section class="card"><h2>گزارش گام‌ها</h2><div class="lgbox" id="lg"></div></section></div>`;
+      }
+      function mountLab() {
+        const svg = document.getElementById("lst");
+        if (!svg) return;
+        if (!LB) labInit(4);
+        svg.innerHTML = labSVG();
+        labPaint();
+        refreshCtl();
+        note(
+          "آزمایشگاه حافظه",
+          `هر دسترسی به حافظه فقط از راه دو ثبات <b>MAR</b> (آدرس) و <b>MBR</b> (داده) و دو سیگنال <b>Read / Write</b> انجام می‌شود. آدرس و داده را بنویسید و «Write» یا «Read» را بزنید تا مراحل کامل را ببینید؛ یا یکی از مثال‌های اسلاید را اجرا کنید.`,
+          [],
+        );
+      }
+      /* ----- actions + hooks ----- */
+      function gfxStop() {
+        AN.gen++;
+        AN.busy = false;
+        AN.auto = false;
+        AN.paused = false;
+        if (AN.gate) {
+          const g = AN.gate;
+          AN.gate = null;
+          g();
+        }
+      }
+      function gfxMount() {
+        if (SM === "cpu") mountCpu();
+        else if (SM === "mem") mountLab();
+      }
+      function gfxAct(a, p) {
+        if (a === "smode") {
+          gfxStop();
+          SM = p;
+          render();
+        } else if (a === "anstep") animStep();
+        else if (a === "anauto") animAuto();
+        else if (a === "anpause") {
+          AN.paused = !AN.paused;
+          refreshCtl();
+        } else if (a === "anmicro") {
+          AN.manual = !AN.manual;
+          if (!AN.manual && AN.gate) AN.gate();
+          refreshCtl();
+        } else if (a === "annext") {
+          if (AN.gate) AN.gate();
+        } else if (a === "anfast") animFast();
+        else if (a === "anreset") {
+          gfxStop();
+          resetSim();
+          VM = null;
+          render();
+        } else if (a === "andemo") demo(+p);
+        else if (a === "lab") {
+          if ((p === "ex1" || p === "ex2") && LB.R < 16) {
+            gfxStop();
+            labInit(4);
+            render();
+            setTimeout(() => labDo(p), 60);
+            return;
+          }
+          if (p === "rst") {
+            gfxStop();
+            labInit(LB.a);
+            mountLab();
+          } else labDo(p);
+          if (p === "ex1" || p === "ex2") return;
+        } else if (a === "labset") {
+          if (AN.busy) return;
+          const i = +p,
+            v = prompt(`مقدار جدید خانهٔ ${i} (عدد دهدهی ۰ تا ۶۵۵۳۵):`, LB.mem[i]);
+          if (v !== null && Number.isFinite(parseInt(v, 10))) {
+            LB.mem[i] = ((parseInt(v, 10) % 65536) + 65536) % 65536;
+            LB.chg.add(i);
+            labPaint();
+          }
+        }
+      }
+      document.addEventListener("input", (e) => {
+        if (e.target.id === "spd") AN.speed = +e.target.value || 1;
+      });
+      document.addEventListener("change", (e) => {
+        if (e.target.id === "lbits") {
+          gfxStop();
+          labInit(+e.target.value);
+          render();
+        }
+      });
       /* ---------- events ---------- */
       const setp = (o, p, v) => {
         const k = p.split(".");
@@ -2051,6 +3629,16 @@ end`,
           if (tab === "sim") resetSim();
           render();
           return;
+        }
+        {
+          const [ga, gp = ""] = b.dataset.act.split(":");
+          if (
+            ["smode", "lab", "labset"].includes(ga) ||
+            /^an(step|auto|pause|micro|next|fast|reset|demo)$/.test(ga)
+          ) {
+            gfxAct(ga, gp);
+            return;
+          }
         }
         const [a, p = ""] = b.dataset.act.split(":"),
           m = cur(),
