@@ -418,6 +418,34 @@
       .warn {
         color: var(--e);
       }
+      #ov {
+        position: fixed;
+        inset: 0;
+        z-index: 50;
+        background: #0b0c18ee;
+        overflow: auto;
+        padding: calc(16px + env(safe-area-inset-top, 0px)) 16px 16px;
+        display: grid;
+        gap: 16px;
+        justify-items: center;
+        align-content: start;
+        direction: ltr;
+      }
+      #ov canvas {
+        width: min(100%, 1100px);
+        height: auto;
+        border-radius: 14px;
+        cursor: pointer;
+      }
+      .ob {
+        position: sticky;
+        top: 0;
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        color: #fff;
+        z-index: 2;
+      }
     </style>
   </head>
   <body>
@@ -427,7 +455,17 @@
       <button class="bt" data-act="newm">+ ماشین جدید</button
       ><button class="bt" data-act="dup">کپی</button
       ><button class="bt" data-act="del">حذف</button
-      ><button class="bt" data-act="theme">🌓</button>
+      ><button class="bt" data-act="theme">🌓</button
+      ><button class="bt" data-act="lang">EN</button
+      ><button class="bt" data-act="exp">⬇ Export</button
+      ><button class="bt" data-act="imp">⬆ Import</button
+      ><button class="bt pr" data-act="sl">🖼 Slides</button
+      ><input type="file" id="fi" accept=".json" hidden /><span
+        class="chip"
+        id="db"
+        hidden
+        >SQLite ✓</span
+      >
       <nav>
         <button class="tab" data-tab="def">۱ · تعریف ماشین</button
         ><button class="tab" data-tab="asm">۲ · برنامه و کامپایل</button
@@ -716,6 +754,255 @@ end`,
           ],
           "org 0\nclr x\nx: dw 7\nend",
         );
+      const IBM = Object.assign(
+        mk(
+          "IBM 360/370",
+          8,
+          24,
+          32,
+          16,
+          32,
+          [
+            F(
+              "RR",
+              [
+                ["Opcode", 8, "opcode"],
+                ["r1", 4, "reg"],
+                ["r2", 4, "reg"],
+              ],
+              [
+                ["00011000", "LR r1,r2", "r1 <- r2"],
+                ["00011010", "AR r1,r2", "r1 <- r1 + r2"],
+                ["00011011", "SR r1,r2", "r1 <- r1 - r2"],
+              ],
+            ),
+            F(
+              "RX",
+              [
+                ["Opcode", 8, "opcode"],
+                ["r1", 4, "reg"],
+                ["x2", 4, "reg"],
+                ["b2", 4, "reg"],
+                ["d2", 12, "imm"],
+              ],
+              [
+                ["01011000", "L r1,d2(x2,b2)", "r1 <- M[d2 + x2 + b2]"],
+                ["01011000", "L r1,d2(b2)", "r1 <- M[d2 + b2]"],
+                ["01010000", "ST r1,d2(x2,b2)", "M[d2 + x2 + b2] <- r1"],
+                ["01010000", "ST r1,d2(b2)", "M[d2 + b2] <- r1"],
+                ["01011010", "A r1,d2(x2,b2)", "r1 <- r1 + M[d2 + x2 + b2]"],
+                ["01011011", "S r1,d2(x2,b2)", "r1 <- r1 - M[d2 + x2 + b2]"],
+              ],
+            ),
+          ],
+          "org 0\nL 2,NUM(0,0)\nL 3,ONE(0,0)\nAR 2,3\nA 2,ONE(0,0)\nST 2,RES(0,0)\nNUM: dw 41\nONE: dw 1\nRES: dw ?\nend",
+        ),
+        { rp: "", z: 0 },
+      );
+      const X86 = Object.assign(
+        mk(
+          "Intel 8086/8088 (simplified)",
+          8,
+          20,
+          16,
+          8,
+          16,
+          [
+            F(
+              "reg,reg (ModRM)",
+              [
+                ["Opcode", 8, "opcode"],
+                ["mod", 2, "opcode"],
+                ["rg", 3, "reg"],
+                ["rm", 3, "reg"],
+              ],
+              [
+                ["1000100111", "mov rm,rg", "rm <- rg"],
+                ["0000000111", "add rm,rg", "rm <- rm + rg; ZF <- (rm = 0)"],
+                ["0010100111", "sub rm,rg", "rm <- rm - rg; ZF <- (rm = 0)"],
+              ],
+            ),
+            F(
+              "reg,imm16",
+              [
+                ["Opcode", 5, "opcode"],
+                ["rg", 3, "reg"],
+                ["data", 16, "imm"],
+              ],
+              [["10111", "mov rg,data", "rg <- data"]],
+            ),
+            F(
+              "rm,imm16",
+              [
+                ["Opcode", 8, "opcode"],
+                ["mod", 2, "opcode"],
+                ["ext", 3, "opcode"],
+                ["rm", 3, "reg"],
+                ["data", 16, "imm"],
+              ],
+              [
+                [
+                  "1000000111000",
+                  "add rm,data",
+                  "rm <- rm + data; ZF <- (rm = 0)",
+                ],
+                [
+                  "1000000111101",
+                  "sub rm,data",
+                  "rm <- rm - data; ZF <- (rm = 0)",
+                ],
+              ],
+            ),
+            F(
+              "reg",
+              [
+                ["Opcode", 5, "opcode"],
+                ["rg", 3, "reg"],
+              ],
+              [
+                ["01000", "inc rg", "rg <- rg + 1; ZF <- (rg = 0)"],
+                ["01001", "dec rg", "rg <- rg - 1; ZF <- (rg = 0)"],
+              ],
+            ),
+            F(
+              "rel8",
+              [
+                ["Opcode", 8, "opcode"],
+                ["disp", 8, "imm"],
+              ],
+              [
+                [
+                  "01110101",
+                  "jnz disp",
+                  "if (ZF = 0) then PC <- PC + sext(disp,8)",
+                ],
+                [
+                  "01110100",
+                  "jz disp",
+                  "if (ZF != 0) then PC <- PC + sext(disp,8)",
+                ],
+              ],
+            ),
+          ],
+          "org 100h\nmov AX,0\nmov CX,5\nL1: add AX,CX\ndec CX\njnz L1-$-2   ; relative: target-(current+2)\nend",
+        ),
+        { en: "little", rn: "AX,CX,DX,BX,SP,BP,SI,DI", sp: "ZF:1" },
+      );
+      const RV = Object.assign(
+        mk(
+          "RISC-V RV32I (subset)",
+          8,
+          32,
+          32,
+          32,
+          32,
+          [
+            F(
+              "R-type",
+              [
+                ["funct7", 7, "opcode"],
+                ["rs2", 5, "reg"],
+                ["rs1", 5, "reg"],
+                ["funct3", 3, "opcode"],
+                ["rd", 5, "reg"],
+                ["opcode", 7, "opcode"],
+              ],
+              [
+                ["00000000000110011", "add rd,rs1,rs2", "rd <- rs1 + rs2"],
+                ["01000000000110011", "sub rd,rs1,rs2", "rd <- rs1 - rs2"],
+                ["00000001110110011", "and rd,rs1,rs2", "rd <- rs1 & rs2"],
+                ["00000001100110011", "or rd,rs1,rs2", "rd <- rs1 | rs2"],
+                ["00000001000110011", "xor rd,rs1,rs2", "rd <- rs1 ^ rs2"],
+              ],
+            ),
+            F(
+              "I-type",
+              [
+                ["imm", 12, "imm"],
+                ["rs1", 5, "reg"],
+                ["funct3", 3, "opcode"],
+                ["rd", 5, "reg"],
+                ["opcode", 7, "opcode"],
+              ],
+              [
+                ["0000010011", "addi rd,rs1,imm", "rd <- rs1 + sext(imm,12)"],
+                ["1110010011", "andi rd,rs1,imm", "rd <- rs1 & sext(imm,12)"],
+                ["1100010011", "ori rd,rs1,imm", "rd <- rs1 | sext(imm,12)"],
+                ["1000010011", "xori rd,rs1,imm", "rd <- rs1 ^ sext(imm,12)"],
+                ["0100000011", "lw rd,imm(rs1)", "rd <- M[rs1 + sext(imm,12)]"],
+              ],
+            ),
+            F(
+              "U-type",
+              [
+                ["imm", 20, "imm"],
+                ["rd", 5, "reg"],
+                ["opcode", 7, "opcode"],
+              ],
+              [
+                ["0110111", "lui rd,imm", "rd <- imm * 4096"],
+                ["0010111", "auipc rd,imm", "rd <- PC - 4 + imm * 4096"],
+              ],
+            ),
+          ],
+          "org 0\naddi x1,x0,5\naddi x2,x0,7\nadd x3,x1,x2\nsub x4,x2,x1\nlw x5,64(x0)\nlui x6,1\norg 40h\ndw 123456\nend",
+        ),
+        { rp: "x", z: 1, en: "little" },
+      );
+      const GPU = Object.assign(
+        mk(
+          "GPU core (SIMT, educational)",
+          8,
+          16,
+          32,
+          32,
+          32,
+          [
+            F(
+              "ALU",
+              [
+                ["Opcode", 8, "opcode"],
+                ["rd", 8, "reg"],
+                ["ra", 8, "reg"],
+                ["rb", 8, "reg"],
+              ],
+              [
+                ["00000001", "add rd,ra,rb", "rd <- ra + rb"],
+                ["00000010", "mul rd,ra,rb", "rd <- ra * rb"],
+                ["00000011", "fma rd,ra,rb", "rd <- rd + ra * rb"],
+              ],
+            ),
+            F(
+              "MEM",
+              [
+                ["Opcode", 8, "opcode"],
+                ["rd", 8, "reg"],
+                ["ra", 8, "reg"],
+                ["off", 8, "imm"],
+              ],
+              [
+                ["00010000", "ld rd,off(ra)", "rd <- M[ra + off]"],
+                ["00010001", "st rd,off(ra)", "M[ra + off] <- rd"],
+              ],
+            ),
+            F(
+              "IMM",
+              [
+                ["Opcode", 8, "opcode"],
+                ["rd", 8, "reg"],
+                ["imm", 16, "imm"],
+              ],
+              [
+                ["00100000", "movi rd,imm", "rd <- imm"],
+                ["00100001", "tid rd", "rd <- TID"],
+                ["00110000", "bnz rd,imm", "if (rd != 0) then PC <- imm"],
+              ],
+            ),
+          ],
+          "org 0\nmovi R1,10\nmovi R2,3\nmovi R3,1\nmul R4,R1,R2\nfma R4,R1,R3\nst R4,0(R0)\nend",
+        ),
+        { sp: "TID:32" },
+      );
       /* ---------- storage ---------- */
       let S;
       try {
@@ -723,10 +1010,26 @@ end`,
       } catch (e) {}
       if (!S || !S.list || !S.list.length)
         S = { list: [M3, M4, M5], cur: M3.id };
+      [IBM, X86, RV, GPU].forEach((p) => {
+        if (!S.list.some((x) => x.name === p.name)) S.list.push(p);
+      });
+      S.lang = S.lang || "fa";
+      let DB = false;
       const save = () => {
         try {
           localStorage.setItem("machinelab.v1", JSON.stringify(S));
         } catch (e) {}
+        if (DB) {
+          clearTimeout(window._s);
+          window._s = setTimeout(
+            () =>
+              fetch("/api/state", {
+                method: "PUT",
+                body: JSON.stringify(S),
+              }).catch(() => {}),
+            300,
+          );
+        }
       };
       const cur = () => S.list.find((x) => x.id === S.cur) || S.list[0];
       let tab = "def",
@@ -736,7 +1039,7 @@ end`,
       function parseOp(src, ft, SP) {
         const T = [],
           re =
-            /\s*(<-|←|!=|≠|<=|>=|==|0[xX][0-9a-fA-F]+|\d[0-9a-fA-F]*[hH](?!\w)|\d+|[A-Za-z_]\w*|[-+*&|^~()\[\];=<>∧∨⊕])/y;
+            /\s*(<-|←|!=|≠|<=|>=|==|0[xX][0-9a-fA-F]+|\d[0-9a-fA-F]*[hH](?!\w)|\d+|[A-Za-z_]\w*|[-+*&|^~()\[\];,=<>∧∨⊕])/y;
         let i = 0;
         while (i < src.length) {
           if (/^\s*$/.test(src.slice(i))) break;
@@ -782,6 +1085,14 @@ end`,
             const a = expr();
             ex("]");
             return { t: "r", a };
+          }
+          if (t === "sext") {
+            ex("(");
+            const a = expr();
+            ex(",");
+            const n = expr();
+            ex(")");
+            return { t: "x", a, n };
           }
           if (ft[t]) return { t: "f", n: t };
           if (t === "PC" || SP[t]) return { t: "s", n: t };
@@ -838,6 +1149,18 @@ end`,
       }
       /* memory */
       const kk = (m) => m.w / m.u;
+      const ri = (m, s) => {
+        s = s.trim();
+        if (m.rn)
+          return m.rn
+            .split(",")
+            .map((x) => x.trim().toLowerCase())
+            .indexOf(s.toLowerCase());
+        const q = new RegExp("^" + m.rp + "(\\d+)$", "i").exec(s);
+        return q && +q[1] < m.rc ? +q[1] : -1;
+      };
+      const rnm = (m, i) =>
+        m.rn ? (m.rn.split(",")[i] || "r" + i).trim() : m.rp + i;
       function rw(m, s, a) {
         const k = kk(m),
           AM = 2 ** m.a;
@@ -869,6 +1192,8 @@ end`,
             return c.s.regs[ev(n.a, c)] || 0;
           case "s":
             return c.s.sp[n.n];
+          case "x":
+            return sg(ev(n.a, c), ev(n.n, c));
           case "u": {
             const a = ev(n.a, c);
             return n.o === "-" ? -a : ~a >>> 0;
@@ -935,8 +1260,10 @@ end`,
                 throw Error(
                   "طول فرمت (" + bits + " بیت) مضرب اندازهٔ خانهٔ حافظه نیست",
                 );
-              if (f.f[0]?.t !== "opcode")
-                throw Error("اولین فیلد فرمت باید از نوع opcode باشد");
+              const OF = f.f.filter((x) => x.t === "opcode");
+              if (!OF.length)
+                throw Error("هر فرمت باید حداقل یک فیلد opcode داشته باشد");
+              I.ob = OF.reduce((a, x) => a + x.b, 0);
               const q = i.s.trim().match(/^(\S+)\s*(.*)$/);
               if (!q) throw Error("سینتکس خالی است");
               I.mn = q[1].toLowerCase();
@@ -961,8 +1288,8 @@ end`,
               );
               const o = i.o.trim();
               I.opv = /^0x/i.test(o) ? BigInt(o) : BigInt("0b" + o);
-              if (I.opv >= 1n << BigInt(f.f[0].b))
-                throw Error("Opcode در " + f.f[0].b + " بیت نمی‌گنجد");
+              if (I.opv >= 1n << BigInt(I.ob))
+                throw Error("Opcode در " + I.ob + " بیت نمی‌گنجد");
               I.ast = parseOp(i.op, ft, SP);
             } catch (e) {
               I.err =
@@ -1023,6 +1350,7 @@ end`,
         });
         const fake = new Map([...labs].map((l) => [l, 0])),
           stt = { mem: R.mem };
+        fake.set("$", 0);
         const match = (body) => {
           const bm = body.match(/^(\S+)\s*(.*)$/),
             mn = bm[1].toLowerCase(),
@@ -1043,8 +1371,7 @@ end`,
               if (!ok) return;
               const v = x[j + 1];
               if (I.ft[n] === "reg") {
-                const q = rg.exec(v);
-                if (!q || +q[1] >= m.rc) ok = false;
+                if (ri(m, v) < 0) ok = false;
               } else
                 try {
                   nv(v, fake);
@@ -1067,6 +1394,7 @@ end`,
         for (const l of lines) {
           const r = { ln: l.ln, raw: l.raw, k: "n" };
           try {
+            sym.set("$", loc);
             if (l.lb) {
               sym.set(l.lb.toLowerCase(), loc);
               R.syms.push([l.lb, loc]);
@@ -1111,6 +1439,7 @@ end`,
         const hd = Math.ceil(m.a / 4);
         for (const r of R.rows) {
           if (r.err || r.k === "n") continue;
+          sym.set("$", r.loc);
           try {
             if (r.k === "d") {
               const ws = r.its.map((v, j) => {
@@ -1123,16 +1452,20 @@ end`,
                 ws.length > 4 ? ws.slice(0, 3).join(" ") + " …" : ws.join(" ");
             } else {
               const I = r.I;
-              let enc = 0n;
+              let enc = 0n,
+                left = I.ob;
               r.fl = [];
               for (const f of I.f.f) {
-                let v = f.t === "opcode" ? Number(I.opv) : 0;
+                let v = 0;
+                if (f.t === "opcode") {
+                  left -= f.b;
+                  v = Number(
+                    (I.opv >> BigInt(left)) & ((1n << BigInt(f.b)) - 1n),
+                  );
+                }
                 if (f.t === "reg") {
                   const q = r.cap[f.n];
-                  v =
-                    q === undefined
-                      ? 0
-                      : +new RegExp("^" + m.rp + "(\\d+)$", "i").exec(q)[1];
+                  v = q === undefined ? 0 : ri(m, q);
                 } else if (f.t !== "opcode" && r.cap[f.n] !== undefined)
                   v = nv(r.cap[f.n], sym);
                 if (v < -(2 ** (f.b - 1)) || v >= 2 ** f.b)
@@ -1203,15 +1536,24 @@ end`,
         let W = 0n;
         for (let j = 0; j < mu; j++)
           W = (W << BigInt(m.u)) | BigInt(s.mem.get((pc + j) % AM) || 0);
-        const cand = [...P.ins]
-          .filter((I) => !I.err)
-          .sort((a, b) => b.f.f[0].b - a.f.f[0].b);
+        const cand = P.ins.filter((I) => !I.err).sort((a, b) => b.ob - a.ob);
         let I;
-        for (const x of cand)
-          if (W >> BigInt(P.maxB - x.f.f[0].b) === x.opv) {
+        for (const x of cand) {
+          const V = W >> BigInt(P.maxB - x.bits);
+          let pos = x.bits,
+            o = 0n;
+          for (const f of x.f.f) {
+            pos -= f.b;
+            if (f.t === "opcode")
+              o =
+                (o << BigInt(f.b)) |
+                ((V >> BigInt(pos)) & ((1n << BigInt(f.b)) - 1n));
+          }
+          if (o === x.opv) {
             I = x;
             break;
           }
+        }
         if (!I) {
           s.halted = true;
           s.msg = "Opcode نامعتبر در آدرس " + H(pc);
@@ -1235,6 +1577,7 @@ end`,
         try {
           const c = { m, s, fv, ft: I.ft, P };
           for (const st of I.ast) exec(st, c);
+          if (m.z && s.regs.length) s.regs[0] = 0;
         } catch (e) {
           s.halted = true;
           s.msg = "خطای اجرا: " + e.message;
@@ -1252,9 +1595,9 @@ end`,
           ),
           P = prep(m);
         let n = 0;
-        let h = `<section class="card"><h2>پارامترهای ماشین</h2><div class="grid">${I_("نام ماشین", "name", m.name, "text")}${I_("اندازهٔ هر خانهٔ حافظه (بیت)", "u", m.u)}${I_("عرض آدرس (بیت) → حافظه ۲ⁿ خانه", "a", m.a)}${I_("اندازهٔ کلمه (بیت)", "w", m.w)}<label>ترتیب بایت<select data-p="en">${["big", "little"].map((v) => `<option ${m.en === v ? "selected" : ""}>${v}</option>`).join("")}</select></label>${I_("تعداد ثبات‌های عمومی", "rc", m.rc)}${I_("اندازهٔ هر ثبات (بیت)", "rb", m.rb)}${I_("پیشوند نام ثبات", "rp", m.rp, "text")}${I_("ثبات‌های ویژه (مثل ACC:16, SP:16)", "sp", m.sp, "text")}</div>
+        let h = `<section class="card"><h2>پارامترهای ماشین</h2><div class="grid">${I_("نام ماشین", "name", m.name, "text")}${I_("اندازهٔ هر خانهٔ حافظه (بیت)", "u", m.u)}${I_("عرض آدرس (بیت) → حافظه ۲ⁿ خانه", "a", m.a)}${I_("اندازهٔ کلمه (بیت)", "w", m.w)}<label>ترتیب بایت<select data-p="en">${["big", "little"].map((v) => `<option ${m.en === v ? "selected" : ""}>${v}</option>`).join("")}</select></label>${I_("تعداد ثبات‌های عمومی", "rc", m.rc)}${I_("اندازهٔ هر ثبات (بیت)", "rb", m.rb)}${I_("پیشوند نام ثبات", "rp", m.rp, "text")}${I_("ثبات‌های ویژه (مثل ACC:16, SP:16)", "sp", m.sp, "text")}${I_("نام ثبات‌ها (اختیاری، با کاما)", "rn", m.rn || "", "text")}${I_("ثبات صفر ثابت (0/1)", "z", m.z || 0)}</div>
  <div class="chips">${[["MAR", m.a], ["MBR", m.w], ["IR", ir], ["PC", m.a], ["Memory", `2^${m.a} × ${m.u}b`], ...(m.rc ? [[m.rp + "0…" + m.rp + (m.rc - 1), m.rb]] : [])].map((x) => `<span class="chip">${x[0]} = <b>${x[1]}${typeof x[1] === "number" ? " bit" : ""}</b></span>`).join("")}</div>
- <details><summary>راهنمای زبان ستون Operation</summary><p>انتساب: <code>r1 &lt;- r1 + r2</code> (یا ←) · حافظه: <code>M[addr]</code> یا <code>M[M[addr]]</code> · ثبات با شماره: <code>R[expr]</code> · ثبات‌های ویژه: <code>PC</code> و ثبات‌های تعریف‌شده · عملگرها: <code>+ - * &amp; | ^ ~</code> (یا ∧ ∨ ⊕) · پرانتز برای گروه‌بندی · شرط: <code>if (x != 0) then PC &lt;- addr</code> با <code>= != &lt; &gt; &lt;= &gt;=</code> (مقایسه علامت‌دار) · چند دستور با «;» · <code>halt</code> اجرا را متوقف می‌کند. نام فیلدهای فرمت (مثل r1, addr, data) مستقیماً قابل استفاده‌اند؛ فیلد ثبات یعنی محتوای آن ثبات. اولین فیلد هر فرمت باید opcode باشد و طول هر فرمت مضرب اندازهٔ خانهٔ حافظه. حداکثر عرض کلمه/ثبات برای شبیه‌سازی: ۳۲ بیت.</p></details></section>`;
+ ${S.lang === "en" ? HELPEN : `<details><summary>راهنمای زبان ستون Operation</summary><p>انتساب: <code>r1 &lt;- r1 + r2</code> (یا ←) · حافظه: <code>M[addr]</code> یا <code>M[M[addr]]</code> · ثبات با شماره: <code>R[expr]</code> · ثبات‌های ویژه: <code>PC</code> و ثبات‌های تعریف‌شده · عملگرها: <code>+ - * &amp; | ^ ~</code> (یا ∧ ∨ ⊕) · پرانتز برای گروه‌بندی · شرط: <code>if (x != 0) then PC &lt;- addr</code> با <code>= != &lt; &gt; &lt;= &gt;=</code> (مقایسه علامت‌دار) · چند دستور با «;» · <code>halt</code> اجرا را متوقف می‌کند. نام فیلدهای فرمت (مثل r1, addr, data) مستقیماً قابل استفاده‌اند؛ فیلد ثبات یعنی محتوای آن ثبات. اولین فیلد هر فرمت باید opcode باشد و طول هر فرمت مضرب اندازهٔ خانهٔ حافظه. حداکثر عرض کلمه/ثبات برای شبیه‌سازی: ۳۲ بیت.</p></details>`}</section>`;
         m.fm.forEach((f, fi) => {
           h += `<section class="card"><div class="hd"><input class="title" data-p="fm.${fi}.n" value="${E(f.n)}"><span class="chip">${f.f.reduce((a, x) => a + x.b, 0)} bits</span><button class="ic" data-act="delf:${fi}" style="margin-inline-start:auto">حذف فرمت</button></div>${dg(f)}
  <div>${f.f.map((x, j) => `<div class="fr"><input data-p="fm.${fi}.f.${j}.n" value="${E(x.n)}"><input type="number" min="1" data-p="fm.${fi}.f.${j}.b" value="${x.b}"><select data-p="fm.${fi}.f.${j}.t">${["opcode", "reg", "addr", "imm"].map((t) => `<option ${x.t === t ? "selected" : ""}>${t}</option>`).join("")}</select><button class="ic" data-act="delfld:${fi}.${j}">✕</button></div>`).join("")}<button class="bt" data-act="addfld:${fi}">+ فیلد</button></div>
@@ -1273,7 +1616,7 @@ end`,
         );
       }
       const rAsm = (m) =>
-        `<div class="two"><section class="card"><h2>کد اسمبلی</h2><textarea id="code" spellcheck="false">${E(m.code)}</textarea><p class="hint">راهنما: <b>org</b> آدرس · برچسب با «:» · <b>dw</b> مقدار, … یا <b>N dup(?)</b> · <b>end</b> · اعداد: 100h ، 0x64 ، 0b101 ، 100 (دهدهی)</p></section><section class="card"><h2>ترجمه به ماشین‌کد (Hex)</h2><div id="res" class="res"></div></section></div>`;
+        `<div class="two"><section class="card"><h2>کد اسمبلی</h2><textarea id="code" spellcheck="false">${E(m.code)}</textarea><p class="hint">${S.lang === "en" ? "Help: <b>org</b> addr · labels end with “:” · <b>dw</b> v,… or <b>N dup(?)</b> · <b>end</b> · <b>$</b> = current address · numbers: 100h, 0x64, 0b101, 100" : "راهنما: <b>org</b> آدرس · برچسب با «:» · <b>dw</b> مقدار,… یا <b>N dup(?)</b> · <b>end</b> · <b>$</b> = آدرس جاری · اعداد: 100h ، 0x64 ، 0b101 ، 100 (دهدهی)"}</p></section><section class="card"><h2>ترجمه به ماشین‌کد (Hex)</h2><div id="res" class="res"></div></section></div>`;
       function upd() {
         const m = cur();
         A = compile(m);
@@ -1287,6 +1630,7 @@ end`,
         h += `</table>`;
         h += `<h2 style="margin-top:16px">Symbol Table</h2><table class="rt" style="width:auto"><tr><th>Symbol</th><th>Address</th></tr>${A.syms.map((s) => `<tr><td>${E(s[0])}</td><td class="ad">${H(s[1], hd)}h</td></tr>`).join("")}</table>`;
         $("#res").innerHTML = h;
+        tr($("#res"));
       }
       function rSim(m) {
         if (!sim) resetSim();
@@ -1296,7 +1640,7 @@ end`,
           rd = Math.ceil(m.rb / 4);
         let h = `<section class="card"><div class="sw"><button class="bt pr" data-act="step">گام بعد ▸</button><button class="bt" data-act="run">اجرای کامل ⏵</button><button class="bt" data-act="reset">↺ بارگذاری مجدد</button><span class="chip">گام‌ها: <b>${s.steps}</b></span></div>`;
         if (A.errs)
-          h += `<p class="warn">برنامه ${A.errs} خطای کامپایل دارد؛ در تب «برنامه و کامپایل» اصلاحش کنید.</p>`;
+          h += `<p class="warn">${L("برنامه " + A.errs + " خطای کامپایل دارد؛ در تب «برنامه و کامپایل» اصلاحش کنید.", A.errs + " compile error(s) — fix them in the Program tab.")}</p>`;
         if (s.msg)
           h += `<p class="${s.msg.startsWith("خطا") ? "warn" : "hint"}">${E(s.msg)}</p>`;
         h += `<div class="sw">${Object.entries(s.sp)
@@ -1306,7 +1650,7 @@ end`,
           )
           .join("")}</div>`;
         if (m.rc)
-          h += `<div class="sw">${s.regs.map((v, i) => `<span class="reg"><i>${E(m.rp)}${i}</i> ${H(v, rd)}</span>`).join("")}</div>`;
+          h += `<div class="sw">${s.regs.map((v, i) => `<span class="reg"><i>${E(rnm(m, i))}</i> ${H(v, rd)}</span>`).join("")}</div>`;
         h += `</section><div class="two"><section class="card"><h2>حافظه (Hex)</h2><div class="res"><table class="rt mem"><tr><th></th>${[...Array(8).keys()].map((i) => `<th>+${i}</th>`).join("")}</tr>`;
         const lo = Math.floor(Math.min(A.lo, 2 ** m.a) / 8) * 8,
           hi = Math.min(Math.ceil(A.hi / 8) * 8, lo + 1024),
@@ -1324,7 +1668,21 @@ end`,
         return h;
       }
       function render() {
-        const m = cur();
+        const m = cur(),
+          en = S.lang === "en";
+        document.documentElement.dir = en ? "ltr" : "rtl";
+        document.documentElement.lang = en ? "en" : "fa";
+        document
+          .querySelectorAll("[data-fa]")
+          .forEach(
+            (e) =>
+              (e.textContent = en
+                ? EN[e.dataset.fa] || e.dataset.fa
+                : e.dataset.fa),
+          );
+        document.querySelector("[data-act=lang]").textContent = en
+          ? "فا"
+          : "EN";
         $("#sel").innerHTML = S.list
           .map(
             (x) =>
@@ -1337,6 +1695,301 @@ end`,
         $("#main").innerHTML =
           tab === "def" ? rDef(m) : tab === "asm" ? rAsm(m) : rSim(m);
         if (tab === "asm") upd();
+        tr($("#main"));
+      }
+      /* ---------- i18n / export / slides ---------- */
+      const L = (fa, en) => (S.lang === "en" ? en : fa);
+      const EN = {
+        "⚙️ آزمایشگاه ماشین": "⚙️ Machine Lab",
+        "+ ماشین جدید": "+ New machine",
+        کپی: "Copy",
+        "حذف فرمت": "Delete format",
+        حذف: "Delete",
+        "۱ · تعریف ماشین": "1 · Define machine",
+        "۲ · برنامه و کامپایل": "2 · Program & compile",
+        "۳ · شبیه‌ساز": "3 · Simulator",
+        "پارامترهای ماشین": "Machine parameters",
+        "نام ماشین": "Machine name",
+        "اندازهٔ هر خانهٔ حافظه (بیت)": "Memory unit size (bits)",
+        "عرض آدرس (بیت) → حافظه ۲ⁿ خانه": "Address width (bits) → 2ⁿ units",
+        "اندازهٔ کلمه (بیت)": "Word size (bits)",
+        "ترتیب بایت": "Byte order",
+        "تعداد ثبات‌های عمومی": "General registers",
+        "اندازهٔ هر ثبات (بیت)": "Register size (bits)",
+        "پیشوند نام ثبات": "Register prefix",
+        "ثبات‌های ویژه (مثل ACC:16, SP:16)":
+          "Special registers (e.g. ACC:16, SP:16)",
+        "نام ثبات‌ها (اختیاری، با کاما)":
+          "Register names (optional, comma-separated)",
+        "ثبات صفر ثابت (0/1)": "Hardwired zero register 0 (0/1)",
+        "+ فیلد": "+ Field",
+        "+ دستور": "+ Instruction",
+        "+ فرمت جدید": "+ New format",
+        "کد اسمبلی": "Assembly code",
+        "ترجمه به ماشین‌کد (Hex)": "Machine code (Hex)",
+        "گام بعد ▸": "Step ▸",
+        "اجرای کامل ⏵": "Run ⏵",
+        "↺ بارگذاری مجدد": "↺ Reload",
+        "گام‌ها:": "Steps:",
+        "حافظه (Hex)": "Memory (Hex)",
+        "دستورات اجراشده": "Executed instructions",
+        "هیچ سینتکسی با این خط مطابقت ندارد": "No syntax matches this line",
+        "نماد تعریف‌نشده": "Undefined symbol",
+        "پایان برنامه: PC روی دستوری نیست":
+          "Program finished: PC is not on an instruction",
+        "نامعتبر در آدرس": "invalid at address",
+        "خطای اجرا": "Runtime error",
+        "خطا: بیش از ۱۰۰٬۰۰۰ گام — احتمالاً حلقهٔ بی‌نهایت":
+          "Error: over 100,000 steps — probably an infinite loop",
+        "خطا در تعریف دستور": "Instruction definition error",
+        "سینتکس خالی است": "Empty syntax",
+        برنامه: "Program",
+      };
+      const EK = Object.keys(EN).sort((a, b) => b.length - a.length);
+      function tr(root) {
+        if (S.lang !== "en") return;
+        const w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+        let n;
+        while ((n = w.nextNode())) {
+          let t = n.nodeValue;
+          if (!/[\u0600-\u06FF]/.test(t)) continue;
+          for (const k of EK) t = t.split(k).join(EN[k]);
+          n.nodeValue = t;
+        }
+      }
+      const HELPEN = `<details><summary>Operation language help</summary><p>Assign: <code>r1 &lt;- r1 + r2</code> · memory: <code>M[addr]</code>, <code>M[M[addr]]</code> · register by number: <code>R[expr]</code> · special registers: <code>PC</code> and user-defined ones · operators <code>+ - * &amp; | ^ ~</code> (or ∧ ∨ ⊕) · parentheses · <code>sext(x,n)</code> sign-extends n bits · conditions: <code>if (x != 0) then PC &lt;- addr</code> with <code>= != &lt; &gt; &lt;= &gt;=</code> (signed) · several statements with “;” · <code>halt</code>. Format field names (r1, addr, data…) can be used directly; a reg field means that register's content. Several opcode fields per format are concatenated (in order) into the instruction's opcode. Format length must be a multiple of the memory unit; simulation supports ≤32-bit words.</p></details>`;
+      const dl = (n, b) => {
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(b);
+        a.download = n;
+        a.click();
+      };
+      const rr = (x, a, b, w, h, r) => {
+        x.beginPath();
+        x.roundRect(a, b, w, h, r);
+      };
+      const TC = {
+          opcode: "#ece9ff",
+          reg: "#d9f6ef",
+          addr: "#ffe9d6",
+          imm: "#e1efff",
+        },
+        FN = "Segoe UI,Arial,sans-serif";
+      function base(m, t, n, N) {
+        const c = document.createElement("canvas");
+        c.width = 1280;
+        c.height = 720;
+        const x = c.getContext("2d");
+        let g = x.createLinearGradient(0, 0, 1280, 720);
+        g.addColorStop(0, "#eceeff");
+        g.addColorStop(1, "#dff6f0");
+        x.fillStyle = g;
+        x.fillRect(0, 0, 1280, 720);
+        x.save();
+        x.shadowColor = "#6d5efc50";
+        x.shadowBlur = 30;
+        x.fillStyle = "#fff";
+        rr(x, 40, 36, 1200, 648, 24);
+        x.fill();
+        x.restore();
+        g = x.createLinearGradient(40, 0, 1240, 0);
+        g.addColorStop(0, "#6d5efc");
+        g.addColorStop(1, "#12b5a0");
+        x.fillStyle = g;
+        rr(x, 40, 36, 1200, 12, 6);
+        x.fill();
+        x.fillStyle = "#2f35d6";
+        x.font = "700 38px " + FN;
+        x.fillText(t, 80, 112);
+        x.font = "14px " + FN;
+        x.fillStyle = "#8a8fa8";
+        x.fillText("Computer Structure & Language · " + m.name, 80, 660);
+        x.textAlign = "right";
+        x.fillText(n + " / " + N, 1200, 660);
+        x.textAlign = "left";
+        return [c, x];
+      }
+      function fmtD(x, f, X, Y, W, Hh) {
+        const tot = f.f.reduce((a, q) => a + Math.max(q.b, 5), 0);
+        let cx = X;
+        f.f.forEach((q) => {
+          const w = (W * Math.max(q.b, 5)) / tot;
+          x.fillStyle = TC[q.t];
+          x.strokeStyle = "#5b52e8";
+          x.lineWidth = 2;
+          x.fillRect(cx, Y, w, Hh);
+          x.strokeRect(cx, Y, w, Hh);
+          x.textAlign = "center";
+          x.fillStyle = "#1b1d2a";
+          x.font = "600 " + Math.min(20, Math.max(11, Hh * 0.4)) + "px " + FN;
+          x.fillText(q.n, cx + w / 2, Y + Hh * 0.62);
+          x.fillStyle = "#4a55d8";
+          x.font = "13px " + FN;
+          x.fillText(q.b + " bits", cx + w / 2, Y + Hh + 18);
+          cx += w;
+        });
+        x.textAlign = "left";
+      }
+      function wr(x, t, X, Y, W, lh) {
+        let l = "";
+        for (const w of t.split(" ")) {
+          if (x.measureText(l + w).width > W && l) {
+            x.fillText(l, X, Y);
+            Y += lh;
+            l = "";
+          }
+          l += w + " ";
+        }
+        x.fillText(l, X, Y);
+        return Y + lh;
+      }
+      function slides(m) {
+        const out = [],
+          N = m.fm.length + 2,
+          P = prep(m),
+          sz = (f) => f.f.reduce((a, q) => a + q.b, 0),
+          ir = Math.max(...m.fm.map(sz)),
+          sp = Object.keys(P.SP),
+          hx = (t) =>
+            t
+              .replace(/<-/g, "←")
+              .replace(/!=/g, "≠")
+              .replace(/&/g, "∧")
+              .replace(/\|/g, "∨")
+              .replace(/\^/g, "⊕");
+        const rl = m.rc
+          ? m.rn
+            ? m.rn.split(",")[0].trim() + " … " + m.rn.split(",").pop().trim()
+            : m.rp + "0 … " + m.rp + (m.rc - 1)
+          : "";
+        let [c, x] = base(m, "Example Machine: " + m.name, 1, N);
+        x.font = "24px " + FN;
+        x.fillStyle = "#222";
+        const L1 = [
+          `Main memory size: 2^${m.a} addressable units (each ${m.u} bits)`,
+          `Word size: ${m.w} bits, unaligned, ${m.en} endian`,
+          ...(m.rc
+            ? [`${m.rc} general-purpose registers ${rl} (${m.rb} bits each)`]
+            : []),
+          ...(sp.length ? ["Special registers: PC, " + sp.join(", ")] : []),
+          `${m.fm.length} instruction format${m.fm.length > 1 ? "s" : ""}:`,
+        ];
+        L1.forEach((t, i) => x.fillText("•  " + t, 80, 170 + i * 38));
+        const y0 = 170 + L1.length * 38 + 6,
+          st = Math.min(120, (640 - y0) / m.fm.length);
+        m.fm.forEach((f, i) => {
+          x.fillStyle = "#555";
+          x.font = "600 17px " + FN;
+          x.fillText(f.n + ":", 80, y0 + i * st + 30);
+          fmtD(x, f, 260, y0 + i * st + 4, 900, Math.min(52, st - 30));
+        });
+        out.push(c);
+        m.fm.forEach((f, fi) => {
+          [c, x] = base(m, m.name + ": " + f.n, fi + 2, N);
+          x.fillStyle = "#444";
+          x.font = "22px " + FN;
+          x.fillText("Instructions in this format:", 80, 165);
+          fmtD(x, f, 640, 128, 560, 50);
+          const rh = Math.min(40, 350 / (f.i.length + 1)),
+            fs = Math.min(22, rh * 0.58);
+          x.font = "600 " + fs + "px Consolas,monospace";
+          let y = 250;
+          x.fillStyle = "#8a8fa8";
+          ["Opcode", "Mnemonic", "Operation"].forEach((h, k) =>
+            x.fillText(h, [80, 330, 640][k], y),
+          );
+          x.fillStyle = "#d8dbef";
+          x.fillRect(80, y + 8, 1120, 2);
+          f.i.forEach((r) => {
+            y += rh;
+            x.fillStyle = "#1b1d2a";
+            x.fillText(r.o, 80, y);
+            x.fillStyle = "#2f35d6";
+            x.fillText(r.s, 330, y);
+            x.fillStyle = "#0b8f7a";
+            x.fillText(hx(r.op), 640, y);
+          });
+          out.push(c);
+        });
+        [c, x] = base(m, m.name + ": Register sizes", N, N);
+        const mx = m.fm.reduce(
+          (a, f) => (sz(f) > a[0] ? [sz(f), f.n] : a),
+          [0, ""],
+        );
+        const Rw = [
+          [
+            "MAR",
+            m.a,
+            `Holds a memory address. Memory has 2^${m.a} addressable units, so ${m.a} bits are needed.`,
+          ],
+          [
+            "MBR",
+            m.w,
+            `Holds one word moved to/from memory in a single access, so it equals the word size: ${m.w} bits.`,
+          ],
+          [
+            "IR",
+            ir,
+            `Must hold the longest instruction (${mx[1]} = ${ir} bits).`,
+          ],
+          [
+            "PC",
+            m.a,
+            `Points to the next instruction in memory, so it is as wide as an address: ${m.a} bits.`,
+          ],
+          ...(m.rc
+            ? [
+                [
+                  m.rc > 1 ? "R0…" : "R",
+                  m.rb,
+                  `Each general-purpose register holds one ${m.rb}-bit operand.`,
+                ],
+              ]
+            : []),
+          ...sp.map((n) => [
+            n,
+            P.SP[n],
+            "Special-purpose register defined for this machine.",
+          ]),
+        ];
+        const rh = Math.min(66, 470 / Rw.length);
+        Rw.forEach((r, i) => {
+          const y = 175 + i * rh;
+          x.font = "700 26px Consolas,monospace";
+          x.fillStyle = "#2f35d6";
+          x.fillText("L_" + r[0], 80, y + 22);
+          x.fillStyle = "#0b8f7a";
+          x.fillText("= " + r[1] + " bits", 250, y + 22);
+          x.fillStyle = "#333";
+          x.font = "19px " + FN;
+          wr(x, r[2], 470, y + 10, 720, 24);
+          x.fillStyle = "#e3e6f5";
+          x.fillRect(80, y + rh - 14, 1120, 1);
+        });
+        out.push(c);
+        return out;
+      }
+      function showSlides() {
+        const m = cur(),
+          cs = slides(m),
+          o = document.createElement("div"),
+          nm = m.name.replace(/\W+/g, "_"),
+          bar = document.createElement("div");
+        o.id = "ov";
+        bar.className = "ob";
+        bar.innerHTML =
+          '<button class="bt">✕ Close</button><button class="bt pr">⬇ Download all (PNG)</button><span>Click a slide to download it</span>';
+        o.append(bar);
+        const d1 = (c, i) =>
+          c.toBlob((b) => dl(nm + "-slide" + (i + 1) + ".png", b));
+        cs.forEach((c, i) => {
+          c.onclick = () => d1(c, i);
+          o.append(c);
+        });
+        bar.children[0].onclick = () => o.remove();
+        bar.children[1].onclick = () =>
+          cs.forEach((c, i) => setTimeout(() => d1(c, i), i * 350));
+        document.body.append(o);
       }
       /* ---------- events ---------- */
       const setp = (o, p, v) => {
@@ -1351,6 +2004,27 @@ end`,
           sim = null;
           save();
           render();
+          return;
+        }
+        if (t.id === "fi") {
+          const f = t.files[0];
+          if (f)
+            f.text().then((x) => {
+              try {
+                const j = JSON.parse(x);
+                (Array.isArray(j) ? j : [j]).forEach((n) => {
+                  n.id = uid();
+                  S.list.push(n);
+                  S.cur = n.id;
+                });
+                sim = null;
+                save();
+                render();
+              } catch (e) {
+                alert("Invalid file");
+              }
+            });
+          t.value = "";
           return;
         }
         if (!t.dataset.p) return;
@@ -1424,7 +2098,24 @@ end`,
             sim.msg = "خطا: بیش از ۱۰۰٬۰۰۰ گام — احتمالاً حلقهٔ بی‌نهایت";
           }
         } else if (a === "reset") resetSim();
-        else if (a === "theme") {
+        else if (a === "lang") S.lang = S.lang === "en" ? "fa" : "en";
+        else if (a === "exp") {
+          const j = JSON.parse(JSON.stringify(m));
+          delete j.id;
+          dl(
+            m.name.replace(/\W+/g, "_") + ".machine.json",
+            new Blob([JSON.stringify(j, null, 1)], {
+              type: "application/json",
+            }),
+          );
+          return;
+        } else if (a === "imp") {
+          $("#fi").click();
+          return;
+        } else if (a === "sl") {
+          showSlides();
+          return;
+        } else if (a === "theme") {
           const d = document.documentElement;
           d.dataset.theme =
             (d.dataset.theme ||
@@ -1439,7 +2130,27 @@ end`,
         save();
         render();
       });
+      document
+        .querySelectorAll(
+          ".logo,.tab,[data-act=newm],[data-act=dup],[data-act=del]",
+        )
+        .forEach((e) => (e.dataset.fa = e.textContent));
       render();
+      fetch("/api/state")
+        .then((r) => (r.ok ? r.json() : null))
+        .then((j) => {
+          if (!j) return;
+          DB = true;
+          $("#db").hidden = false;
+          if (j.list && j.list.length) {
+            const lg = S.lang;
+            S = j;
+            S.lang = lg || "fa";
+          }
+          save();
+          render();
+        })
+        .catch(() => {});
     </script>
   </body>
 </html>
