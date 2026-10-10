@@ -6,7 +6,7 @@
 
 **English** · [فارسی](README.fa.md)
 
-![version](https://img.shields.io/badge/version-1.1.0-6d5efc)
+![version](https://img.shields.io/badge/version-1.2.0-6d5efc)
 ![license](https://img.shields.io/badge/license-MIT-blue)
 ![runtime](https://img.shields.io/badge/runtime-browser-12b5a0)
 ![dependencies](https://img.shields.io/badge/dependencies-none-success)
@@ -30,17 +30,18 @@
 6. [The Operation language](#the-operation-language)
 7. [The assembly language](#the-assembly-language)
 8. [Simulator](#simulator)
-9. [Slide export (PNG)](#slide-export-png)
-10. [Export / Import](#export--import)
-11. [SQLite storage](#sqlite-storage)
-12. [Bundled machines](#bundled-machines)
-13. [Walkthrough: a one-address machine](#walkthrough-a-one-address-machine)
-14. [Architecture](#architecture)
-15. [Limitations](#limitations)
-16. [Troubleshooting / FAQ](#troubleshooting--faq)
-17. [Changelog](#changelog)
-18. [Contributing](#contributing)
-19. [License](#license)
+9. [Graphic simulation (CPU animation and memory lab)](#graphic-simulation-cpu-animation-and-memory-lab)
+10. [Slide export (PNG)](#slide-export-png)
+11. [Export / Import](#export--import)
+12. [SQLite storage](#sqlite-storage)
+13. [Bundled machines](#bundled-machines)
+14. [Walkthrough: a one-address machine](#walkthrough-a-one-address-machine)
+15. [Architecture](#architecture)
+16. [Limitations](#limitations)
+17. [Troubleshooting / FAQ](#troubleshooting--faq)
+18. [Changelog](#changelog)
+19. [Contributing](#contributing)
+20. [License](#license)
 
 ---
 
@@ -54,6 +55,7 @@ Machine Lab automates exactly that workflow:
 - **The Operation column is executable.** The behaviour of an instruction (e.g. `M[addr1] <- M[addr1] + M[addr2]`) is written in a small language that the app parses and runs.
 - **You write assembly for *your* machine** and see, right next to it, the address and the machine code of every line, **in hexadecimal**, laid out like the tables in the lecture notes.
 - **You run the program step by step**, watching registers, memory and the PC change.
+- **You watch the machine work** *(new in 1.2.0)*: an animated CPU with MAR, MBR, the memory decoder, PC, IR, CU and ALU shows every fetch, decode and execute phase, together with the six internal paths of the von Neumann model.
 - **You export lecture-style slides** (PNG), export/import machines as JSON, or persist everything in a SQLite file.
 
 The whole app is one file, `machine-lab.html`. It has no dependencies and needs no build step (only the web fonts come from Google Fonts, with local fallbacks).
@@ -77,16 +79,23 @@ The whole app is one file, `machine-lab.html`. It has no dependencies and needs 
 | Machine management | New, copy, delete, switch; automatic saving in `localStorage` | 1.0.0 |
 | Lecture machines | Example Machine 3, 4 and 5 with sample programs | 1.0.0 |
 | Light / dark theme | Follows the system setting, with a manual toggle | 1.0.0 |
-| **Slide export (PNG)** | English slides: machine overview, one slide per format with its instruction table, and a register-size slide with explanations | **1.1.0** |
-| **Bilingual UI** | Switch between Persian and English | **1.1.0** |
-| **Famous machines** | IBM 360/370, Intel 8086/8088, RISC-V RV32I, an educational GPU core | **1.1.0** |
-| **Export / Import** | Save and restore a machine (with its program) as JSON | **1.1.0** |
-| **SQLite persistence** | `server.py` keeps a `machines.db` file next to the app and saves continuously | **1.1.0** |
-| Several opcode fields per format | For ISAs such as RISC-V and x86 (`funct3`/`funct7`, ModRM) | **1.1.0** |
-| Custom register names | e.g. `AX,CX,DX,BX,SP,BP,SI,DI` | **1.1.0** |
-| Hardwired zero register | For architectures like RISC-V (`x0 = 0`) | **1.1.0** |
-| `sext(x,n)` in Operation | Sign extension of immediates | **1.1.0** |
-| `$` in assembly | Current address, for relative jumps | **1.1.0** |
+| Slide export (PNG) | English slides: machine overview, one slide per format with its instruction table, and a register-size slide with explanations | 1.1.0 |
+| Bilingual UI | Switch between Persian and English | 1.1.0 |
+| Famous machines | IBM 360/370, Intel 8086/8088, RISC-V RV32I, an educational GPU core | 1.1.0 |
+| Export / Import | Save and restore a machine (with its program) as JSON | 1.1.0 |
+| SQLite persistence | `server.py` keeps a `machines.db` file next to the app and saves continuously | 1.1.0 |
+| Several opcode fields per format | For ISAs such as RISC-V and x86 (`funct3`/`funct7`, ModRM) | 1.1.0 |
+| Custom register names | e.g. `AX,CX,DX,BX,SP,BP,SI,DI` | 1.1.0 |
+| Hardwired zero register | For architectures like RISC-V (`x0 = 0`) | 1.1.0 |
+| `sext(x,n)` in Operation | Sign extension of immediates | 1.1.0 |
+| `$` in assembly | Current address, for relative jumps | 1.1.0 |
+| **Simulator view modes** | The Simulator tab now has three views: Table, CPU animation, Memory lab | **1.2.0** |
+| **Animated instruction cycle** | Fetch → decode → execute drawn on a CPU diagram (PC, IR, CU, ALU, registers, MAR, MBR, memory decoder), with data packets travelling along the buses | **1.2.0** |
+| **Von Neumann paths 1–6** | Every path is colour-coded, lit while it is in use, explained in a side panel, and can be replayed on its own | **1.2.0** |
+| **Memory lab** | Lecture-style memory with MAR, MBR, decoder and Read/Write lamps; Write/Read of any address, the slide examples `M10 ← (M12)` and `M(M0) ← (M0) + (M(M4))` | **1.2.0** |
+| **Micro-step, pause, speed** | Advance every data movement with one click, pause, run continuously, skip to the end, 0.25×–3× speed | **1.2.0** |
+| **Execution trace** | The engine records which registers, memory cells and ALU operations each instruction touches, which drives the animation | **1.2.0** |
+| **Fully bilingual graphics** | Every label, explanation and button of the new views follows the EN / فا switch | **1.2.0** |
 
 ---
 
@@ -122,7 +131,7 @@ Recommended repository layout:
 
 ```text
 .
-├── machine-lab.html   # the whole app (UI + assembler + simulator)
+├── machine-lab.html   # the whole app (UI + assembler + simulator + animations)
 ├── server.py          # optional tiny local server that stores data in SQLite
 ├── machines.db        # generated by server.py — add it to .gitignore
 ├── pics/              # screenshots used by this README
@@ -141,7 +150,7 @@ The interface has three tabs; the toolbar holds the machine selector and tools.
 |---|---|
 | **1 · Define machine** | Parameters, formats, fields and instruction tables. Format diagrams and the register sizes (MAR, MBR, IR, PC) update live. |
 | **2 · Program & compile** | Assembly editor on one side, hex listing and symbol table on the other. Recompiles as you type. |
-| **3 · Simulator** | Run step by step or all at once; inspect registers, memory and executed instructions. |
+| **3 · Simulator** | Three views of the running program: a **Table** (registers, memory, log), a **CPU animation** and a **Memory lab**. |
 
 | Toolbar control | Action |
 |---|---|
@@ -166,11 +175,11 @@ The interface has three tabs; the toolbar holds the machine selector and tools.
 
 <div align="center">
 
-<img src="pics/two-languages.png" alt="The English interface, with the language toggle in the toolbar" width="860">
+<img src="pics/two-lang-Persian%20%26%20English.png" alt="The English interface, with the language toggle in the toolbar" width="860">
 
 </div>
 
-> The layout switches between right-to-left (Persian) and left-to-right (English) automatically. Code, hex values and field names are always left-to-right.
+> The layout switches between right-to-left (Persian) and left-to-right (English) automatically. Code, hex values and field names are always left-to-right. Since 1.2.0 the graphic simulation views are translated as well.
 
 ---
 
@@ -397,6 +406,16 @@ Reading the listing:
 
 ## Simulator
 
+The **Simulator** tab has three views, chosen with the buttons at its top. All of them run the same engine on the same program and machine state, so you can switch between them freely; the animation views continue from the current machine state.
+
+| View | What it is for |
+|---|---|
+| **📋 Table** | Fast execution with registers, hex memory and an instruction log |
+| **🎬 CPU · memory · paths animation** | Watching one instruction at a time travel through the machine |
+| **🧪 Memory lab** | Understanding MAR, MBR, the decoder and the Read/Write signals on a small memory |
+
+### Table view
+
 - **↺ Reload** compiles the program again, loads it into memory, clears the registers and puts the PC on the first instruction.
 - **Step ▸** executes one instruction.
 - **Run ⏵** runs until the program stops (capped at 100,000 steps to catch infinite loops).
@@ -422,6 +441,63 @@ The screenshot shows the IBM 360/370 sample after **3 steps**:
 - the **PC** is `00000A`, and the memory cell it points to (`5A`, the opcode of `A`) is highlighted;
 - **R2 = 0000002A** (41 + 1) and **R3 = 00000001**;
 - cells that differ from the initial memory image are coloured, and the memory table shows 8 units per row (at most 1024 units around the program).
+
+---
+
+## Graphic simulation (CPU animation and memory lab)
+
+*(since 1.2.0)* Based on the von Neumann model of the lecture (memory access through MAR/MBR, instruction format, and the internal paths of the machine).
+
+### 🎬 CPU · memory · paths animation
+
+The stage shows, for the selected machine:
+
+- **CPU:** the control unit (CU) with its decoder and the current instruction split into its colour-coded fields, **PC**, **IR**, the **ALU** with inputs A / B and a result register, the general-register file (first 16 registers drawn) and the special registers.
+- **Memory interface:** **MAR** and **MBR**, the address bus, the data bus and the **decoder** that turns an address into one selected memory unit.
+- **Main memory:** a 12-unit window that follows the active address, showing hex values, labels and instructions beside the cells, the **READ / WRITE** lamps, and the selected row lit by the decoder.
+- **I/O devices** connected through paths 3, 5 and 6.
+
+Press **▶ Run one instruction** and the app animates the whole cycle for the instruction at the PC. Small coloured packets carry values along the wires while the explanation panel narrates each step and the step log keeps a history:
+
+1. **Fetch** — `MAR ← (PC)`; the address goes to the decoder; **Read**; the word travels to MBR and then to IR. An instruction longer than the access width is fetched in several accesses. Finally `PC ← PC + length`.
+2. **Decode** — the opcode is matched against the instruction table; CU shows the mnemonic, the operation, the format, the length, the addressing mode, and the fields with their values.
+3. **Execute** — follows exactly what the Operation column does: register and special-register operands go to the ALU, immediates come straight from IR (path 4), memory operands are read through MAR → decoder → Read → MBR → ALU (direct and indirect modes are shown, including the extra memory read of indirect addressing and the ALU computing an effective address), CU sends the command to the ALU (path 3), and the result is written back to a register, to PC, or to memory through MBR → Write.
+
+| Control | Action |
+|---|---|
+| **▶ Run one instruction** | Animates one complete instruction |
+| **⏵ Run continuously** / **⏹ Stop** | Keeps executing instructions until the program ends or you stop it |
+| **⏸ Pause / ▶ Resume** | Freezes the animation without losing its place |
+| **Micro-step** + **Next micro-step ▸** | Each data movement waits for your click |
+| **⏩ Skip to end** | Runs the rest of the program instantly (no animation) |
+| **↺ Reset** | Reloads the program |
+| **Speed** slider | 0.25× – 3× |
+
+#### The six internal paths
+
+The panel next to the stage lists the paths of the von Neumann model, each with its own colour and number. A path lights up (wires, badge and panel entry) whenever the animation uses it, and every entry has a **▶ Show path** button that replays it on its own without changing the machine state.
+
+| # | Path | What happens |
+|:---:|---|---|
+| 1 | Fetching instructions | memory → MBR → IR / CU; address from PC via MAR |
+| 2 | Data access | memory ↔ MBR ↔ ALU / registers |
+| 3 | Command / status communication | CU → ALU (operation code), CU ↔ I/O (command, status) |
+| 4 | Special data access (immediate) | IR / CU → ALU, no memory access |
+| 5 | I/O data via the CPU | device ↔ CPU registers (in / out) |
+| 6 | I/O data by DMA | device ↔ memory directly, the CPU stays free |
+
+> Paths 5 and 6 are shown for completeness: the bundled machines have no I/O instructions, so these two are only visible through **Show path**.
+
+### 🧪 Memory lab
+
+A small standalone memory (8, 16 or 32 units of 16 bits, chosen by *address width*) reproducing the lecture's memory examples:
+
+- **Write** — enter an address and a datum: `MAR ← address`, `MBR ← datum`, the decoder selects the unit, the **Write** lamp lights and the value is stored.
+- **Read** — `MAR ← address`, decoder, **Read** lamp, the content flows into MBR.
+- **Slide examples** — `M10 ← (M12)` (a read followed by a write) and `M(M0) ← (M0) + (M(M4))` (two reads, an indirect read through MBR → MAR, the ALU, and a write to an address that came from memory). The notation line under the figure shows the current operation in lecture notation.
+- Click any memory unit to edit its value. Micro-step, pause and speed work here too.
+
+The initial memory contents are `M[i] = 10 + i`.
 
 ---
 
@@ -520,6 +596,7 @@ settings(k TEXT PRIMARY KEY, v TEXT)                             -- k='cur' → 
 - The UI language is stored in `localStorage`, not in the database.
 - Each save rewrites the whole `machines` table, so with two tabs open the last save wins.
 - Machines created in plain-browser mode are not migrated automatically — export them and import them in server mode.
+- The animation state (selected simulator view, speed, memory-lab contents) is not saved.
 
 ---
 
@@ -589,7 +666,7 @@ cnt:   dw 5
 end
 ```
 
-**5. Run** it in the **Simulator** tab. When it stops, `sum` holds `000F` (15) — the stop happens because the PC leaves the last instruction and enters the data area. The first listing line is `20023` at address `0000`: opcode `2` followed by the address of `sum` (`0023`).
+**5. Run** it in the **Simulator** tab. When it stops, `sum` holds `000F` (15) — the stop happens because the PC leaves the last instruction and enters the data area. The first listing line is `20023` at address `0000`: opcode `2` followed by the address of `sum` (`0023`). Switch to **🎬 CPU animation** and run the first instruction to watch `load sum` fetch itself, decode, read `sum` through MAR/decoder/MBR and load it into `ACC`.
 
 ---
 
@@ -601,16 +678,22 @@ The app is a single HTML file with no framework and no build step:
 |---|---|
 | `prep(m)` | prepares the instructions: builds a regex per syntax, parses opcodes, parses Operation into an AST |
 | `parseOp` | tokenizer and recursive-descent parser of the Operation language |
-| `ev` / `exec` | expression evaluation and statement execution on the machine state |
+| `ev` / `exec` | expression evaluation and statement execution on the machine state; while an instruction runs they also append events (register / special-register / memory reads and writes, ALU operations, branches) to an **execution trace** |
 | `compile(m)` | the two-pass assembler; produces listing rows, the symbol table and the memory image |
-| `step1` | fetch, decode (from memory) and execute |
+| `step1` | fetch, decode (from memory) and execute; stores the last instruction and its trace for the animation |
 | `slides(m)` | draws the slides on a `<canvas>` |
+| `cpuSVG` / `labSVG` | build the SVG scenes (CPU, memory interface, lab) |
+| `fetchPhase` / `decodePhase` / `execPhase` | replay one instruction as a sequence of micro-steps, driven by the trace |
+| `mkEng` / `micro` / `guard` | animation engine: pause, micro-step gate, speed, cancellation, flying data packets (`fly`) |
+| `demo(p)` | plays one of the six paths on its own |
+| `L(fa, en)` | picks the Persian or English text according to the UI language |
 | `render` / event handlers | UI, tab state and persistence |
 
 Implementation notes:
 
 - Instruction encoding uses `BigInt`, so long formats are no problem.
 - Memory is a sparse `Map` from address to unit value; 32-bit address spaces cost nothing.
+- The animation never calls the engine twice: `step1` runs the instruction once, and the animation then *replays* the recorded trace on a copy of the state ("VM"), so what you see always matches what the simulator did.
 - The optional server exposes just two routes: `GET` and `PUT /api/state`.
 
 ---
@@ -625,6 +708,7 @@ Implementation notes:
 - No macros, `db`, `equ`, interrupts, I/O or segments.
 - One label per source line.
 - SQLite mode is meant for a single user on a local machine.
+- **Graphic views:** the CPU stage draws at most 16 general registers and 8 special registers (the rest still work, but are not drawn; registers beyond the 16th appear in the last slot while they are being used), and the memory window shows 12 units around the active address. The memory lab is a fixed 16-bit-word memory with 8, 16 or 32 units. Paths 5 and 6 are demonstration-only because no bundled machine has I/O instructions.
 
 ---
 
@@ -648,9 +732,32 @@ Allow multiple downloads for the page in your browser settings.
 **My instruction line says no syntax matches.**
 Check that the opcode fields, syntax and register names agree: operands must be real registers (e.g. `R0`…`Rn`, or the names in *Register names*), numbers, or defined labels, and the literal characters (`#`, `(`, `)`, `,`) must match the syntax exactly.
 
+**The animation view is empty / the CPU stage looks small on my phone.**
+The stage is a wide diagram: scroll it horizontally, or use a larger screen. If it is empty, make sure the program compiles without errors (a warning is shown above the stage).
+
+**The animation is too fast or too slow.**
+Use the **Speed** slider, or turn on **Micro-step** to advance every data movement with a click.
+
+**The English view still shows some Persian text.**
+Since 1.2.0 the graphic views are fully translated. Use the `EN` button in the toolbar; text you typed yourself (machine names, comments) is never translated.
+
 ---
 
 ## Changelog
+
+### v1.2.0
+**Added**
+- Three views in the Simulator tab: Table, CPU animation, Memory lab
+- Animated instruction cycle on a CPU diagram: fetch (MAR, decoder, Read, MBR, IR, PC update), decode (opcode lookup, fields, addressing mode) and execute (registers, immediates, direct/indirect memory access, ALU, write-back)
+- The six internal paths of the von Neumann model, colour-coded, lit while in use, explained, and replayable with **Show path**
+- Memory lab reproducing the lecture's memory examples (MAR / MBR / decoder / Read / Write), including `M10 ← (M12)` and `M(M0) ← (M0) + (M(M4))`
+- Micro-step mode, pause, continuous run, skip to end and a speed slider
+- Execution trace recorded by the engine (registers, memory, ALU, branches) used to drive the animation
+- Persian / English text for every label, explanation and button in the new views
+
+**Changed**
+- The original simulator view became the **Table** view; its behaviour is unchanged
+- `step1` now also records the executed instruction and its trace (no change to execution results)
 
 ### v1.1.0
 **Added**
@@ -677,7 +784,7 @@ Check that the opcode fields, syntax and register names agree: operands must be 
 
 Bug reports and ideas are welcome through **Issues**; code improvements through **Pull Requests**. When reporting a problem, please attach the machine's export (JSON) and the source line that fails.
 
-Ideas for the future: split immediates (RISC-V S/B/J instructions), little-endian instruction encoding, automatic flags, PDF slide export.
+Ideas for the future: split immediates (RISC-V S/B/J instructions), little-endian instruction encoding, automatic flags, PDF slide export, I/O and DMA instructions that exercise paths 5 and 6, animated cache and pipeline views, screenshots of the animation views for this README.
 
 ## License
 
