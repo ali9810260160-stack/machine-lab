@@ -6,7 +6,7 @@
 
 **English** · [فارسی](README.fa.md)
 
-![version](https://img.shields.io/badge/version-1.2.0-6d5efc)
+![version](https://img.shields.io/badge/version-1.3.0-6d5efc)
 ![license](https://img.shields.io/badge/license-MIT-blue)
 ![runtime](https://img.shields.io/badge/runtime-browser-12b5a0)
 ![dependencies](https://img.shields.io/badge/dependencies-none-success)
@@ -95,6 +95,8 @@ The whole app is one file, `machine-lab.html`. It has no dependencies and needs 
 | **Memory lab** | Lecture-style memory with MAR, MBR, decoder and Read/Write lamps; Write/Read of any address, the slide examples `M10 ← (M12)` and `M(M0) ← (M0) + (M(M4))` | **1.2.0** |
 | **Micro-step, pause, speed** | Advance every data movement with one click, pause, run continuously, skip to the end, 0.25×–3× speed | **1.2.0** |
 | **Execution trace** | The engine records which registers, memory cells and ALU operations each instruction touches, which drives the animation | **1.2.0** |
+| **Zero-address (stack) machines** | New *Stack machine* option, `S[...]` in the Operation language, hardware stack with an SP pointer, and the bundled *Example Machine 6* | **1.3.0** |
+| **Stack animation** | Lecture-#3-style view: memory, SP register, a stack tower (0 at the bottom) and an SP arrow that moves; push / pop / ALU operations with flying values, “dead” cells above SP | **1.3.0** |
 | **Fully bilingual graphics** | Every label, explanation and button of the new views follows the EN / فا switch | **1.2.0** |
 
 ---
@@ -612,7 +614,7 @@ settings(k TEXT PRIMARY KEY, v TEXT)                             -- k='cur' → 
 | RISC-V RV32I (subset) | 1.1.0 | 32 registers `x0..x31` with `x0 = 0`; R, I and U formats | `addi x1,x0,5` → `00500093`; `x5` = `0001E240` |
 | GPU core (SIMT, educational) | 1.1.0 | an educational core with `fma`, `tid`, `ld/st` and `bnz` | `R4` = `00000028` |
 
-> Machine 6 (the one-address ACC machine of the lecture) is not bundled, but it can be defined with this tool — see the next section.
+> **Example Machine 6 (stack, 1.3.0)** is bundled: 8-bit units, 32-bit addresses and words, a 16-word hardware stack with a 4-bit SP, formats I-a (`push #data`), I-b (`push addr`, `pop addr`) and II (`add sub swap sp++ sp-- j jz jnz jn`). The lecture prints `jn` with the same opcode as `j` (a typo); here it uses `00001011`. The sample is the lecture's Fibonacci-sum program; its end (`push #OS_return_addr; j`) jumps to a data cell, which stops the simulation. A one-address ACC machine can still be defined by hand — see the next section.
 
 ### Accuracy notes for the 1.1.0 machines
 
@@ -620,6 +622,22 @@ settings(k TEXT PRIMARY KEY, v TEXT)                             -- k='cur' → 
 - **8086/8088:** a simplified subset. Immediates are encoded big-endian (the real chip is little-endian) and memory segmentation is not modelled.
 - **RISC-V:** only the R, I and U formats. S/B/J instructions (`sw`, `beq`, `jal`, …) are missing because their immediates are split across several fields, which the current engine cannot express. Instruction bytes are laid out big-endian, and the hex shown is the 32-bit instruction word as printed in the ISA manual.
 - **GPU:** not a real ISA; it has no warps or parallel lanes and behaves like a single-threaded core.
+
+---
+
+## Zero-address (stack) machines
+
+*(since 1.3.0)* Tick **Stack machine** (`1`) in the machine parameters. The machine then owns a hardware stack of `S` words (default 16, 2–32) and an SP register of `log2 S` bits, reset to 0 (empty). Inside **Operation**, `S[expr]` is a stack word, e.g. `S[SP]` or `S[SP-2]`:
+
+| Instruction | Operation |
+|---|---|
+| `push #data` | `S[SP] <- data; SP <- SP + 1` |
+| `push addr` | `S[SP] <- M[addr]; SP <- SP + 1` |
+| `pop addr` | `SP <- SP - 1; M[addr] <- S[SP]` |
+| `add` | `S[SP-2] <- S[SP-2] + S[SP-1]; SP <- SP - 1` |
+| `jz` | `if (S[SP-2] = 0) then PC <- S[SP-1]; SP <- SP - 2` |
+
+Mnemonics without operands (`add`, `sp++`) and `push #label` work in the assembler. **Simulator → 🥞 stack animation** reproduces the lecture slides: main memory on the left, the SP register in the middle with a blue arrow pointing at the next free cell, and the stack tower on the right (0 at the bottom). Every instruction is fetched, then its push / pop / ALU steps run with flying values; after a pop the old value stays in the cell, drawn faded because it is above SP. The “executed instructions” box accumulates lines like `push #-10 == Stack[SP] ← -10; SP ← SP + 1`, as in the slides.
 
 ---
 
@@ -744,6 +762,12 @@ Since 1.2.0 the graphic views are fully translated. Use the `EN` button in the t
 ---
 
 ## Changelog
+
+### v1.3.0
+**Added**
+- Zero-address (stack) machines: `stack` / `ss` machine fields, `S[..]` in the Operation language, SP as a pointer register, hardware stack in the Table view
+- Stack animation view modelled on Lecture #3 (SP arrow, stack tower, memory, ALU, flying values)
+- Bundled *Example Machine 6 (stack)* with the Fibonacci-sum program
 
 ### v1.2.0
 **Added**
